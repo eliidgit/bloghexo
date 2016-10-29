@@ -1,0 +1,1074 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Crawler,Meteor," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Meteor &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6784;&amp;#x5EFA;&amp;#x5728; Node.js &amp;#x4E4B;&amp;#x4E0A;&amp;#x7684;&amp;#x5E73;&amp;#x53F0;&amp;#xFF0C;&amp;#x7528;&amp;#x6765;&amp;#x5F00;&amp;#x53D1;&amp;#x5B9E;&amp;#x65F6;&amp;#x7F51;&amp;#x9875;&amp;#x7A0B;&amp;#x5E8F;&amp;#xFF0C;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Meteor--App_Recommender_System">
+<meta property="og:url" content="http://www.shuang0420.com/2016/07/07/Meteor-App-Recommender-System/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="Meteor &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6784;&amp;#x5EFA;&amp;#x5728; Node.js &amp;#x4E4B;&amp;#x4E0A;&amp;#x7684;&amp;#x5E73;&amp;#x53F0;&amp;#xFF0C;&amp;#x7528;&amp;#x6765;&amp;#x5F00;&amp;#x53D1;&amp;#x5B9E;&amp;#x65F6;&amp;#x7F51;&amp;#x9875;&amp;#x7A0B;&amp;#x5E8F;&amp;#xFF0C;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-07%20%E4%B8%8A%E5%8D%8810.38.31.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-07%20%E4%B8%8B%E5%8D%886.03.40.png">
+<meta property="og:updated_time" content="2016-07-30T13:32:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Meteor--App_Recommender_System">
+<meta name="twitter:description" content="Meteor &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6784;&amp;#x5EFA;&amp;#x5728; Node.js &amp;#x4E4B;&amp;#x4E0A;&amp;#x7684;&amp;#x5E73;&amp;#x53F0;&amp;#xFF0C;&amp;#x7528;&amp;#x6765;&amp;#x5F00;&amp;#x53D1;&amp;#x5B9E;&amp;#x65F6;&amp;#x7F51;&amp;#x9875;&amp;#x7A0B;&amp;#x5E8F;&amp;#xFF0C;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-07%20%E4%B8%8A%E5%8D%8810.38.31.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/07/07/Meteor-App-Recommender-System/"/>
+
+
+  <title> Meteor--App_Recommender_System | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Meteor--App_Recommender_System
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T21:19:08-04:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/web-编程/" itemprop="url" rel="index">
+                    <span itemprop="name">web 编程</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/Meteor-App-Recommender-System/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/07/Meteor-App-Recommender-System/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Meteor &#x662F;&#x4E00;&#x4E2A;&#x6784;&#x5EFA;&#x5728; Node.js &#x4E4B;&#x4E0A;&#x7684;&#x5E73;&#x53F0;&#xFF0C;&#x7528;&#x6765;&#x5F00;&#x53D1;&#x5B9E;&#x65F6;&#x7F51;&#x9875;&#x7A0B;&#x5E8F;&#xFF0C;&#x8FD9;&#x4E00;&#x7BC7;&#x7528; Meteor &#x642D;&#x5EFA; App_Recommender_System &#x7684; front-end.<br><a id="more"></a></p>
+<h1 id="&#x57FA;&#x7840;"><a href="#&#x57FA;&#x7840;" class="headerlink" title="&#x57FA;&#x7840;"></a>&#x57FA;&#x7840;</h1><h2 id="Meteor-&#x7684;&#x521B;&#x65B0;"><a href="#Meteor-&#x7684;&#x521B;&#x65B0;" class="headerlink" title="Meteor &#x7684;&#x521B;&#x65B0;"></a>Meteor &#x7684;&#x521B;&#x65B0;</h2><p>Meteor &#x7684;&#x5173;&#x952E;&#x6027;&#x521B;&#x65B0;&#x5728;&#x4E8E; Rails &#x7A0B;&#x5E8F;&#x53EA;&#x8DD1;&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#xFF0C;&#x800C;&#x4E00;&#x4E2A; Meteor App &#x8FD8;&#x5305;&#x62EC;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#xFF09;&#x4E0A;&#x8FD0;&#x884C;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x7EC4;&#x4EF6;&#x3002;&#x8FD9;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x4E66;&#x5E97;&#x7684;&#x4F19;&#x8BA1;&#x4E0D;&#x4EC5;&#x4EC5;&#x5728;&#x4E66;&#x5E97;&#x91CC;&#x5E2E;&#x4F60;&#x627E;&#x4E66;&#xFF0C;&#x8FD8;&#x8DDF;&#x4F60;&#x56DE;&#x5BB6;&#xFF0C;&#x6BCF;&#x5929;&#x665A;&#x4E0A;&#x8BFB;&#x7ED9;&#x4F60;&#x542C;&#xFF08;&#x8FD9;&#x542C;&#x8D77;&#x6765;&#x602A;&#x602A;&#x7684;&#xFF09;&#x3002;<br>&#x8FD9;&#x79CD;&#x67B6;&#x6784;&#x8BA9; Meteor &#x53D8;&#x5F97;&#x6570;&#x636E;&#x5E93;&#x65E0;&#x5904;&#x4E0D;&#x5728;&#x3002;&#x7B80;&#x5355;&#x8BF4;&#xFF0C;Meteor &#x628A;&#x4F60;&#x7684;&#x6570;&#x636E;&#x62FF;&#x51FA;&#x4E00;&#x90E8;&#x5206;&#x5B50;&#x96C6;&#x590D;&#x5236;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x8FD9;&#x6837;&#x540E;&#x4E24;&#x4E2A;&#x4E3B;&#x8981;&#x7ED3;&#x679C;&#xFF1A;&#x7B2C;&#x4E00;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4E0D;&#x518D;&#x53D1;&#x9001; HTML &#x4EE3;&#x7801;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x800C;&#x662F;&#x53D1;&#x9001;&#x771F;&#x5B9E;&#x7684;&#x539F;&#x59CB;&#x6570;&#x636E;&#xFF0C;&#x8BA9;&#x5BA2;&#x6237;&#x7AEF;&#x51B3;&#x5B9A;&#x5982;&#x4F55;&#x5904;&#x7406;&#x7EBF;&#x4F20;&#x6570;&#x636E;&#x3002;&#x7B2C;&#x4E8C;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4E0D;&#x5FC5;&#x7B49;&#x5F85;&#x670D;&#x52A1;&#x5668;&#x4F20;&#x56DE;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x662F;&#x7ACB;&#x5373;&#x8BBF;&#x95EE;&#x751A;&#x81F3;&#x4FEE;&#x6539;&#x6570;&#x636E;&#xFF08;&#x5EF6;&#x8FDF;&#x8865;&#x507F; latency compensation&#xFF09;&#x3002;</p>
+<h2 id="Meteor-&#x7279;&#x70B9;"><a href="#Meteor-&#x7279;&#x70B9;" class="headerlink" title="Meteor &#x7279;&#x70B9;"></a>Meteor &#x7279;&#x70B9;</h2><p>Meteor &#x4F4D;&#x4E8E;&#x7A0B;&#x5E8F;&#x6570;&#x636E;&#x5E93;&#x548C;&#x7528;&#x6237;&#x754C;&#x9762;&#x4E4B;&#x95F4;&#xFF0C;&#x4FDD;&#x6301;&#x4E8C;&#x8005;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x540C;&#x6B65;&#x66F4;&#x65B0;&#x3002;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;Meteor &#x8FD8;&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x70B9;&#xFF1A;</p>
+<ol>
+<li>&#x7EAF;&#x6570;&#x636E;&#x5BF9;&#x8BDD;&#x3002;&#x670D;&#x52A1;&#x5668;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x521D;&#x59CB;&#x5316;&#x540E;&#x53EA;&#x4F20;&#x8F93;&#x6570;&#x636E;&#xFF0C;&#x7531;&#x5BA2;&#x6237;&#x7AEF;&#x51B3;&#x5B9A;&#x5982;&#x4F55;&#x6E32;&#x67D3;&#x3002;</li>
+<li>&#x4E00;&#x79CD;&#x8BED;&#x8A00;&#x3002;&#x524D;&#x540E;&#x7AEF;&#x7EDF;&#x4E00;&#x4F7F;&#x7528; JavaScript &#x8FDB;&#x884C;&#x5F00;&#x53D1;&#x3002;</li>
+<li>&#x65E0;&#x5904;&#x4E0D;&#x5728;&#x7684;&#x6570;&#x636E;&#x5E93;&#x3002;&#x6D4F;&#x89C8;&#x5668;&#x7AEF;&#x4F7F;&#x7528;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x4E00;&#x81F4;&#x7684; API &#x8BBF;&#x95EE;&#x672C;&#x5730;&#x6570;&#x636E;&#x5E93;&#x3002;</li>
+<li>&#x5EF6;&#x8FDF;&#x8865;&#x507F;&#x3002;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;&#x9884;&#x53D6;&#x548C;&#x6570;&#x636E;&#x6A21;&#x578B;&#x6A21;&#x62DF;&#x6280;&#x672F;&#xFF0C;&#x63D0;&#x4F9B;&#x63A5;&#x8FD1;&#x96F6;&#x5EF6;&#x8FDF;&#x7684;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x4F53;&#x9A8C;&#x3002;</li>
+<li>&#x5168;&#x6808;&#x54CD;&#x5E94;&#x5F0F;&#x3002;&#x5B9E;&#x65F6;&#x4F5C;&#x4E3A;&#x9ED8;&#x8BA4;&#x6A21;&#x5F0F;&#xFF0C;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x5230;&#x6A21;&#x7248;&#x7684;&#x6240;&#x6709;&#x5C42;&#x9762;&#x4E0A;&#xFF0C;&#x90FD;&#x5E94;&#x5F53;&#x5177;&#x5907;&#x53EF;&#x7528;&#x7684;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x63A5;&#x53E3;&#x3002;</li>
+<li>&#x793E;&#x533A;&#x751F;&#x6001;&#x53CB;&#x597D;&#x3002;Meteor &#x5F00;&#x653E;&#x6E90;&#x4EE3;&#x7801;&#x5E76;&#x80FD;&#x4E0E;&#x73B0;&#x6709;&#x7684;&#x5F00;&#x6E90;&#x5DE5;&#x5177;&#x548C;&#x6846;&#x67B6;&#x6574;&#x5408;&#xFF0C;&#x800C;&#x975E;&#x53D6;&#x4EE3;&#x5B83;&#x4EEC;</li>
+<li>&#x7B80;&#x5355;&#x5373;&#x751F;&#x4EA7;&#x529B;&#x3002;&#x8BA9;&#x4E8B;&#x60C5;&#x770B;&#x8D77;&#x6765;&#x7B80;&#x5355;&#x7684;&#x6700;&#x4F73;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x8BA9;&#x5B83;&#x771F;&#x6B63;&#x53D8;&#x5F97;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x8FC7;&#x5E72;&#x51C0;&#x4E14;&#x5177;&#x53E4;&#x5178;&#x7F8E;&#x7684; API &#x6765;&#x5B9E;&#x73B0;&#x3002;</li>
+</ol>
+<h2 id="Meteor-&#x7ED3;&#x6784;"><a href="#Meteor-&#x7ED3;&#x6784;" class="headerlink" title="Meteor &#x7ED3;&#x6784;"></a>Meteor &#x7ED3;&#x6784;</h2><p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x9700;&#x8981;&#x65B0;&#x5EFA;&#x56DB;&#x4E2A;&#x5B50;&#x6587;&#x4EF6;&#x5939;&#xFF1A;/client&#xFF0C;/server&#xFF0C;/public &#x548C; /lib&#x3002;&#x7136;&#x540E;&#x5728; /client &#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x65B0;&#x5EFA; main.html &#x548C; main.js &#x6587;&#x4EF6;&#x3002;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x6709;&#x4E00;&#x4E9B;&#x62E5;&#x6709;&#x7279;&#x522B;&#x7684;&#x4F5C;&#x7528;&#x3002;</p>
+<h3 id="Meteor-&#x6587;&#x4EF6;&#x89C4;&#x5219;"><a href="#Meteor-&#x6587;&#x4EF6;&#x89C4;&#x5219;" class="headerlink" title="Meteor &#x6587;&#x4EF6;&#x89C4;&#x5219;"></a>Meteor &#x6587;&#x4EF6;&#x89C4;&#x5219;</h3><ul>
+<li>&#x5728; /server &#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x53EA;&#x4F1A;&#x5728;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x8FD0;&#x884C;&#x3002;</li>
+<li>&#x5728; /client &#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x53EA;&#x4F1A;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x8FD0;&#x884C;&#x3002;</li>
+<li>&#x5176;&#x5B83;&#x4EE3;&#x7801;&#x5219;&#x5C06;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x4E8E;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x548C;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x3002;</li>
+<li>&#x8BF7;&#x5C06;&#x6240;&#x6709;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6;&#xFF08;&#x5B57;&#x4F53;&#xFF0C;&#x56FE;&#x7247;&#x7B49;&#xFF09;&#x653E;&#x7F6E;&#x5728; /public &#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x3002;</li>
+</ul>
+<h3 id="Meteor-&#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x987A;&#x5E8F;"><a href="#Meteor-&#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x987A;&#x5E8F;" class="headerlink" title="Meteor &#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x987A;&#x5E8F;"></a>Meteor &#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x987A;&#x5E8F;</h3><ul>
+<li>&#x5728; /lib &#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x7684;&#x6587;&#x4EF6;&#x5C06;&#x88AB;&#x4F18;&#x5148;&#x8F7D;&#x5165;&#x3002;</li>
+<li>&#x6240;&#x6709;&#x4EE5; main.* &#x547D;&#x540D;&#x7684;&#x6587;&#x4EF6;&#x5C06;&#x5728;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x8F7D;&#x5165;&#x540E;&#x8F7D;&#x5165;&#x3002;</li>
+<li>&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4EE5;&#x6587;&#x4EF6;&#x540D;&#x7684;&#x5B57;&#x6BCD;&#x987A;&#x5E8F;&#x8F7D;&#x5165;&#x3002;</li>
+</ul>
+<h2 id="Meteor-&#x6838;&#x5FC3;&#x6982;&#x5FF5;"><a href="#Meteor-&#x6838;&#x5FC3;&#x6982;&#x5FF5;" class="headerlink" title="Meteor &#x6838;&#x5FC3;&#x6982;&#x5FF5;"></a>Meteor &#x6838;&#x5FC3;&#x6982;&#x5FF5;</h2><h3 id="&#x6A21;&#x677F;&#x7CFB;&#x7EDF;-Spacebars"><a href="#&#x6A21;&#x677F;&#x7CFB;&#x7EDF;-Spacebars" class="headerlink" title="&#x6A21;&#x677F;&#x7CFB;&#x7EDF; Spacebars"></a>&#x6A21;&#x677F;&#x7CFB;&#x7EDF; Spacebars</h3><p>Spacebar &#x5C31;&#x662F;&#x7B80;&#x5355;&#x7684; HTML &#x52A0;&#x4E0A;&#x4E09;&#x4EF6;&#x4E8B;&#x60C5;&#xFF1A;Inclusion &#xFF08;&#x6709;&#x65F6;&#x4E5F;&#x79F0;&#x4F5C; &#x201C;partial&#x201D;&#xFF09;&#x3001;Expression &#x548C; Block Helper&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- Inclusion &#xFF1A;&#x901A;&#x8FC7; {{&gt; templateName}} &#x6807;&#x8BB0;&#xFF0C;&#x7B80;&#x5355;&#x76F4;&#x63A5;&#x5730;&#x544A;&#x8BC9; Meteor &#x8FD9;&#x90E8;&#x5206;&#x9700;&#x8981;&#x7528;&#x76F8;&#x540C;&#x540D;&#x79F0;&#x7684;&#x6A21;&#x677F;&#x6765;&#x53D6;&#x4EE3;</div><div class="line">- Expression &#xFF1A;&#x6BD4;&#x5982; {{title}} &#x6807;&#x8BB0;&#xFF0C;&#x5B83;&#x8981;&#x4E48;&#x662F;&#x8C03;&#x7528;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x8981;&#x4E48;&#x5C31;&#x662F;&#x5BF9;&#x5E94;&#x5230;&#x5F53;&#x524D;&#x6A21;&#x677F;&#x7BA1;&#x7406;&#x5668;&#x4E2D;&#x5B9A;&#x4E49;&#x7684; helper &#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x5176;&#x65B9;&#x6CD5;&#x503C;&#x3002;</div><div class="line">- Block Helper &#xFF1A;&#x5728;&#x6A21;&#x677F;&#x4E2D;&#x63A7;&#x5236;&#x6D41;&#x7A0B;&#x7684;&#x7279;&#x6B8A;&#x6807;&#x7B7E;&#xFF0C;&#x5982; {{#each}}&#x2026;{{/each}} &#x6216; {{#if}}&#x2026;{{/if}} &#x3002;</div></pre></td></tr></table></figure></p>
+<p>&#x6A21;&#x677F;&#x7684;&#x4F5C;&#x7528;&#x5C40;&#x9650;&#x4E8E;&#x663E;&#x793A;&#x6216;&#x5FAA;&#x73AF;&#x53D8;&#x91CF;&#xFF0C;&#x800C; helper &#x5219;&#x626E;&#x6F14;&#x7740;&#x4E00;&#x4E2A;&#x76F8;&#x5F53;&#x91CD;&#x8981;&#x7684;&#x89D2;&#x8272;&#xFF1A;&#x628A;&#x503C;&#x5206;&#x914D;&#x7ED9;&#x6BCF;&#x4E2A;&#x53D8;&#x91CF;&#x3002;</p>
+<p><a href="https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md" target="_blank" rel="external">Spacebars &#x6587;&#x6863;</a></p>
+<h3 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h3><p>meteor collection &#x662F; MongoDB Collections &#x7684;&#x6269;&#x5C55;&#xFF0C;&#x5728; server &#x4E0B;&#x63D2;&#x5165; collection &#x7684;&#x6570;&#x636E;&#x5C06;&#x4F1A;&#x5728; MongoDB &#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x3002;&#x4EFB;&#x4F55;&#x5728; client &#x4E0B; publish &#x7684;&#x6570;&#x636E;&#x5C06;&#x4F1A;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x9875;&#x9762;&#x5B9E;&#x65F6;&#x663E;&#x793A;&#x3002;</p>
+<blockquote>
+<p>All    collections    are    reactively updated on    both the client    and    the server.    If a new app were    published    to our store,    and    thousands    of clients were    connected, all of    their    app    stores would update immediately    without    any    extra    work on    our    end!</p>
+</blockquote>
+<h4 id="&#x670D;&#x52A1;&#x5668;&#x7AEF;"><a href="#&#x670D;&#x52A1;&#x5668;&#x7AEF;" class="headerlink" title="&#x670D;&#x52A1;&#x5668;&#x7AEF;"></a>&#x670D;&#x52A1;&#x5668;&#x7AEF;</h4><p>&#x5728;&#x670D;&#x52A1;&#x5668;&#xFF0C;collection &#x6709;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5C31;&#x662F;&#x548C; Mongo &#x6570;&#x636E;&#x5E93;&#x8054;&#x7EDC;&#xFF0C;&#x8BFB;&#x53D6;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x53D8;&#x5316;&#x3002; &#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x6BD4;&#x5BF9;&#x6807;&#x51C6;&#x7684;&#x6570;&#x636E;&#x5E93;&#x3002;<br>collection &#x8FD8;&#x53EF;&#x4EE5;&#x50CF; API &#x4E00;&#x6837;&#x64CD;&#x4F5C; Mongo &#x6570;&#x636E;&#x5E93;&#x3002;&#x5728;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5199;&#x50CF; Posts.insert() &#x6216; Posts.update() &#x8FD9;&#x6837;&#x7684; Mongo &#x547D;&#x4EE4;&#xFF0C;&#x6765;&#x5BF9; Mongo &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684; posts &#x96C6;&#x5408;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x3002;</p>
+<h4 id="&#x5BA2;&#x6237;&#x7AEF;"><a href="#&#x5BA2;&#x6237;&#x7AEF;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;"></a>&#x5BA2;&#x6237;&#x7AEF;</h4><p>&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;collection &#x662F;&#x4E00;&#x4E2A;&#x5B89;&#x5168;&#x62F7;&#x8D1D;&#x6765;&#x81EA;&#x4E8E;&#x5B9E;&#x65F6;&#x4E00;&#x81F4;&#x7684;&#x6570;&#x636E;&#x5B50;&#x96C6;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x7684; collection &#x603B;&#x662F;&#xFF08;&#x901A;&#x5E38;&#xFF09;&#x900F;&#x660E;&#x5730;&#x5B9E;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x5B50;&#x96C6;&#x3002;&#x5F53;&#x4F60;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7533;&#x660E; Posts = new Mongo.Collection(&#x2018;posts&#x2019;); &#x4F60;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x7684;&#xFF0C;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x771F;&#x5B9E;&#x7684; Mongo &#x96C6;&#x5408;&#x3002; &#x5F53;&#x6211;&#x4EEC;&#x8BF4;&#x5BA2;&#x6237;&#x7AEF; collection &#x88AB;&#x201D;&#x7F13;&#x5B58;&#x201D;&#x662F;&#x6307;&#x5B83;&#x4FDD;&#x5B58;&#x4E86;&#x4F60;&#x6570;&#x636E;&#x7684;&#x4E00;&#x4E2A;&#x5B50;&#x96C6;&#xFF0C;&#x800C;&#x4E14;&#x5BF9;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x63D0;&#x4F9B;&#x4E86;&#x5341;&#x5206;&#x5FEB;&#x901F;&#x7684;&#x8BBF;&#x95EE;&#x3002;</p>
+<p>&#x6709;&#x4E00;&#x70B9;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x8981;&#x660E;&#x767D;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x662F; Meteor &#x5DE5;&#x4F5C;&#x7684;&#x4E00;&#x4E2A;&#x57FA;&#x7840;: &#x901A;&#x5E38;&#x8BF4;&#x6765;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x96C6;&#x5408;&#x7684;&#x6570;&#x636E;&#x662F;&#x4F60; Mongo &#x6570;&#x636E;&#x5E93;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x7684;&#x4E00;&#x4E2A;&#x5B50;&#x96C6;&#xFF08;&#x6BD5;&#x7ADF;&#x6211;&#x4EEC;&#x4E0D;&#x4F1A;&#x60F3;&#x628A;&#x6574;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6570;&#x636E;&#x5168;&#x4F20;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x6765;&#xFF09;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x90A3;&#x4E9B;&#x6570;&#x636E;&#x662F;&#x88AB;&#x5B58;&#x50A8;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x8BBF;&#x95EE;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x51E0;&#x4E4E;&#x4E0D;&#x9700;&#x8981;&#x65F6;&#x95F4;&#xFF0C;&#x4E0D;&#x50CF;&#x53BB;&#x670D;&#x52A1;&#x5668;&#x8BBF;&#x95EE; Posts.find() &#x90A3;&#x6837;&#x9700;&#x8981;&#x7B49;&#x5F85;&#xFF0C;&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x4E8B;&#x5B9E;&#x4E0A;&#x5DF2;&#x7ECF;&#x8F7D;&#x5165;&#x4E86;&#x3002;</p>
+<h4 id="&#x5BA2;&#x6237;&#x7AEF;-&#x670D;&#x52A1;&#x5668;&#x901A;&#x8BAF;"><a href="#&#x5BA2;&#x6237;&#x7AEF;-&#x670D;&#x52A1;&#x5668;&#x901A;&#x8BAF;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;-&#x670D;&#x52A1;&#x5668;&#x901A;&#x8BAF;"></a>&#x5BA2;&#x6237;&#x7AEF;-&#x670D;&#x52A1;&#x5668;&#x901A;&#x8BAF;</h4><p>&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x662F;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684; collection &#x88AB;&#x5BA2;&#x6237;&#x7AEF;&#x7684; collection &#x901A;&#x77E5;&#x8BF4;&#x6709;&#x4E00;&#x4E2A;&#x65B0; item&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;&#x4E86;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x628A;&#x8FD9;&#x4E2A; item &#x653E;&#x5165; Mongo &#x6570;&#x636E;&#x5E93;&#xFF0C;&#x8FDB;&#x800C;&#x9001;&#x5230;&#x6240;&#x6709;&#x8FDE;&#x63A5;&#x7740;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x3002;<br>&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x63A7;&#x5236;&#x53F0;&#x53D6;&#x51FA;&#x6240;&#x6709;&#x7684; item &#x6CA1;&#x4EC0;&#x4E48;&#x7528;&#x5904;&#x3002;&#x9700;&#x8981;&#x628A;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x663E;&#x793A;&#x5728;&#x6A21;&#x677F;&#x4E2D;&#xFF0C;&#x5E76;&#x628A;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x7684; HTML &#x539F;&#x578B;&#x53D8;&#x6210;&#x4E00;&#x4E2A;&#x6709;&#x7528;&#x7684;&#x5B9E;&#x65F6; Web &#x5E94;&#x7528;&#x3002;</p>
+<h3 id="&#x53D1;&#x5E03;&#xFF08;Publication&#xFF09;&#x548C;&#x8BA2;&#x9605;&#xFF08;Subscription&#xFF09;"><a href="#&#x53D1;&#x5E03;&#xFF08;Publication&#xFF09;&#x548C;&#x8BA2;&#x9605;&#xFF08;Subscription&#xFF09;" class="headerlink" title="&#x53D1;&#x5E03;&#xFF08;Publication&#xFF09;&#x548C;&#x8BA2;&#x9605;&#xFF08;Subscription&#xFF09;"></a>&#x53D1;&#x5E03;&#xFF08;Publication&#xFF09;&#x548C;&#x8BA2;&#x9605;&#xFF08;Subscription&#xFF09;</h3><p>collection &#x901A;&#x8FC7;&#x53D1;&#x5E03;&#xFF08;publications&#xFF09;&#x548C;&#x8BA2;&#x9605;&#xFF08;subscriptions&#xFF09;&#x673A;&#x5236;&#x628A;&#x6570;&#x636E;&#x5B9E;&#x65F6;&#x540C;&#x6B65;&#x4E0A;&#x884C;&#x6216;&#x8005;&#x4E0B;&#x884C;&#x5230;&#x8FDE;&#x63A5;&#x7740;&#x7684;&#x5404;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x6216;&#x8005;Mongo&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x3002;Meteor App &#x4FDD;&#x8BC1;&#x53EA;&#x53D1;&#x5E03;&#x4F60;&#x8BA9;&#x8FD9;&#x4E2A;&#x5F53;&#x524D;&#x7528;&#x6237;&#x770B;&#x5230;&#x7684;&#x6570;&#x636E;&#x3002;autopublish &#x7684;&#x76EE;&#x7684;&#x662F;&#x8BA9; Meteor &#x5E94;&#x7528;&#x6709;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x8D77;&#x6B65;&#x9636;&#x6BB5;&#xFF0C;&#x5B83;&#x7B80;&#x5355;&#x5730;&#x76F4;&#x63A5;&#x628A;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;&#x5168;&#x90E8;&#x6570;&#x636E;&#x955C;&#x50CF;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x56E0;&#x6B64;&#x4F60;&#x5C31;&#x4E0D;&#x7528;&#x7BA1;&#x53D1;&#x5E03;&#x548C;&#x8BA2;&#x9605;&#x4E86;&#x3002;&#x7136;&#x800C;&#x5728;&#x5B9E;&#x9645;&#x5DE5;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5220;&#x9664;&#x5B83;&#x3002;</p>
+<pre>meteor remove autopublish</pre>
+
+<h4 id="&#x53D1;&#x5E03;"><a href="#&#x53D1;&#x5E03;" class="headerlink" title="&#x53D1;&#x5E03;"></a>&#x53D1;&#x5E03;</h4><p>&#x4E00;&#x4E2A; App &#x7684;&#x6570;&#x636E;&#x5E93;&#x53EF;&#x80FD;&#x7528;&#x4E0A;&#x4E07;&#x6761;&#x6570;&#x636E;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E9B;&#x8FD8;&#x53EF;&#x80FD;&#x662F;&#x79C1;&#x7528;&#x548C;&#x4FDD;&#x5BC6;&#x654F;&#x611F;&#x6570;&#x636E;&#x3002;&#x663E;&#x800C;&#x6613;&#x89C1;&#x6211;&#x4EEC;&#x4E0D;&#x80FD;&#x7B80;&#x5355;&#x5730;&#x628A;&#x6570;&#x636E;&#x5E93;&#x955C;&#x50CF;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x53BB;&#xFF0C;&#x65E0;&#x8BBA;&#x662F;&#x5B89;&#x5168;&#x539F;&#x56E0;&#x8FD8;&#x662F;&#x6269;&#x5C55;&#x6027;&#x539F;&#x56E0;&#x3002;<strong>&#x53D1;&#x5E03;</strong> &#x5C31;&#x662F;&#x544A;&#x8BC9; Meteor &#x54EA;&#x4E9B;&#x6570;&#x636E;&#x5B50;&#x96C6;&#x662F;&#x9700;&#x8981;&#x9001;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x3002;<br>&#x4E3A;&#x8FBE;&#x5230;&#x8FD9;&#x4E2A;&#x76EE;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; Publish() &#x51FD;&#x6570;&#xFF0C;&#x53EA;&#x53D1;&#x5E03;&#x6CA1;&#x6709;&#x6253;&#x6807;&#x8BB0;&#x7684;&#x5E16;&#x5B50;</p>
+<pre>
+// &#x5728;&#x670D;&#x52A1;&#x5668;&#x7AEF;
+Meteor.publish(&apos;posts&apos;, function() {
+  return Posts.find({flagged: false});
+});</pre>
+
+<h4 id="&#x8BA2;&#x9605;"><a href="#&#x8BA2;&#x9605;" class="headerlink" title="&#x8BA2;&#x9605;"></a>&#x8BA2;&#x9605;</h4><p><strong>&#x8BA2;&#x9605;</strong> &#x5C31;&#x662F;&#x8BA9;&#x5BA2;&#x6237;&#x7AEF;&#x6765;&#x786E;&#x5B9A;&#x54EA;&#x4E9B;&#x5B50;&#x96C6;&#x662F;&#x4ED6;&#x4EEC;&#x5728;&#x67D0;&#x4E2A;&#x7279;&#x522B;&#x65F6;&#x5019;&#x7279;&#x522B;&#x9700;&#x8981;&#x7684;&#x3002;</p>
+<p>&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BA2;&#x9605;&#x8FD9;&#x4E2A;&#x53D1;&#x5E03;&#x3002;&#x6211;&#x4EEC;&#x4EC5;&#x4EC5;&#x9700;&#x8981;&#x589E;&#x52A0;&#x8FD9;&#x6837;&#x4E00;&#x884C;&#x5230; main.js &#x6587;&#x4EF6;&#x4E2D;</p>
+<pre>Meteor.subscribe(&apos;posts&apos;);</pre>
+
+<p>Meteor &#x7A0B;&#x5E8F;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x80FD;&#x591F;&#x5177;&#x6709;&#x53EF;&#x4F38;&#x7F29;&#x6027;&#xFF1A;&#x4E0D;&#x53BB;&#x8BA2;&#x9605;&#x5168;&#x90E8;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x662F;&#x6307;&#x9009;&#x62E9;&#x4F60;&#x73B0;&#x5728;&#x9700;&#x8981;&#x7684;&#x6570;&#x636E;&#x53BB;&#x8BA2;&#x9605;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x4F60;&#x5C31;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x6D88;&#x8017;&#x5927;&#x91CF;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x5185;&#x5B58;&#xFF0C;&#x65E0;&#x8BBA;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#x603B;&#x6570;&#x636E;&#x91CF;&#x6709;&#x591A;&#x5927;&#x3002;</p>
+<h4 id="DDP"><a href="#DDP" class="headerlink" title="DDP"></a>DDP</h4><p> &#x57FA;&#x672C;&#x4E0A;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;&#x53D1;&#x5E03;/&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x60F3;&#x8C61;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x6F0F;&#x6597;&#xFF0C;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#xFF08;&#x6570;&#x636E;&#x6E90;&#xFF09;&#x8FC7;&#x6EE4;&#x6570;&#x636E;&#x4F20;&#x9001;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;&#x76EE;&#x6807;&#xFF09;&#x3002;<br> &#x8FD9;&#x4E2A;&#x6F0F;&#x6597;&#x7684;&#x4E13;&#x5C5E;&#x534F;&#x8BAE;&#x53EB;&#x505A; DDP&#xFF08;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x534F;&#x8BAE; Distributed Data Protocol &#x7684;&#x7F29;&#x5199;&#xFF09;&#x3002;&#x5982;&#x679C;&#x60F3;&#x4E86;&#x89E3; DDP &#x7684;&#x66F4;&#x591A;&#x7EC6;&#x8282;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x770B; Matt DeBergalis&#xFF08;Meteor &#x521B;&#x59CB;&#x4EBA;&#x4E4B;&#x4E00;&#xFF09;&#x5728; <a href="https://2012.realtimeconf.com/video/matt-debergalis" target="_blank" rel="external">Real-time &#x5927;&#x4F1A;&#x4E0A;&#x7684;&#x8BB2;&#x6F14;&#x89C6;&#x9891;</a>&#xFF0C;&#x6216;&#x8005;&#x6765;&#x81EA; Chris Mather &#x7684;&#x8FD9;&#x4E2A;<a href="https://www.eventedmind.com/items/meteor-subscriptions-and-ddp" target="_blank" rel="external">&#x622A;&#x5C4F;&#x89C6;&#x9891;</a>&#xFF0C;&#x6765;&#x5B66;&#x4E60;&#x5173;&#x4E8E;&#x8FD9;&#x4E2A;&#x6982;&#x5FF5;&#x66F4;&#x591A;&#x7684;&#x7EC6;&#x8282;&#x3002;</p>
+ <pre>DDP
+ distributed data protocol. the stateful websocket protocol.(under &quot;Publish and subscribe&quot;, &quot;Methods&quot;, and &quot;Server connections&quot;)
+
+ `ddp` can be configured to use a randomly generated subdomain for each long polling connection(Web browsers put a limit on the total number of HTTP connections that can be open to a particular domain at any one time, across all browser tabs.) &#x6240;&#x8C13; wire up(Mongo driver will automatically register with `ddp` to receive incoming data for `mycollection` and use it to keep `MyCollection` up to date.)
+
+ &#x7279;&#x6027;&#xFF1A;
+ database driver integration
+ automatic latency compensation&#xFF08;client&apos;s screen update instantly when they make changes &#x4E0D;&#x7528; wait for server round trip. &#x548C; full-stack db drivers to snapshot and restore records??&#xFF09;
+ transparent reconnect
+ authentication (authentication hooks work great with Meteor Account.)
+ input sanitization&#xFF08;audit-argument-checks&#xFF0C; match&apos;s check&#xFF09;
+ tracker-aware&#xFF08;connection status, subscription readiness, currently logged-in user &#x90FD;&#x662F; reactive variables&#xFF09;
+ default connect&#xFF08;meteor tools &#x6784;&#x5EFA;&#x4F1A;&#x81EA;&#x52A8;set up server, &#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5; meteor.subscribe&#xFF0C;&#x800C;&#x4E0D;&#x7528; myconn = DPP.connect(url), myconn.subscribe &#x4E86;&#xFF09;
+ connection lifecycle hooks (&#x5F53;connection&#x5EFA;&#x7ACB;&#x6216;&#x5173;&#x95ED;&#x65F6;&#xFF0C;&#x5B9E;&#x73B0;&#x7528;&#x6237;&#x5728;&#x7EBF;&#x7EDF;&#x8BA1;&#x529F;&#x80FD;)
+ CRUD bilerplate and quickstart packages &#xFF08;The `insecure` package turns off `allow`/`deny` rule checking for the generic `create`, `update`, and `delete` methods. The `autopublish` package automatically subscribes every connected client to the full contents of every database collection.&#xFF09;</pre>
+
+
+<h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>&#x5047;&#x8BBE;&#x6709;&#x4E00;&#x4E2A;&#x5E16;&#x5B50;&#x5217;&#x8868;&#x9875;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x5E0C;&#x671B;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x56FA;&#x5B9A;&#x94FE;&#x63A5;&#x8BBF;&#x95EE;&#x5230;&#x6BCF;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x5E16;&#x5B50;&#x9875;&#x9762;&#xFF0C;URL &#x5F62;&#x5F0F;&#x662F; <a href="http://myapp.com/posts/xyz&#xFF08;&#x8FD9;&#x91CC;&#x7684;" target="_blank" rel="external">http://myapp.com/posts/xyz&#xFF08;&#x8FD9;&#x91CC;&#x7684;</a> xyz &#x662F; MongoDB &#x7684; _id &#x6807;&#x8BC6;&#x7B26;&#xFF09;&#xFF0C;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x5E16;&#x5B50;&#x6765;&#x8BF4;&#x662F;&#x552F;&#x4E00;&#x7684;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x67D0;&#x4E9B;&#x8DEF;&#x7531;&#x6765;&#x770B;&#x770B;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x5730;&#x5740;&#x680F;&#x91CC;&#x9762;&#x7684;&#x8DEF;&#x5F84;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x5E76;&#x76F8;&#x5E94;&#x5730;&#x663E;&#x793A;&#x6B63;&#x786E;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x8FD9;&#x5C31;&#x662F; router &#x7684;&#x4F5C;&#x7528;&#x3002;</p>
+<h4 id="&#x6DFB;&#x52A0;-Iron-Router-&#x5305;"><a href="#&#x6DFB;&#x52A0;-Iron-Router-&#x5305;" class="headerlink" title="&#x6DFB;&#x52A0; Iron Router &#x5305;"></a>&#x6DFB;&#x52A0; Iron Router &#x5305;</h4><pre>meteor add iron:router</pre>
+
+<h4 id="&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>&#x57FA;&#x672C;&#x6982;&#x5FF5;</h4><ul>
+<li>&#x8DEF;&#x7531;&#x89C4;&#x5219;&#xFF08;Route&#xFF09;&#xFF1A;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x662F;&#x8DEF;&#x7531;&#x7684;&#x57FA;&#x672C;&#x5143;&#x7D20;&#x3002;&#x5B83;&#x7684;&#x5DE5;&#x4F5C;&#x5C31;&#x662F;&#x5F53;&#x7528;&#x6237;&#x8BBF;&#x95EE; App &#x7684;&#x67D0;&#x4E2A; URL &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x544A;&#x8BC9; App &#x5E94;&#x8BE5;&#x505A;&#x4EC0;&#x4E48;&#xFF0C;&#x8FD4;&#x56DE;&#x4EC0;&#x4E48;&#x4E1C;&#x897F;&#x3002;</li>
+<li>&#x8DEF;&#x5F84;&#xFF08;Path&#xFF09;&#xFF1A;&#x8DEF;&#x5F84;&#x662F;&#x8BBF;&#x95EE; App &#x7684; URL&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x662F;&#x9759;&#x6001;&#x7684;&#xFF08;/terms_of_service&#xFF09;&#x6216;&#x8005;&#x52A8;&#x6001;&#x7684;&#xFF08;/posts/xyz&#xFF09;&#xFF0C;&#x751A;&#x81F3;&#x8FD8;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x67E5;&#x8BE2;&#x53C2;&#x6570;&#xFF08;- /search?keyword=meteor&#xFF09;&#x3002;</li>
+<li>&#x76EE;&#x5F55;&#xFF08;Segment&#xFF09;&#xFF1A;&#x8DEF;&#x5F84;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x4F7F;&#x7528;&#x6B63;&#x659C;&#x6760;&#xFF08;/&#xFF09;&#x8FDB;&#x884C;&#x5206;&#x9694;&#x3002;</li>
+<li>Hooks&#xFF1A;Hooks &#x662F;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x5728;&#x8DEF;&#x7531;&#x4E4B;&#x524D;&#xFF0C;&#x4E4B;&#x540E;&#xFF0C;&#x751A;&#x81F3;&#x662F;&#x8DEF;&#x7531;&#x6B63;&#x5728;&#x8FDB;&#x884C;&#x7684;&#x65F6;&#x5019;&#x3002;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x4F8B;&#x5B50;&#x662F;&#xFF0C;&#x5728;&#x663E;&#x793A;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x4E4B;&#x524D;&#x68C0;&#x6D4B;&#x7528;&#x6237;&#x662F;&#x5426;&#x62E5;&#x6709;&#x8FD9;&#x4E2A;&#x6743;&#x9650;&#x3002;</li>
+<li>&#x8FC7;&#x6EE4;&#x5668;&#xFF08;Filter&#xFF09;&#xFF1A;&#x8FC7;&#x6EE4;&#x5668;&#x7C7B;&#x4F3C;&#x4E8E; Hooks &#xFF0C;&#x4E3A;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x5B9A;&#x4E49;&#x7684;&#x5168;&#x5C40;&#x8FC7;&#x6EE4;&#x5668;&#x3002;</li>
+<li>&#x8DEF;&#x7531;&#x6A21;&#x677F;&#xFF08;Route Template&#xFF09;&#xFF1A;&#x6BCF;&#x4E2A;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x6307;&#x5411;&#x7684; Meteor &#x6A21;&#x677F;&#x3002;&#x5982;&#x679C;&#x4F60;&#x4E0D;&#x6307;&#x5B9A;&#xFF0C;&#x8DEF;&#x7531;&#x5668;&#x5C06;&#x4F1A;&#x9ED8;&#x8BA4;&#x53BB;&#x5BFB;&#x627E;&#x4E00;&#x4E2A;&#x5177;&#x6709;&#x76F8;&#x540C;&#x540D;&#x79F0;&#x7684;&#x6A21;&#x677F;&#x3002;</li>
+<li>&#x5E03;&#x5C40;&#xFF08;Layout&#xFF09;&#xFF1A;&#x4F60;&#x53EF;&#x4EE5;&#x60F3;&#x8C61;&#x6210;&#x4E00;&#x4E2A;&#x6570;&#x7801;&#x76F8;&#x6846;&#x7684;&#x5E03;&#x5C40;&#x3002;&#x5B83;&#x4EEC;&#x5305;&#x542B;&#x6240;&#x6709;&#x7684; HTML &#x4EE3;&#x7801;&#x653E;&#x7F6E;&#x5728;&#x5F53;&#x524D;&#x7684;&#x6A21;&#x677F;&#x4E2D;&#xFF0C;&#x5373;&#x4F7F;&#x6A21;&#x677F;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x5B83;&#x4EEC;&#x4E5F;&#x4E0D;&#x4F1A;&#x53D8;&#x3002;</li>
+<li>&#x63A7;&#x5236;&#x5668;&#xFF08;Controller&#xFF09;&#xFF1A;&#x6709;&#x65F6;&#x5019;&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x5F88;&#x591A;&#x4F60;&#x7684;&#x6A21;&#x677F;&#x90FD;&#x5728;&#x91CD;&#x590D;&#x4F7F;&#x7528;&#x4E00;&#x4E9B;&#x53C2;&#x6570;&#x3002;&#x4E3A;&#x4E86;&#x4E0D;&#x91CD;&#x590D;&#x4F60;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8BA9;&#x8FD9;&#x4E9B;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x7EE7;&#x627F;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x63A7;&#x5236;&#x5668;&#xFF08;Routing Controller&#xFF09;&#x53BB;&#x5305;&#x542B;&#x6240;&#x6709;&#x7684;&#x8DEF;&#x7531;&#x903B;&#x8F91;&#x3002;</li>
+</ul>
+<h4 id="&#x8DEF;&#x7531;&#xFF1A;&#x628A;-URL-&#x6620;&#x5C04;&#x5230;&#x6A21;&#x677F;"><a href="#&#x8DEF;&#x7531;&#xFF1A;&#x628A;-URL-&#x6620;&#x5C04;&#x5230;&#x6A21;&#x677F;" class="headerlink" title="&#x8DEF;&#x7531;&#xFF1A;&#x628A; URL &#x6620;&#x5C04;&#x5230;&#x6A21;&#x677F;"></a>&#x8DEF;&#x7531;&#xFF1A;&#x628A; URL &#x6620;&#x5C04;&#x5230;&#x6A21;&#x677F;</h4><p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;Iron Router &#x4F1A;&#x4E3A;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#xFF0C;&#x6307;&#x5B9A;&#x76F8;&#x540C;&#x540D;&#x5B57;&#x7684;&#x6A21;&#x677F;&#x3002;&#x800C;&#x5982;&#x679C;&#x8DEF;&#x5F84;&#xFF08;path &#x53C2;&#x6570;&#xFF09;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x6839;&#x636E;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x7684;&#x540D;&#x5B57;&#xFF0C;&#x53BB;&#x6307;&#x5B9A;&#x540C;&#x6837;&#x540D;&#x5B57;&#x7684;&#x8DEF;&#x5F84;&#x3002;</p>
+<p>&#x4F60;&#x53EF;&#x80FD;&#x60F3;&#x77E5;&#x9053;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;&#x4E00;&#x5F00;&#x59CB;&#x53BB;&#x5236;&#x5B9A;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A; Iron Router &#x7684;&#x90E8;&#x5206;&#x529F;&#x80FD;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x53BB;&#x751F;&#x6210; App &#x7684;&#x94FE;&#x63A5;&#x4FE1;&#x606F;&#x3002;&#x5176;&#x4E2D;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x4E00;&#x4E2A;&#x662F;  &#x7684; Spacebars helper&#xFF0C;&#x5B83;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x7684; URL &#x8DEF;&#x5F84;&#x3002;</p>
+<p>&#x9664;&#x4E86;&#x6307;&#x5B9A;&#x9759;&#x6001;&#x7684; / URL &#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; Spacebars helper&#x3002;&#x867D;&#x7136;&#x5B83;&#x4EEC;&#x7684;&#x6548;&#x679C;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4E0D;&#x8FC7;&#x8FD9;&#x7ED9;&#x4E86;&#x6211;&#x4EEC;&#x66F4;&#x591A;&#x7684;&#x7075;&#x6D3B;&#x6027;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x66F4;&#x6539;&#x4E86;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x7684;&#x6620;&#x5C04;&#x8DEF;&#x5F84;&#xFF0C;helper &#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x8F93;&#x51FA;&#x6B63;&#x786E;&#x7684; URL &#x3002;</p>
+<h4 id="&#x7B49;&#x5F85;&#x6570;&#x636E;"><a href="#&#x7B49;&#x5F85;&#x6570;&#x636E;" class="headerlink" title="&#x7B49;&#x5F85;&#x6570;&#x636E;"></a>&#x7B49;&#x5F85;&#x6570;&#x636E;</h4><p>&#x5982;&#x679C;&#x4F60;&#x8981;&#x90E8;&#x7F72;&#x5F53;&#x524D;&#x7248;&#x672C;&#x7684; App&#xFF08;&#x6216;&#x542F;&#x52A8;&#x8D77;&#x6765;&#x53BB;&#x4F7F;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x94FE;&#x63A5;&#xFF09;&#xFF0C;&#x4F60;&#x4F1A;&#x6CE8;&#x610F;&#x5230;&#x5728;&#x6240;&#x6709;&#x5E16;&#x5B50;&#x5B8C;&#x5168;&#x51FA;&#x73B0;&#x4E4B;&#x524D;&#xFF0C;&#x5217;&#x8868;&#x91CC;&#x9762;&#x4F1A;&#x7A7A;&#x4E86;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x52A0;&#x8F7D;&#x9875;&#x9762;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8981;&#x7B49;&#x5230; posts &#x8BA2;&#x9605;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5373;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x6293;&#x53D6;&#x5B8C;&#x5E16;&#x5B50;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x624D;&#x80FD;&#x6709;&#x5E16;&#x5B50;&#x663E;&#x793A;&#x5728;&#x9875;&#x9762;&#x4E0A;&#x3002;</p>
+<p>&#x8FD9;&#x5E94;&#x8BE5;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x66F4;&#x597D;&#x7684;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#xFF0C;&#x6BD4;&#x5982;&#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x89C6;&#x89C9;&#x4E0A;&#x7684;&#x53CD;&#x9988;&#x8BA9;&#x7528;&#x6237;&#x77E5;&#x9053;&#x6B63;&#x5728;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x6837;&#x7528;&#x6237;&#x624D;&#x4F1A;&#x53BB;&#x7EE7;&#x7EED;&#x7B49;&#x5F85;&#x3002;Iron Router &#x7ED9;&#x4E86;&#x6211;&#x4EEC;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6CD5;&#x53BB;&#x5B9E;&#x73B0;&#x5B83;&#x3002;&#x6211;&#x4EEC;&#x628A;&#x8BA2;&#x9605;&#x653E;&#x5230; waitOn &#x7684;&#x8FD4;&#x56DE;&#x4E0A;&#x3002;</p>
+<h2 id="Meteor-&#x90E8;&#x7F72;"><a href="#Meteor-&#x90E8;&#x7F72;" class="headerlink" title="Meteor &#x90E8;&#x7F72;"></a>Meteor &#x90E8;&#x7F72;</h2><pre>meteor deploy myapp.meteor.com</pre>
+
+<p>&#x5F53;&#x7136;&#xFF0C;&#x4F60;&#x8981;&#x628A;&#x201C;myapp&#x201D;&#x66FF;&#x6362;&#x6210;&#x4F60;&#x60F3;&#x8981;&#x7684;&#x540D;&#x79F0;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x547D;&#x540D;&#x4E00;&#x4E2A;&#x6CA1;&#x6709;&#x88AB;&#x4F7F;&#x7528;&#x7684;&#x3002;&#x5982;&#x679C;&#x4F60;&#x7684;&#x540D;&#x79F0;&#x5DF2;&#x7ECF;&#x88AB;&#x4F7F;&#x7528;&#xFF0C;Meteor &#x4F1A;&#x63D0;&#x793A;&#x4F60;&#x53BB;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x3002;&#x5982;&#x679C;&#x53D1;&#x751F;&#x8FD9;&#x6837;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x53EA;&#x9700;&#x901A;&#x8FC7; ctrl+c &#x6765;&#x53D6;&#x6D88;&#x5F53;&#x524D;&#x64CD;&#x4F5C;&#xFF0C;&#x7136;&#x540E;&#x7528;&#x53E6;&#x4E00;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x540D;&#x79F0;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x987A;&#x5229;&#x5730;&#x90E8;&#x7F72;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x51E0;&#x79D2;&#x949F;&#x540E;&#x4F60;&#x5C31;&#x80FD;&#x591F;&#x5728; <a href="http://myapp.meteor.com" target="_blank" rel="external">http://myapp.meteor.com</a> &#x4E0A;&#x8BBF;&#x95EE;&#x5230;&#x4F60;&#x7684;&#x5E94;&#x7528;&#x4E86;&#x3002;</p>
+<h1 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h1><h2 id="&#x5B89;&#x88C5;-meteorjs"><a href="#&#x5B89;&#x88C5;-meteorjs" class="headerlink" title="&#x5B89;&#x88C5; meteorjs"></a>&#x5B89;&#x88C5; meteorjs</h2><pre>$ curl https://install.meteor.com/ | sh</pre>
+
+<h2 id="&#x521B;&#x5EFA;&#x9879;&#x76EE;"><a href="#&#x521B;&#x5EFA;&#x9879;&#x76EE;" class="headerlink" title="&#x521B;&#x5EFA;&#x9879;&#x76EE;"></a>&#x521B;&#x5EFA;&#x9879;&#x76EE;</h2><pre>
+$ meteor create app_store
+</pre>
+
+<pre>
+$ cd App-Recommender-System/
+$ meteor
+</pre>
+
+<p>&#x6D4F;&#x89C8;&#x5668;&#x6253;&#x5F00; <a href="http://localhost:3000/&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;" target="_blank" rel="external">http://localhost:3000/&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;</a> Meteor App &#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<h2 id="&#x7B2C;&#x4E09;&#x65B9;-package"><a href="#&#x7B2C;&#x4E09;&#x65B9;-package" class="headerlink" title="&#x7B2C;&#x4E09;&#x65B9; package"></a>&#x7B2C;&#x4E09;&#x65B9; package</h2><p>Add    three    packages:</p>
+<ol>
+<li>twbs:bootstrap - Twitter    Bootstrap    packaged     for    Meteor</li>
+<li>iron:router &#x2013; A    Meteor    package    that    handles    routing    between     pages</li>
+<li>barbatus:stars-rating &#x2013; A    small    library    to    give    us    nice    rating    stars    for    the    app    store.</li>
+</ol>
+<pre>meteor add iron:router twbs:bootstrap barbatus:stars-rating</pre>
+
+
+<p>Remove    two    default    packages:</p>
+<ol>
+<li>autopublish &#x2013; a    development    package    that    publishes    all    of    our    MongoDB data    to    the    client.        Great     for    prototyping,    insecure     for    production!        </li>
+<li>insecure    &#x2013; The    package    name    says    it    all.        This    package    allows    the    user    client     to    create,    update,    read    and    delete    any    data    in    our database.        It&#x2019;s     another    package    meant     to    make    development     easier,    but    we    won&#x2019;t    have    a    need     for    this    in    our    project.</li>
+</ol>
+<pre>meteor remove autopublish insecure</pre>
+
+
+<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><h3 id="Create-app-collection"><a href="#Create-app-collection" class="headerlink" title="Create app collection"></a>Create app collection</h3><p>&#x65B0;&#x5EFA; lib &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x521B;&#x5EFA; apps.js &#x6587;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x4EE3;&#x7801;</p>
+<pre>Apps = new Meteor.Collection(&apos;apps&apos;);</pre>
+
+<h3 id="Put-json-files"><a href="#Put-json-files" class="headerlink" title="Put json files"></a>Put json files</h3><p>&#x8FD9;&#x91CC;&#x8854;&#x63A5;&#x4E0A;&#x4E00;&#x4E2A;&#x90E8;&#x5206; crawler &#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x5C06;&#x6211;&#x4EEC;&#x4FDD;&#x5B58;&#x5728; MongoDB &#x7684;&#x6570;&#x636E;&#x5BFC;&#x51FA;&#x6765;&#x653E;&#x5728; server &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x3002;</p>
+<pre>mongoexport -d appstore -c app_info -o ./app_info_new.json</pre>
+
+<h3 id="Populate-app-collection"><a href="#Populate-app-collection" class="headerlink" title="Populate app collection"></a>Populate app collection</h3><p>server &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x65B0;&#x5EFA; fixures.js &#x6765; load data.</p>
+<pre>
+// checks if app collection is empty so we don&apos;t call this code on every run
+if(Apps.find({}).count() &lt; 1){
+
+    // read in json file using Npm filesystem package
+    var fs = Npm.require(&apos;fs&apos;);
+    fs.readFile(&apos;../../../../../server/app_info.json&apos;, &apos;utf8&apos;, Meteor.bindEnvironment(function(err, data) {
+        if (err) throw err;
+        var appData = data.split(&quot;\n&quot;);
+
+        for (var i = 0; i &lt; appData.length - 1; i++) {
+            var rawAppData = JSON.parse(appData[i]);
+            var app = {};
+
+            app.name = rawAppData.title;
+            app.app_id = rawAppData.app_id;
+            app.developer = rawAppData.developer;
+            app.description = rawAppData.intro;
+            app.avgRating = parseInt(rawAppData.score) / 2;
+            app.iconUrl = rawAppData.thumbnail_url;
+            app.recommendedApps = rawAppData.top_5_app;
+            app.numberOfRecommendations = 0;
+            // insert app into collection
+            Apps.insert(app);
+        }
+
+    }, function(err){
+        throw err;
+    }));
+}
+</pre>
+
+
+<h3 id="Publish-app-collection"><a href="#Publish-app-collection" class="headerlink" title="Publish app collection"></a>Publish app collection</h3><p>server &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x65B0;&#x5EFA; publications.js &#x6587;&#x4EF6; publish data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/** returns all apps in the collection, takes an options object that is used to push</div><div class="line">sorting and filtering operations onto the server side, this publication will be used</div><div class="line">in top charts list*/</div><div class="line">Meteor.publish(&apos;apps&apos;,function(options){</div><div class="line">  return Apps.find({},options);</div><div class="line">});</div><div class="line"></div><div class="line">/** takes an appid as a parameter and returns just one app that matches the appid,</div><div class="line">this publication will be used by our app details page for a single app */</div><div class="line">Meteor.publish(&apos;singleApp&apos;,function(id){</div><div class="line">  return Apps.find({_id:id});</div><div class="line">});</div><div class="line"></div><div class="line">/** this publication will be used to look up the recommended apps*/</div><div class="line">Meteor.publish(&apos;singleAppByAppId&apos;,function(appId){</div><div class="line">  return Apps.find({app_id:appId});</div><div class="line">});</div></pre></td></tr></table></figure></p>
+<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><h3 id="&#x65B0;&#x5EFA;-index-html-&#x6587;&#x4EF6;"><a href="#&#x65B0;&#x5EFA;-index-html-&#x6587;&#x4EF6;" class="headerlink" title="&#x65B0;&#x5EFA; index.html &#x6587;&#x4EF6;"></a>&#x65B0;&#x5EFA; index.html &#x6587;&#x4EF6;</h3><p>&#x5728; client &#x76EE;&#x5F55;&#x4E0B;&#x65B0;&#x5EFA; index.html &#x6587;&#x4EF6;&#x3002;&#x6DFB;&#x52A0; head&#xFF0C;meteor &#x7684; Blaze template engine &#x4F1A;&#x4EA7;&#x751F; body&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;head&gt;</div><div class="line">  &lt;title&gt;App Store&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="&#x6DFB;&#x52A0;-css-&#x6587;&#x4EF6;"><a href="#&#x6DFB;&#x52A0;-css-&#x6587;&#x4EF6;" class="headerlink" title="&#x6DFB;&#x52A0; css &#x6587;&#x4EF6;"></a>&#x6DFB;&#x52A0; css &#x6587;&#x4EF6;</h3><p>&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x8D34;&#x4EE3;&#x7801;&#x4E86;</p>
+<h3 id="Tell-iron-router-where-to-rend-templates"><a href="#Tell-iron-router-where-to-rend-templates" class="headerlink" title="Tell iron:router where to rend templates"></a>Tell iron:router where to rend templates</h3><p>&#x5728; layouts &#x91CC;&#x65B0;&#x5EFA; master_layout.html &#x6587;&#x4EF6;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;template name=&quot;masterLayout&quot;&gt;</div><div class="line"></div><div class="line">    &lt;div class=&quot;container&quot;&gt;</div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-md-4 col-md-offset-4 col-sm-12 col-xs-12 mainContainer&quot;&gt;</div><div class="line">                 {{&gt; yield }} &lt;!-- tells iron:router where to render our view templates inside of this layout--&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line"></div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="topChart-template"><a href="#topChart-template" class="headerlink" title="topChart template"></a>topChart template</h3><p>&#x65B0;&#x5EFA; views &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x65B0;&#x5EFA; topChart.html &#x6587;&#x4EF6;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;!-- define a template named topChart --&gt;</div><div class="line">&lt;template name=&quot;topChart&quot;&gt;</div><div class="line">  &lt;!-- utilize the bootstrap navbar class to give us the App	Store	top	bar --&gt;</div><div class="line">    &lt;nav class=&quot;navbar navbar-default&quot;&gt;</div><div class="line">        &lt;div class=&quot;container-fluid&quot;&gt;</div><div class="line">            &lt;div class=&quot;text-center&quot; id=&quot;navTitle&quot;&gt;</div><div class="line">                &lt;strong&gt;Top Charts&lt;/strong&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/nav&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="&#x4E3A;-topChart-template-&#x586B;&#x5145;&#x6570;&#x636E;"><a href="#&#x4E3A;-topChart-template-&#x586B;&#x5145;&#x6570;&#x636E;" class="headerlink" title="&#x4E3A; topChart template &#x586B;&#x5145;&#x6570;&#x636E;"></a>&#x4E3A; topChart template &#x586B;&#x5145;&#x6570;&#x636E;</h3><p>&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x52A0;&#x4E86; &#x201C;iron:router&#x201D; &#x5305;&#xFF0C;&#x7528;&#x8FD9;&#x4E2A;&#x5305;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x5F97;&#x5230; topChart template &#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x4E3A;&#x8FD9;&#x4E2A; template &#x8BBE;&#x7F6E;&#x6570;&#x636E;<br>&#x5728; lib &#x4E0B;&#x65B0;&#x5EFA; routing &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x6DFB;&#x52A0; router.js &#x6587;&#x4EF6;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Router.configure({</div><div class="line">    // tell iron router to render our individual templates inside of our masterLayout template</div><div class="line">    layoutTemplate: &quot;masterLayout&quot;</div><div class="line">});</div><div class="line"></div><div class="line">Router.route(&apos;/&apos;, {// describe the route path, &apos;/&apos; - root path of our web app</div><div class="line">    name: &apos;topChart&apos;,// the template this route will use</div><div class="line">    waitOn: function() {</div><div class="line">      // iron router will hold off rendering our page until the waitOn function completes</div><div class="line">      // returns a subscription to our &#x201C;apps&#x201D; publication</div><div class="line">      // passes	a	set	of options to	the	server,</div><div class="line">      // tells	the	server	to	sort	our	apps	based	off	of	avgRating and	app_id.	And	to only	give us	a	max	of	20	results.</div><div class="line">        Meteor.subscribe(&apos;apps&apos;, {sort: {avgRating: -1, app_id: -1}, limit: 50});</div><div class="line">    },</div><div class="line">    // The return	value	of the data function becomes the Blaze template&#x2019;s	&#x201C;data	context&#x201D;.</div><div class="line">    // returns an	object with	a	single property	&#x201C;apps&#x201D; that	contains all the Apps returned via	our	subscription.</div><div class="line">    data: function () {</div><div class="line">        return {</div><div class="line">            apps: Apps.find({}, {sort: {avgRating: -1, app_id: -1}, limit: 50})</div><div class="line">        };</div><div class="line">    }</div><div class="line">});</div></pre></td></tr></table></figure></p>
+<h3 id="&#x66F4;&#x65B0;-topChart-html-&#x6587;&#x4EF6;"><a href="#&#x66F4;&#x65B0;-topChart-html-&#x6587;&#x4EF6;" class="headerlink" title="&#x66F4;&#x65B0; topChart.html &#x6587;&#x4EF6;"></a>&#x66F4;&#x65B0; topChart.html &#x6587;&#x4EF6;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;ul class=&quot;list-group&quot;&gt;</div><div class="line">  &lt;!-- use the built in SpaceBars {{#each}}	to iterate through the &#x201C;apps&#x201D; property that	we set inside	our	route&#x2019;s	&#x201D;data&#x201D;	function.</div><div class="line">  Inside the	{{#each}}{{/each}} block the data context	changes	from &#x201C;apps&#x201D;	to be	the	app	in scope for each	iteration.--&gt;</div><div class="line">    {{#each apps}}</div><div class="line">    &lt;!-- call	the	&#x201C;appPreview&#x201D; template. Since it	is inside	the	{{#each}}	block	it will	be passed	the	data for each	individual	app	as	its</div><div class="line">    context	as we	iterate	through	our	parent data	context. --&gt;</div><div class="line">        {{&gt; appPreview this}}</div><div class="line">    {{/each}}</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<h3 id="appPreview-template"><a href="#appPreview-template" class="headerlink" title="appPreview template"></a>appPreview template</h3><p>views &#x91CC;&#x6DFB;&#x52A0; appPreview.html &#x6587;&#x4EF6;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;template name=&quot;appPreview&quot;&gt;</div><div class="line">  &lt;!-- each app preview will be wrapped in an &lt;li&gt; element, as the topChart template will insert each app into a &lt;ul&gt;--&gt;</div><div class="line">    &lt;li class=&quot;list-group-item&quot;&gt;</div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-xs-1 appRank text-muted&quot;&gt;</div><div class="line">                {{rank}}</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;!-- set the img src to the iconUrl property that we scraped--&gt;</div><div class="line">            &lt;div class=&quot;col-xs-3 appIconPreview&quot;&gt;</div><div class="line">                &lt;img height=50 width=50 src=&quot;{{iconUrl}}&quot;/&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div class=&quot;col-xs-6 nameColumn&quot;&gt;</div><div class="line">                &lt;a href=&quot;{{pathFor &apos;appPage&apos;}}&quot;&gt;{{name}}&lt;/a&gt;&lt;br/&gt;</div><div class="line">                &lt;div style=&quot;display:flex&quot;&gt;</div><div class="line">                  &lt;!-- the stars-rating package with this template. pass apps avgRating property to the templates &quot;rating&quot; property</div><div class="line">                        so that it can color the correct # of stars--&gt;</div><div class="line">                    {{&gt; starsRating rating=avgRating class=&apos;mystar&apos; size=&apos;sm&apos;}}</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div class=&quot;col-xs-2 text-right getApp&quot;&gt;</div><div class="line">              &lt;!-- pathFor is a built in helper that takes the name of the route and returns a correct path. --&gt;</div><div class="line">                &lt;a href=&quot;{{pathFor &apos;appPage&apos;}}&quot; class=&quot;btn btn-primary&quot;&gt;+ Get&lt;/a&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="appPage-template"><a href="#appPage-template" class="headerlink" title="appPage template"></a>appPage template</h3><p>&#x548C;&#x4E0A;&#x9762;&#x662F;&#x540C;&#x6837;&#x7684;&#x9053;&#x7406;&#xFF0C;&#x5728; views &#x91CC;&#x6DFB;&#x52A0; appPage.html &#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x4E3A; appPage template &#x586B;&#x5145;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x662F;&#x8FD9;&#x91CC;&#x591A;&#x4E86;&#x4E2D;&#x95F4;&#x4E00;&#x6B65;&#xFF0C;&#x901A;&#x8FC7;&#x904D;&#x5386; recommendedApps&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x80FD;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x91CC;&#x5F97;&#x5230; recommended app &#x7684; appid, &#x7136;&#x800C;&#x5E76;&#x6CA1;&#x6709; data context&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A; template helper &#x6765;&#x8BBE;&#x7F6E; recommended apps &#x7684; data context&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A; appPage.js &#x6587;&#x4EF6;&#x6765;&#x5B8C;&#x6210;&#x8FD9;&#x4E2A;&#x5DE5;&#x4F5C;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// Template.{{templateName}}.helpers() takes a JSON	object where the keys are the name of hte helper function</div><div class="line">// these functions can be called directly from a blaze template</div><div class="line">Template.appPage.helpers({</div><div class="line">    getSuggestedApp: function(appId) {</div><div class="line">      // use singleAppByAppId subscription, then use Apps.findOne() to retrieve the app object and return it to our	Blaze</div><div class="line">      // template, the pass the object to suggestedApp templates as the data context</div><div class="line">        Meteor.subscribe(&apos;singleAppByAppId&apos;, appId);</div><div class="line">        return Apps.findOne({app_id: appId});</div><div class="line">    }</div><div class="line">});</div><div class="line"></div><div class="line"></div><div class="line">// attach JQuerystyle event listeners on a template by passing a json object to Template.{{templateName}}.events().</div><div class="line">// the key here is the event type(click in this case) followed by the CSS selecter(#backLink in this case)</div><div class="line">// values are the functions	to be executed on event click. here we are using a feature of iron router &#x201C;history.back()&#x201D; to</div><div class="line">// bring us back to the previous page</div><div class="line">Template.appPage.events({</div><div class="line">    &quot;click #backLink&quot; : function(evt) {</div><div class="line">        history.back();</div><div class="line">    }</div><div class="line">});</div></pre></td></tr></table></figure></p>
+<p>&#x4E4B;&#x540E;&#x518D;&#x4FEE;&#x6539; routers.js &#x6587;&#x4EF6;&#xFF0C;&#x52A0;&#x4E0A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Router.route(&apos;/app/:_id&apos;, {//&#x2019;:&#x2019; tells Iron	Router that this is a variable that will be bound to the _id parameter</div><div class="line">    name: &apos;appPage&apos;,</div><div class="line">    waitOn: function() {</div><div class="line">      // pass the app id passed in the url by using this.params._id</div><div class="line">        Meteor.subscribe(&apos;singleApp&apos;, this.params._id);</div><div class="line">    },</div><div class="line">    data: function () {</div><div class="line">      // bind the app with the given id to the data context of template</div><div class="line">        return Apps.findOne(this.params._id);</div><div class="line">    }</div><div class="line">});</div></pre></td></tr></table></figure></p>
+<h2 id="&#x8FD0;&#x884C;&#x6548;&#x679C;"><a href="#&#x8FD0;&#x884C;&#x6548;&#x679C;" class="headerlink" title="&#x8FD0;&#x884C;&#x6548;&#x679C;"></a>&#x8FD0;&#x884C;&#x6548;&#x679C;</h2><p><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-07%20%E4%B8%8A%E5%8D%8810.38.31.png" alt=""></p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-07%20%E4%B8%8B%E5%8D%886.03.40.png" alt=""></p>
+<p><a href="https://github.com/Shuang0420/App-Recommender-System/tree/master/app_store" target="_blank" rel="external">&#x4EE3;&#x7801;</a></p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;<br><br><a href="http://zh.discovermeteor.com/pdf" target="_blank" rel="external">DISCOVER METEOR</a><br></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Crawler/" rel="tag">#Crawler</a>
+          
+            <a href="/tags/Meteor/" rel="tag">#Meteor</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/05/项目实战--云计算Social Networking Timeline/" rel="next" title="项目实战--云计算Social Networking Timeline">
+                <i class="fa fa-chevron-left"></i> 项目实战--云计算Social Networking Timeline
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/10/Tfidf总结笔记/" rel="prev" title="Tf-idf 总结笔记">
+                Tf-idf 总结笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meteor-的创新"><span class="nav-number">1.1.</span> <span class="nav-text">Meteor 的创新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meteor-特点"><span class="nav-number">1.2.</span> <span class="nav-text">Meteor 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meteor-结构"><span class="nav-number">1.3.</span> <span class="nav-text">Meteor 结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Meteor-文件规则"><span class="nav-number">1.3.1.</span> <span class="nav-text">Meteor 文件规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Meteor-加载文件顺序"><span class="nav-number">1.3.2.</span> <span class="nav-text">Meteor 加载文件顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meteor-核心概念"><span class="nav-number">1.4.</span> <span class="nav-text">Meteor 核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板系统-Spacebars"><span class="nav-number">1.4.1.</span> <span class="nav-text">模板系统 Spacebars</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collection"><span class="nav-number">1.4.2.</span> <span class="nav-text">collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器端"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">服务器端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端-服务器通讯"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">客户端-服务器通讯</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布（Publication）和订阅（Subscription）"><span class="nav-number">1.4.3.</span> <span class="nav-text">发布（Publication）和订阅（Subscription）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发布"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">发布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#订阅"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">订阅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDP"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">DDP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Router"><span class="nav-number">1.4.4.</span> <span class="nav-text">Router</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加-Iron-Router-包"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">添加 Iron Router 包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由：把-URL-映射到模板"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">路由：把 URL 映射到模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待数据"><span class="nav-number">1.4.4.4.</span> <span class="nav-text">等待数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meteor-部署"><span class="nav-number">1.5.</span> <span class="nav-text">Meteor 部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-meteorjs"><span class="nav-number">2.1.</span> <span class="nav-text">安装 meteorjs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建项目"><span class="nav-number">2.2.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方-package"><span class="nav-number">2.3.</span> <span class="nav-text">第三方 package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number">2.4.</span> <span class="nav-text">server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-app-collection"><span class="nav-number">2.4.1.</span> <span class="nav-text">Create app collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Put-json-files"><span class="nav-number">2.4.2.</span> <span class="nav-text">Put json files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Populate-app-collection"><span class="nav-number">2.4.3.</span> <span class="nav-text">Populate app collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Publish-app-collection"><span class="nav-number">2.4.4.</span> <span class="nav-text">Publish app collection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">2.5.</span> <span class="nav-text">client</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建-index-html-文件"><span class="nav-number">2.5.1.</span> <span class="nav-text">新建 index.html 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-css-文件"><span class="nav-number">2.5.2.</span> <span class="nav-text">添加 css 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tell-iron-router-where-to-rend-templates"><span class="nav-number">2.5.3.</span> <span class="nav-text">Tell iron:router where to rend templates</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#topChart-template"><span class="nav-number">2.5.4.</span> <span class="nav-text">topChart template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为-topChart-template-填充数据"><span class="nav-number">2.5.5.</span> <span class="nav-text">为 topChart template 填充数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新-topChart-html-文件"><span class="nav-number">2.5.6.</span> <span class="nav-text">更新 topChart.html 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appPreview-template"><span class="nav-number">2.5.7.</span> <span class="nav-text">appPreview template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appPage-template"><span class="nav-number">2.5.8.</span> <span class="nav-text">appPage template</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行效果"><span class="nav-number">2.6.</span> <span class="nav-text">运行效果</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/07/07/Meteor-App-Recommender-System/';
+      var disqus_title = "Meteor--App_Recommender_System";
+      var disqus_url = 'http://www.shuang0420.com/2016/07/07/Meteor-App-Recommender-System/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

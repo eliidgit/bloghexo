@@ -1,0 +1,1109 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Crawler," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x722C;&amp;#x866B;&amp;#x7684;&amp;#x6F14;&amp;#x4E60;&amp;#x3002;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫总结(四)-- 分布式爬虫">
+<meta property="og:url" content="http://www.shuang0420.com/2016/06/17/爬虫总结-四-分布式爬虫/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x722C;&amp;#x866B;&amp;#x7684;&amp;#x6F14;&amp;#x4E60;&amp;#x3002;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/scheduler.png">
+<meta property="og:updated_time" content="2016-08-01T14:22:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫总结(四)-- 分布式爬虫">
+<meta name="twitter:description" content="&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x722C;&amp;#x866B;&amp;#x7684;&amp;#x6F14;&amp;#x4E60;&amp;#x3002;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/scheduler.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/06/17/爬虫总结-四-分布式爬虫/"/>
+
+
+  <title> 爬虫总结(四)-- 分布式爬虫 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                爬虫总结(四)-- 分布式爬虫
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-17T10:45:12-04:00" content="2016-06-17">
+              2016-06-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/17/爬虫总结-四-分布式爬虫/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/爬虫总结-四-分布式爬虫/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x5206;&#x5E03;&#x5F0F;&#x722C;&#x866B;&#x7684;&#x6F14;&#x4E60;&#x3002;<br><a id="more"></a><br>&#x5206;&#x5E03;&#x5F0F;&#x722C;&#x866B;&#x95EE;&#x9898;&#x5176;&#x5B9E;&#x4E5F;&#x5C31;&#x662F;&#x591A;&#x53F0;&#x673A;&#x5668;&#x591A;&#x4E2A; spider &#x5BF9; &#x591A;&#x4E2A; url &#x7684;&#x540C;&#x65F6;&#x5904;&#x7406;&#x95EE;&#x9898;&#xFF0C;&#x600E;&#x6837; schedule &#x8FD9;&#x4E9B; url&#xFF0C;&#x600E;&#x6837;&#x6C47;&#x603B; spider &#x6293;&#x53D6;&#x7684;&#x6570;&#x636E;&#x3002;&#x6700;&#x7B80;&#x5355;&#x7C97;&#x66B4;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x5C06; url &#x8FDB;&#x884C;&#x5206;&#x7247;&#xFF0C;&#x4EA4;&#x7ED9;&#x4E0D;&#x540C;&#x673A;&#x5668;&#xFF0C;&#x6700;&#x540E;&#x5BF9;&#x4E0D;&#x540C;&#x673A;&#x5668;&#x6293;&#x53D6;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x6C47;&#x603B;&#x3002;&#x7136;&#x800C;&#x8FD9;&#x6837;&#x6BCF;&#x4E2A; spider &#x53EA;&#x80FD;&#x5BF9;&#x81EA;&#x5DF1;&#x5904;&#x7406;&#x7684; url &#x53BB;&#x91CD;&#xFF0C;&#x6CA1;&#x529E;&#x6CD5;&#x5168;&#x5C40;&#x7684;&#x53BB;&#x91CD;&#xFF0C;&#x53E6;&#x5916;&#x6027;&#x80FD;&#x4E5F;&#x5F88;&#x96BE;&#x63A7;&#x5236;&#xFF0C;&#x53EF;&#x80FD;&#x6709;&#x67D0;&#x53F0;&#x673A;&#x5668;&#x5F88;&#x65E9;&#x5C31;&#x8DD1;&#x5B8C;&#x4E86;&#xFF0C;&#x800C;&#x522B;&#x7684;&#x673A;&#x5668;&#x8FD8;&#x8981;&#x8DD1;&#x5F88;&#x4E45;&#x3002;&#x53E6;&#x4E00;&#x79CD;&#x601D;&#x8DEF;&#x5C31;&#x662F;&#x628A; url &#x5B58;&#x5728;&#x67D0;&#x4E2A;&#x5730;&#x65B9;&#xFF0C;&#x5171;&#x4EAB;&#x7ED9;&#x6240;&#x6709;&#x7684;&#x673A;&#x5668;&#xFF0C;&#x603B;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x6765;&#x5206;&#x914D;&#x8BF7;&#x6C42;&#xFF0C;&#x5224;&#x65AD; spider &#x6709;&#x6CA1;&#x6709;&#x95F2;&#x7F6E;&#xFF0C;&#x95F2;&#x7F6E;&#x4E86;&#x5C31;&#x7EE7;&#x7EED;&#x7ED9;&#x5B83;&#x4EFB;&#x52A1;&#xFF0C;&#x76F4;&#x5230;&#x6240;&#x6709;&#x7684; url &#x90FD;&#x722C;&#x5B8C;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x89E3;&#x51B3;&#x4E86;&#x53BB;&#x91CD;&#x95EE;&#x9898;&#xFF08;&#x4E0B;&#x9762;&#x4F1A;&#x5177;&#x4F53;&#x8BB2;&#x5230;&#xFF09;&#xFF0C;&#x4E5F;&#x80FD;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#xFF0C;scrapy-redis &#x5C31;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x6846;&#x67B6;&#xFF0C;&#x603B;&#x7684;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x66F4;&#x9002;&#x5408;&#x5E7F;&#x5EA6;&#x4F18;&#x5148;&#x7684;&#x722C;&#x53D6;&#x3002;</p>
+<h1 id="Scrapyd"><a href="#Scrapyd" class="headerlink" title="Scrapyd"></a>Scrapyd</h1><p>Scrapy &#x5E76;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x5185;&#x7F6E;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x6293;&#x53D6;&#x529F;&#x80FD;&#xFF0C;&#x4E0D;&#x8FC7;&#x6709;&#x5F88;&#x591A;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5E2E;&#x4F60;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x6709;&#x5F88;&#x591A;&#x4E2A;spider&#xFF0C;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x542F;&#x52A8;&#x591A;&#x4E2A; Scrapyd &#x5B9E;&#x4F8B;&#xFF0C;&#x7136;&#x540E;&#x5C06;spider&#x5206;&#x5E03;&#x5230;&#x5404;&#x4E2A;&#x673A;&#x5668;&#x4E0A;&#x9762;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x60F3;&#x591A;&#x4E2A;&#x673A;&#x5668;&#x8FD0;&#x884C;&#x540C;&#x4E00;&#x4E2A;spider&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;url&#x5206;&#x7247;&#x540E;&#x4EA4;&#x7ED9;&#x6BCF;&#x4E2A;&#x673A;&#x5668;&#x4E0A;&#x9762;&#x7684;spider&#x3002;&#x6BD4;&#x5982;&#x4F60;&#x628A;URL&#x5206;&#x6210;3&#x4EFD;</p>
+<pre>
+http://somedomain.com/urls-to-crawl/spider1/part1.list
+http://somedomain.com/urls-to-crawl/spider1/part2.list
+http://somedomain.com/urls-to-crawl/spider1/part3.list</pre>
+
+<p>&#x7136;&#x540E;&#x8FD0;&#x884C;3&#x4E2A; Scrapyd &#x5B9E;&#x4F8B;&#xFF0C;&#x5206;&#x522B;&#x542F;&#x52A8;&#x5B83;&#x4EEC;&#xFF0C;&#x5E76;&#x4F20;&#x9012;part&#x53C2;&#x6570;</p>
+<pre>
+curl http://scrapy1.mycompany.com:6800/schedule.json -d project=myproject -d spider=spider1 -d part=1
+curl http://scrapy2.mycompany.com:6800/schedule.json -d project=myproject -d spider=spider1 -d part=2
+curl http://scrapy3.mycompany.com:6800/schedule.json -d project=myproject -d spider=spider1 </pre>
+
+
+<h1 id="Crawlera"><a href="#Crawlera" class="headerlink" title="Crawlera"></a>Crawlera</h1><p>&#x8FD9;&#x4E2A;&#xFF0C;&#x82B1;&#x94B1;&#x5C31;&#x53EF;&#x4EE5;&#x8F7B;&#x6613;&#x89E3;&#x51B3;&#xFF5E; <a href="http://doc.scrapinghub.com/crawlera.html" target="_blank" rel="external">&#x76F4;&#x8FBE;</a></p>
+<h1 id="Scrapy-redis"><a href="#Scrapy-redis" class="headerlink" title="Scrapy-redis"></a>Scrapy-redis</h1><p>Redis &#x662F;&#x9AD8;&#x6027;&#x80FD;&#x7684; key-value &#x6570;&#x636E;&#x5E93;&#x3002;&#x6211;&#x4EEC;&#x77E5;&#x9053; MongoDB &#x5C06;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x5728;&#x4E86;&#x786C;&#x76D8;&#x91CC;&#xFF0C;&#x800C; Redis &#x7684;&#x795E;&#x5947;&#x4E4B;&#x5904;&#x5728;&#x4E8E;&#x5B83;&#x5C06;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x5728;&#x4E86;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x56E0;&#x6B64;&#x5E26;&#x6765;&#x4E86;&#x66F4;&#x9AD8;&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+<h2 id="&#x5206;&#x5E03;&#x5F0F;&#x539F;&#x7406;"><a href="#&#x5206;&#x5E03;&#x5F0F;&#x539F;&#x7406;" class="headerlink" title="&#x5206;&#x5E03;&#x5F0F;&#x539F;&#x7406;"></a>&#x5206;&#x5E03;&#x5F0F;&#x539F;&#x7406;</h2><p>scrapy-redis&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#xFF0C;&#x5176;&#x5B9E;&#x4ECE;&#x539F;&#x7406;&#x4E0A;&#x6765;&#x8BF4;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x8FD9;&#x91CC;&#x4E3A;&#x63CF;&#x8FF0;&#x65B9;&#x4FBF;&#xFF0C;&#x6211;&#x4EEC;&#x628A;&#x81EA;&#x5DF1;&#x7684;&#x6838;&#x5FC3;&#x670D;&#x52A1;&#x5668;&#x79F0;&#x4E3A; master&#xFF0C;&#x800C;&#x628A;&#x7528;&#x4E8E;&#x8DD1;&#x722C;&#x866B;&#x7A0B;&#x5E8F;&#x7684;&#x673A;&#x5668;&#x79F0;&#x4E3A; slave&#x3002;</p>
+<p>&#x56DE;&#x987E; <a href="http://www.shuang0420.com/2016/06/12/&#x722C;&#x866B;&#x603B;&#x7ED3;-&#x4E8C;-scrapy/">scrapy &#x6846;&#x67B6;</a>&#xFF0C;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x7ED9;&#x5B9A;&#x4E00;&#x4E9B;start_urls&#xFF0C;spider &#x6700;&#x5148;&#x8BBF;&#x95EE; start_urls &#x91CC;&#x9762;&#x7684; url&#xFF0C;&#x518D;&#x6839;&#x636E;&#x6211;&#x4EEC;&#x7684; parse &#x51FD;&#x6570;&#xFF0C;&#x5BF9;&#x91CC;&#x9762;&#x7684;&#x5143;&#x7D20;&#x3001;&#x6216;&#x8005;&#x662F;&#x5176;&#x4ED6;&#x7684;&#x4E8C;&#x7EA7;&#x3001;&#x4E09;&#x7EA7;&#x9875;&#x9762;&#x8FDB;&#x884C;&#x6293;&#x53D6;&#x3002;&#x800C;&#x8981;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x8FD9;&#x4E2A;starts_urls&#x91CC;&#x9762;&#x505A;&#x6587;&#x7AE0;&#x5C31;&#x884C;&#x4E86;&#x3002;&#x8FDB;&#x4E00;&#x6B65;&#x63CF;&#x8FF0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li><p>master &#x4EA7;&#x751F; starts_urls&#xFF0C;url &#x4F1A;&#x88AB;&#x5C01;&#x88C5;&#x6210; request &#x653E;&#x5230; redis &#x4E2D;&#x7684; spider:requests&#xFF0C;&#x603B;&#x7684; scheduler &#x4F1A;&#x4ECE;&#x8FD9;&#x91CC;&#x5206;&#x914D; request&#xFF0C;&#x5F53;&#x8FD9;&#x91CC;&#x7684; request &#x5206;&#x914D;&#x5B8C;&#x540E;&#xFF0C;&#x4F1A;&#x7EE7;&#x7EED;&#x5206;&#x914D; start_urls &#x91CC;&#x7684; url&#x3002;</p>
+</li>
+<li><p>slave &#x4ECE; master &#x7684; redis &#x4E2D;&#x53D6;&#x51FA;&#x5F85;&#x6293;&#x53D6;&#x7684; request&#xFF0C;&#x4E0B;&#x8F7D;&#x5B8C;&#x7F51;&#x9875;&#x4E4B;&#x540E;&#x5C31;&#x628A;&#x7F51;&#x9875;&#x7684;&#x5185;&#x5BB9;&#x53D1;&#x9001;&#x56DE; master &#x7684; redis&#xFF0C;key &#x662F; spider:items&#x3002;scrapy &#x53EF;&#x4EE5;&#x901A;&#x8FC7; settings &#x6765;&#x8BA9; spider &#x722C;&#x53D6;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#x4E0D;&#x81EA;&#x52A8;&#x5173;&#x95ED;&#xFF0C;&#x800C;&#x662F;&#x4E0D;&#x65AD;&#x7684;&#x53BB;&#x8BE2;&#x95EE;&#x961F;&#x5217;&#x91CC;&#x6709;&#x6CA1;&#x6709;&#x65B0;&#x7684; url&#xFF0C;&#x5982;&#x679C;&#x6709;&#x65B0;&#x7684; url&#xFF0C;&#x90A3;&#x4E48;&#x7EE7;&#x7EED;&#x83B7;&#x53D6; url &#x5E76;&#x8FDB;&#x884C;&#x722C;&#x53D6;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#x5C06;&#x4E0D;&#x65AD;&#x5FAA;&#x73AF;&#x3002;</p>
+</li>
+<li><p>master &#x91CC;&#x7684; reids &#x8FD8;&#x6709;&#x4E00;&#x4E2A; key &#x662F; &#x201C;spider:dupefilter&#x201D; &#x7528;&#x6765;&#x5B58;&#x50A8;&#x6293;&#x53D6;&#x8FC7;&#x7684; url &#x7684; fingerprint&#xFF08;&#x4F7F;&#x7528;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x5C06;url&#x8FD0;&#x7B97;&#x540E;&#x7684;&#x7ED3;&#x679C;&#xFF09;&#xFF0C;&#x9632;&#x6B62;&#x91CD;&#x590D;&#x6293;&#x53D6;&#xFF0C;&#x53EA;&#x8981; redis &#x4E0D;&#x6E05;&#x7A7A;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x65AD;&#x70B9;&#x7EED;&#x722C;&#x3002;</p>
+</li>
+</ol>
+<p>&#x5BF9;&#x4E8E;&#x5DF2;&#x6709;&#x7684; scrapy &#x7A0B;&#x5E8F;&#xFF0C;&#x5BF9;&#x5176;&#x6269;&#x5C55;&#x6210;&#x5206;&#x5E03;&#x5F0F;&#x7A0B;&#x5E8F;&#x8FD8;&#x662F;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x7684;&#x3002;&#x603B;&#x7684;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x51E0;&#x6B65;&#xFF1A;</p>
+<ol>
+<li>&#x627E;&#x4E00;&#x53F0;&#x9AD8;&#x6027;&#x80FD;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x7528;&#x4E8E; redis &#x961F;&#x5217;&#x7684;&#x7EF4;&#x62A4;&#x4EE5;&#x53CA;&#x6570;&#x636E;&#x7684;&#x5B58;&#x50A8;&#x3002;</li>
+<li>&#x6269;&#x5C55; scrapy &#x7A0B;&#x5E8F;&#xFF0C;&#x8BA9;&#x5176;&#x901A;&#x8FC7;&#x670D;&#x52A1;&#x5668;&#x7684; redis &#x6765;&#x83B7;&#x53D6; start_urls&#xFF0C;&#x5E76;&#x6539;&#x5199; pipeline &#x91CC;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x90E8;&#x5206;&#xFF0C;&#x628A;&#x5B58;&#x50A8;&#x5730;&#x5740;&#x6539;&#x4E3A;&#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;&#x3002;</li>
+<li>&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5199;&#x4E00;&#x4E9B;&#x751F;&#x6210;url&#x7684;&#x811A;&#x672C;&#xFF0C;&#x5E76;&#x5B9A;&#x671F;&#x6267;&#x884C;&#x3002;</li>
+</ol>
+<p>&#x5173;&#x4E8E; scheduler &#x5230;&#x5E95;&#x662F;&#x600E;&#x4E48;&#x8FDB;&#x884C;&#x8C03;&#x5EA6;&#x7684;&#xFF0C;&#x9700;&#x8981;&#x770B;&#x6E90;&#x7801;&#x8FDB;&#x884C;&#x5206;&#x6790;&#x3002;</p>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;"><a href="#&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="&#x6E90;&#x7801;&#x5206;&#x6790;"></a>&#x6E90;&#x7801;&#x5206;&#x6790;</h2><p>&#x53EF;&#x80FD;&#x4E0A;&#x9762;&#x7684;&#x63CF;&#x8FF0;&#x8FD8;&#x662F;&#x4E0D;&#x591F;&#x6E05;&#x695A;&#xFF0C;&#x5E72;&#x8106;&#x770B;&#x4E00;&#x4E0B;&#x6E90;&#x7801;&#x5427;&#xFF0C;scrapy-redis &#x4E3B;&#x8981;&#x8981;&#x4E00;&#x4E0B;&#x51E0;&#x4E2A;&#x6587;&#x4EF6;&#x3002;</p>
+<h3 id="&#x96F6;&#x4EF6;&#x5206;&#x6790;"><a href="#&#x96F6;&#x4EF6;&#x5206;&#x6790;" class="headerlink" title="&#x96F6;&#x4EF6;&#x5206;&#x6790;"></a>&#x96F6;&#x4EF6;&#x5206;&#x6790;</h3><ol>
+<li><p>connection.py<br>&#x6839;&#x636E; settings &#x91CC;&#x7684;&#x914D;&#x7F6E;&#x5B9E;&#x4F8B;&#x5316; redis &#x8FDE;&#x63A5;&#xFF0C;&#x88AB; dupefilter &#x548C; scheduler &#x8C03;&#x7528;&#x3002;</p>
+</li>
+<li><p>dupefilter.py<br>&#x5BF9; request &#x8FDB;&#x884C;&#x53BB;&#x91CD;&#xFF0C;&#x4F7F;&#x7528;&#x4E86; redis &#x7684; set&#x3002;</p>
+</li>
+<li><p>queue.py<br>&#x4E09;&#x79CD; queue, SpiderQueue&#xFF08;FIFO), SpiderPriorityQueue&#xFF0C;&#x4EE5;&#x53CA; SpiderStack(LIFI)&#x3002;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x7B2C;&#x4E8C;&#x79CD;&#x3002;</p>
+</li>
+<li><p>pipelines.py<br>&#x5206;&#x5E03;&#x5F0F;&#x5904;&#x7406;&#xFF0C;&#x5C06; item &#x5B58;&#x50A8;&#x5728; redis &#x4E2D;&#x3002;</p>
+</li>
+<li><p>scheduler.py<br>&#x53D6;&#x4EE3; scrapy &#x81EA;&#x5E26;&#x7684; scheduler,&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x8C03;&#x5EA6;&#xFF0C;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6765;&#x81EA; queue&#x3002;</p>
+</li>
+<li><p>spider.py<br>&#x5B9A;&#x4E49; RedisSpider.py, &#x7EE7;&#x627F;&#x4E86; RedisMixin &#x548C; CrawlSpider&#x3002;</p>
+</li>
+</ol>
+<p>&#x7531;&#x4E0A;&#x53EF;&#x77E5;&#xFF0C;scrapy-redis &#x5B9E;&#x73B0;&#x7684; <strong>&#x722C;&#x866B;&#x5206;&#x5E03;&#x5F0F;</strong> &#x548C; <strong>item&#x5904;&#x7406;&#x5206;&#x5E03;&#x5F0F;</strong> &#x5C31;&#x662F;&#x7531;&#x6A21;&#x5757; scheduler &#x548C;&#x6A21;&#x5757; pipelines &#x5B9E;&#x73B0;&#x3002;&#x4E0A;&#x8FF0;&#x5176;&#x5B83;&#x6A21;&#x5757;&#x4F5C;&#x4E3A;&#x4E3A;&#x4E8C;&#x8005;&#x8F85;&#x52A9;&#x7684;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x3002;</p>
+<h3 id="&#x8C03;&#x5EA6;&#x8FC7;&#x7A0B;"><a href="#&#x8C03;&#x5EA6;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x8C03;&#x5EA6;&#x8FC7;&#x7A0B;"></a>&#x8C03;&#x5EA6;&#x8FC7;&#x7A0B;</h3><h4 id="&#x521D;&#x59CB;&#x5316;"><a href="#&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;"></a>&#x521D;&#x59CB;&#x5316;</h4><p>spider &#x88AB;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x4F1A;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684; scheduler &#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x8C03;&#x5EA6;&#x5668;&#x5BF9;&#x8C61;&#x901A;&#x8FC7;&#x8BFB;&#x53D6; settings&#xFF0C;&#x914D;&#x7F6E;&#x597D;&#x81EA;&#x5DF1;&#x7684;&#x8C03;&#x5EA6;&#x5BB9;&#x5668; queue &#x548C;&#x5224;&#x91CD;&#x5DE5;&#x5177;dupefilter&#x3002;</p>
+<h4 id="&#x5224;&#x91CD;-amp-&#x8FDB;&#x5165;&#x8C03;&#x5EA6;&#x6C60;"><a href="#&#x5224;&#x91CD;-amp-&#x8FDB;&#x5165;&#x8C03;&#x5EA6;&#x6C60;" class="headerlink" title="&#x5224;&#x91CD; &amp; &#x8FDB;&#x5165;&#x8C03;&#x5EA6;&#x6C60;"></a>&#x5224;&#x91CD; &amp; &#x8FDB;&#x5165;&#x8C03;&#x5EA6;&#x6C60;</h4><p>&#x6BCF;&#x5F53;&#x4E00;&#x4E2A; spider &#x4EA7;&#x51FA;&#x4E00;&#x4E2A; request &#x7684;&#x65F6;&#x5019;&#xFF0C;scrapy &#x5185;&#x6838;&#x4F1A;&#x628A;&#x8FD9;&#x4E2A; request &#x9012;&#x4EA4;&#x7ED9;&#x8FD9;&#x4E2A; spider &#x5BF9;&#x5E94;&#x7684; scheduler &#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x8C03;&#x5EA6;&#xFF0C;scheduler &#x5BF9;&#x8C61;&#x901A;&#x8FC7;&#x8BBF;&#x95EE; redis &#x5BF9; request &#x8FDB;&#x884C;&#x5224;&#x91CD;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x91CD;&#x590D;&#x5C31;&#x628A;&#x4ED6;&#x6DFB;&#x52A0;&#x8FDB; redis &#x4E2D;&#x7684;&#x8C03;&#x5EA6;&#x6C60;&#x3002;</p>
+<h4 id="&#x8C03;&#x5EA6;"><a href="#&#x8C03;&#x5EA6;" class="headerlink" title="&#x8C03;&#x5EA6;"></a>&#x8C03;&#x5EA6;</h4><p>&#x5F53;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x6EE1;&#x8DB3;&#x65F6;&#xFF0C;scheduler &#x5BF9;&#x8C61;&#x5C31;&#x4ECE; redis &#x7684;&#x8C03;&#x5EA6;&#x6C60;&#x4E2D;&#x53D6;&#x51FA;&#x4E00;&#x4E2A; request &#x53D1;&#x9001;&#x7ED9;spider&#xFF0C;&#x8BA9; spider &#x722C;&#x53D6;&#xFF0C;&#x82E5;&#x722C;&#x53D6;&#x8FC7;&#x7A0B;&#x4E2D;&#x8FD4;&#x56DE;&#x66F4;&#x591A;&#x7684;url&#xFF0C;&#x90A3;&#x4E48;&#x7EE7;&#x7EED;&#x8FDB;&#x884C;&#x76F4;&#x81F3;&#x6240;&#x6709;&#x7684; request &#x5B8C;&#x6210;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#x901A;&#x8FC7; connect signals.spider_idle &#x4FE1;&#x53F7;&#x5BF9; crawler &#x72B6;&#x6001;&#x7684;&#x76D1;&#x89C6;&#xFF0C;scheduler &#x5BF9;&#x8C61;&#x53D1;&#x73B0; &#x8FD9;&#x4E2A; spider &#x722C;&#x53D6;&#x4E86;&#x6240;&#x6709;&#x6682;&#x65F6;&#x53EF;&#x7528; url&#xFF0C;&#x5BF9;&#x5E94;&#x7684; redis &#x7684;&#x8C03;&#x5EA6;&#x6C60;&#x7A7A;&#x4E86;&#xFF0C;&#x4E8E;&#x662F;&#x89E6;&#x53D1;&#x4FE1;&#x53F7; spider_idle&#xFF0C;spider&#x6536;&#x5230;&#x8FD9;&#x4E2A;&#x4FE1;&#x53F7;&#x4E4B;&#x540E;&#xFF0C;&#x76F4;&#x63A5;&#x8FDE;&#x63A5; redis &#x8BFB;&#x53D6; strart_url&#x6C60;&#xFF0C;&#x62FF;&#x53BB;&#x65B0;&#x7684;&#x4E00;&#x6279; url&#xFF0C;&#x8FD4;&#x56DE;&#x65B0;&#x7684; make_requests_from_url(url) &#x7ED9;&#x5F15;&#x64CE;&#xFF0C;&#x8FDB;&#x800C;&#x4EA4;&#x7ED9;&#x8C03;&#x5EA6;&#x5668;&#x8C03;&#x5EA6;&#x3002;</p>
+<p>&#x719F;&#x6089;&#x4E86;&#x539F;&#x7406;&#x5176;&#x5B9E;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x6765;&#x5199; scheduler&#xFF0C;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x8C03;&#x5EA6;&#x4F18;&#x5148;&#x7EA7;&#x548C;&#x987A;&#x5E8F;&#xFF0C;&#x1F447;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/scheduler.png" alt=""></p>
+<h2 id="Redis-&#x914D;&#x7F6E;"><a href="#Redis-&#x914D;&#x7F6E;" class="headerlink" title="Redis &#x914D;&#x7F6E;"></a>Redis &#x914D;&#x7F6E;</h2><h3 id="&#x4E0B;&#x8F7D;-Redis"><a href="#&#x4E0B;&#x8F7D;-Redis" class="headerlink" title="&#x4E0B;&#x8F7D; Redis"></a>&#x4E0B;&#x8F7D; Redis</h3><pre>wget http://download.redis.io/releases/redis-3.2.1.tar.gz</pre>
+
+<h3 id="&#x4E0B;&#x8F7D;-scrapy-redis"><a href="#&#x4E0B;&#x8F7D;-scrapy-redis" class="headerlink" title="&#x4E0B;&#x8F7D; scrapy-redis"></a>&#x4E0B;&#x8F7D; scrapy-redis</h3><pre>pip install scrapy-redis</pre>
+
+<h3 id="&#x5B89;&#x88C5;-Redis"><a href="#&#x5B89;&#x88C5;-Redis" class="headerlink" title="&#x5B89;&#x88C5; Redis"></a>&#x5B89;&#x88C5; Redis</h3><pre>make
+make test</pre>
+
+<h3 id="&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><a href="#&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;" class="headerlink" title="&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></a>&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h3><p>&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x540E;&#xFF0C;redis &#x9ED8;&#x8BA4;&#x662F;&#x4E0D;&#x80FD;&#x88AB;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;&#x7684;&#xFF0C;&#x6B64;&#x65F6;&#x8981;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6; redis.conf&#xFF0C;&#x4FEE;&#x6539;&#x540E;&#xFF0C;&#x91CD;&#x542F; redis &#x670D;&#x52A1;&#x5668;</p>
+<pre>
+#bind 127.0.0.1
+bind 0.0.0.0
+</pre>
+
+<h3 id="&#x4EFB;&#x610F;&#x76EE;&#x5F55;&#x4E0B;&#x8FD0;&#x884C;"><a href="#&#x4EFB;&#x610F;&#x76EE;&#x5F55;&#x4E0B;&#x8FD0;&#x884C;" class="headerlink" title="&#x4EFB;&#x610F;&#x76EE;&#x5F55;&#x4E0B;&#x8FD0;&#x884C;"></a>&#x4EFB;&#x610F;&#x76EE;&#x5F55;&#x4E0B;&#x8FD0;&#x884C;</h3><pre>sudo cp redis.conf /etc/</pre>
+
+<h3 id="&#x53EF;&#x80FD;&#x9519;&#x8BEF;"><a href="#&#x53EF;&#x80FD;&#x9519;&#x8BEF;" class="headerlink" title="&#x53EF;&#x80FD;&#x9519;&#x8BEF;"></a>&#x53EF;&#x80FD;&#x9519;&#x8BEF;</h3><p>&#x5982;&#x679C;&#x56E0;&#x4E3A; gcc &#x800C;&#x4E0D;&#x80FD; make</p>
+<pre>sudo apt-get build-dep gcc</pre>
+
+<p>&#x5982;&#x679C;&#x9047;&#x5230;&#x8FD9;&#x4E2A;&#xFF0C;</p>
+<pre>make[1]: Entering directory `/opt/redis-2.6.14/src&apos;
+CC adlist.o
+In file included from adlist.c:34:
+zmalloc.h:50:31: error: jemalloc/jemalloc.h: No such file or directory
+zmalloc.h:55:2: error: #error &quot;Newer version of jemalloc required&quot;
+make[1]: *** [adlist.o] Error 1
+make[1]: Leaving directory `/opt/redis-2.6.14/src&apos;
+make: *** [all] Error 2</pre>
+
+<p>&#x53EF;&#x4EE5;&#x770B;<a href="http://blog.jboy1009.com/archives/150" target="_blank" rel="external">&#x8FD9;&#x91CC;</a></p>
+<p>&#x7528;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;</p>
+<pre>make MALLOC=libc</pre>
+
+<p>&#x5982;&#x679C;&#x9047;&#x5230;&#x8FD9;&#x4E2A;</p>
+<pre>You need tcl 8.5 or newer in order to run the Redis test</pre>
+
+<p>&#x5B89;&#x88C5; tcl</p>
+<pre>sudo apt-get install tcl</pre>
+
+<p>(redis &#x66F4;&#x591A;&#x5B89;&#x88C5;&#x914D;&#x7F6E;)[<a href="https://testerhome.com/topics/3887" target="_blank" rel="external">https://testerhome.com/topics/3887</a>]</p>
+<h2 id="Redis-&#x5E38;&#x7528;&#x547D;&#x4EE4;"><a href="#Redis-&#x5E38;&#x7528;&#x547D;&#x4EE4;" class="headerlink" title="Redis &#x5E38;&#x7528;&#x547D;&#x4EE4;"></a>Redis &#x5E38;&#x7528;&#x547D;&#x4EE4;</h2><h3 id="&#x8FD0;&#x884C;-Redis"><a href="#&#x8FD0;&#x884C;-Redis" class="headerlink" title="&#x8FD0;&#x884C; Redis"></a>&#x8FD0;&#x884C; Redis</h3><pre>redis-server redis.conf</pre>
+
+<h3 id="&#x8FDB;&#x5165;&#x547D;&#x4EE4;&#x884C;&#x6A21;&#x5F0F;"><a href="#&#x8FDB;&#x5165;&#x547D;&#x4EE4;&#x884C;&#x6A21;&#x5F0F;" class="headerlink" title="&#x8FDB;&#x5165;&#x547D;&#x4EE4;&#x884C;&#x6A21;&#x5F0F;"></a>&#x8FDB;&#x5165;&#x547D;&#x4EE4;&#x884C;&#x6A21;&#x5F0F;</h3><pre>redis-cli</pre>
+
+<h3 id="&#x6E05;&#x7A7A;&#x7F13;&#x5B58;"><a href="#&#x6E05;&#x7A7A;&#x7F13;&#x5B58;" class="headerlink" title="&#x6E05;&#x7A7A;&#x7F13;&#x5B58;"></a>&#x6E05;&#x7A7A;&#x7F13;&#x5B58;</h3><pre>flushdb</pre>
+
+<h3 id="&#x67E5;&#x770B;&#x6240;&#x6709;-key"><a href="#&#x67E5;&#x770B;&#x6240;&#x6709;-key" class="headerlink" title="&#x67E5;&#x770B;&#x6240;&#x6709; key"></a>&#x67E5;&#x770B;&#x6240;&#x6709; key</h3><pre>
+127.0.0.1:6379&gt; keys *
+1) &quot;dmoz:items&quot;
+2) &quot;dmoz:requests&quot;
+3) &quot;dmoz:dupefilter&quot;
+</pre>
+
+<h3 id="&#x67E5;&#x770B;-list-item"><a href="#&#x67E5;&#x770B;-list-item" class="headerlink" title="&#x67E5;&#x770B; list (item)"></a>&#x67E5;&#x770B; list (item)</h3><pre>
+127.0.0.1:6379&gt; LRANGE dmoz:items 0 3
+1) &quot;{\&quot;spider\&quot;: \&quot;dmoz\&quot;, \&quot;crawled\&quot;: \&quot;2016-07-12 11:18:35\&quot;, \&quot;link\&quot;: \&quot;http://feeds.abcnews.com/abcnews/topstories\&quot;, \&quot;name\&quot;: \&quot;ABC News: Top Stories \&quot;, \&quot;description\&quot;: \&quot;Collection of news headlines.\&quot;}&quot;
+2) &quot;{\&quot;spider\&quot;: \&quot;dmoz\&quot;, \&quot;crawled\&quot;: \&quot;2016-07-12 11:18:35\&quot;, \&quot;link\&quot;: \&quot;http://abcnews.go.com/\&quot;, \&quot;name\&quot;: \&quot;ABCNews.com \&quot;, \&quot;description\&quot;: \&quot;Includes American and world news headlines, articles, chatrooms, message boards, news alerts, video and audio webcasts, shopping, and wireless news service. As well as ABC television show information and content.\&quot;}&quot;
+3) &quot;{\&quot;spider\&quot;: \&quot;dmoz\&quot;, \&quot;crawled\&quot;: \&quot;2016-07-12 11:18:35\&quot;, \&quot;link\&quot;: \&quot;http://www.alarabiya.net/\&quot;, \&quot;name\&quot;: \&quot;Al Arabiya News Channel \&quot;, \&quot;description\&quot;: \&quot;Arabic-language news network. Breaking news and features along with videos, photo galleries and In-Focus sections on major news topics.  (Arabic, English, Persian, Urdu)\&quot;}&quot;
+4) &quot;{\&quot;spider\&quot;: \&quot;dmoz\&quot;, \&quot;crawled\&quot;: \&quot;2016-07-12 11:18:35\&quot;, \&quot;link\&quot;: \&quot;http://www.aljazeera.com/\&quot;, \&quot;name\&quot;: \&quot;Aljazeera \&quot;, \&quot;description\&quot;: \&quot;English version of the Arabic-language news network. Breaking news and features plus background material including profiles and global reactions.\&quot;}&quot;
+</pre>
+
+<h3 id="&#x67E5;&#x770B;-set-dupefilter"><a href="#&#x67E5;&#x770B;-set-dupefilter" class="headerlink" title="&#x67E5;&#x770B; set (dupefilter)"></a>&#x67E5;&#x770B; set (dupefilter)</h3><pre>
+127.0.0.1:6379&gt; SMEMBERS dmoz:dupefilter
+   1) &quot;28bf6cfa1409d6d2ad2852663a3751ae077a0b01&quot;
+   2) &quot;6af16713d5d423a2e91c87085f277a810c690cfa&quot;
+   3) &quot;c0ccfd767892b2bbb533a52c7cde55543aa4605b&quot;
+   4) &quot;0ca88e614179c791f258d89a820449c91940c4d4&quot;
+   5) &quot;546577e3457c55057c56985b71e6a142fe5a64e9&quot;
+   6) &quot;d2af0f8cf72e394dc46a720ee620fd7cdb0b6ad6&quot;
+   7) &quot;e0c1ab903b2a95f05bc8f5a5036b2f6f0b3fcbd0&quot;
+   8) &quot;bf1290602aa0fd2deb7f8b582f855535ca151990&quot;
+   9) &quot;c59f100b08e424352e6e368ff94d797c35fc5a4b&quot;
+  10) &quot;5acf897c445b3dbba5b371f811b74e26c52cd5c6&quot;
+  </pre>
+
+
+<h3 id="&#x67E5;&#x770B;-sorted-set-requests"><a href="#&#x67E5;&#x770B;-sorted-set-requests" class="headerlink" title="&#x67E5;&#x770B; sorted set (requests)"></a>&#x67E5;&#x770B; sorted set (requests)</h3><pre>
+127.0.0.1:6379&gt; ZRANGE dmoz:requests 0 3
+1) &quot;\x80\x02}q\x01(U\x04bodyq\x02U\x00U\t_encodingq\x03U\x05utf-8q\x04U\acookiesq\x05}q\x06U\x04metaq\a}q\b(U\x05depthq\tK\x01U\tlink_textq\nclxml.etree\n_ElementStringResult\nq\x0bU\tInvestingq\x0c\x85\x81q\r}q\x0e(U\a_parentq\x0fNU\x0cis_attributeq\x10\x89U\battrnameq\x11NU\ais_textq\x12\x89U\ais_tailq\x13\x89ubU\x04ruleq\x14K\x00uU\aheadersq\x15}q\x16U\aRefererq\x17]q\x18U\x14http://www.dmoz.org/q\x19asU\x03urlq\x1aX&apos;\x00\x00\x00http://www.dmoz.org/Business/Investing/U\x0bdont_filterq\x1b\x89U\bpriorityq\x1cK\x00U\bcallbackq\x1dU\x14_response_downloadedq\x1eU\x06methodq\x1fU\x03GETq U\aerrbackq!Nu.&quot;
+2) &quot;\x80\x02}q\x01(U\x04bodyq\x02U\x00U\t_encodingq\x03U\x05utf-8q\x04U\acookiesq\x05}q\x06U\x04metaq\a}q\b(U\x05depthq\tK\x01U\tlink_textq\nclxml.etree\n_ElementStringResult\nq\x0bU\tLibrariesq\x0c\x85\x81q\r}q\x0e(U\a_parentq\x0fNU\x0cis_attributeq\x10\x89U\battrnameq\x11NU\ais_textq\x12\x89U\ais_tailq\x13\x89ubU\x04ruleq\x14K\x00uU\aheadersq\x15}q\x16U\aRefererq\x17]q\x18U\x14http://www.dmoz.org/q\x19asU\x03urlq\x1aX(\x00\x00\x00http://www.dmoz.org/Reference/Libraries/U\x0bdont_filterq\x1b\x89U\bpriorityq\x1cK\x00U\bcallbackq\x1dU\x14_response_downloadedq\x1eU\x06methodq\x1fU\x03GETq U\aerrbackq!Nu.&quot;
+3) &quot;\x80\x02}q\x01(U\x04bodyq\x02U\x00U\t_encodingq\x03U\x05utf-8q\x04U\acookiesq\x05}q\x06U\x04metaq\a}q\b(U\x05depthq\tK\x01U\tlink_textq\nclxml.etree\n_ElementStringResult\nq\x0bU\tTeen Lifeq\x0c\x85\x81q\r}q\x0e(U\a_parentq\x0fNU\x0cis_attributeq\x10\x89U\battrnameq\x11NU\ais_textq\x12\x89U\ais_tailq\x13\x89ubU\x04ruleq\x14K\x00uU\aheadersq\x15}q\x16U\aRefererq\x17]q\x18U\x14http://www.dmoz.org/q\x19asU\x03urlq\x1aX-\x00\x00\x00http://www.dmoz.org/Kids_and_Teens/Teen_Life/U\x0bdont_filterq\x1b\x89U\bpriorityq\x1cK\x00U\bcallbackq\x1dU\x14_response_downloadedq\x1eU\x06methodq\x1fU\x03GETq U\aerrbackq!Nu.&quot;
+4) &quot;\x80\x02}q\x01(U\x04bodyq\x02U\x00U\t_encodingq\x03U\x05utf-8q\x04U\acookiesq\x05}q\x06U\x04metaq\a}q\b(U\x05depthq\tK\x01U\tlink_textq\nclxml.etree\n_ElementStringResult\nq\x0bU\nBasketballq\x0c\x85\x81q\r}q\x0e(U\a_parentq\x0fNU\x0cis_attributeq\x10\x89U\battrnameq\x11NU\ais_textq\x12\x89U\ais_tailq\x13\x89ubU\x04ruleq\x14K\x00uU\aheadersq\x15}q\x16U\aRefererq\x17]q\x18U\x14http://www.dmoz.org/q\x19asU\x03urlq\x1aX&amp;\x00\x00\x00http://www.dmoz.org/Sports/Basketball/U\x0bdont_filterq\x1b\x89U\bpriorityq\x1cK\x00U\bcallbackq\x1dU\x14_response_downloadedq\x1eU\x06methodq\x1fU\x03GETq U\aerrbackq!Nu.&quot;
+</pre>
+
+
+<h3 id="&#x67E5;&#x770B;-list-items-&#x957F;&#x5EA6;"><a href="#&#x67E5;&#x770B;-list-items-&#x957F;&#x5EA6;" class="headerlink" title="&#x67E5;&#x770B; list (items) &#x957F;&#x5EA6;"></a>&#x67E5;&#x770B; list (items) &#x957F;&#x5EA6;</h3><p>127.0.0.1:6379&gt; LLEN Search:items<br>(integer) 376</p>
+<h3 id="&#x67E5;&#x770B;-sorted-set-requests-&#x957F;&#x5EA6;"><a href="#&#x67E5;&#x770B;-sorted-set-requests-&#x957F;&#x5EA6;" class="headerlink" title="&#x67E5;&#x770B; sorted set (requests) &#x957F;&#x5EA6;"></a>&#x67E5;&#x770B; sorted set (requests) &#x957F;&#x5EA6;</h3><p>127.0.0.1:6379&gt; ZCARD Search:requests<br>(integer) 1</p>
+<h3 id="&#x67E5;&#x770B;-set-dupefilter-&#x957F;&#x5EA6;"><a href="#&#x67E5;&#x770B;-set-dupefilter-&#x957F;&#x5EA6;" class="headerlink" title="&#x67E5;&#x770B; set (dupefilter) &#x957F;&#x5EA6;"></a>&#x67E5;&#x770B; set (dupefilter) &#x957F;&#x5EA6;</h3><p>127.0.0.1:6379&gt; SCARD Search:dupefilter<br>(integer) 1</p>
+<p><a href="http://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="external">Redis &#x6559;&#x7A0B;</a></p>
+<h2 id="scrapy-redis-&#x914D;&#x7F6E;"><a href="#scrapy-redis-&#x914D;&#x7F6E;" class="headerlink" title="scrapy_redis &#x914D;&#x7F6E;"></a>scrapy_redis &#x914D;&#x7F6E;</h2><p>&#x4ECE; github &#x4E0A; &#x4E0B;&#x8F7D; <a href="https://github.com/rolando/scrapy-redis" target="_blank" rel="external">example</a>&#xFF0C;&#x4FEE;&#x6539;&#x76F8;&#x5E94;&#x6587;&#x4EF6;&#xFF0C;items.py, settings.py, process_items.py &#x7B49;&#x3002;&#x6700;&#x91CD;&#x8981;&#x7684;&#x662F;&#x6539; settings.py</p>
+<h3 id="&#x901A;&#x7528;&#x914D;&#x7F6E;"><a href="#&#x901A;&#x7528;&#x914D;&#x7F6E;" class="headerlink" title="&#x901A;&#x7528;&#x914D;&#x7F6E;"></a>&#x901A;&#x7528;&#x914D;&#x7F6E;</h3><pre>
+SCHEDULER = &quot;scrapy_redis.scheduler.Scheduler&quot;
+DUPEFILTER_CLASS = &quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;
+SCHEDULER_QUEUE_CLASS = &quot;scrapy_redis.queue.SpiderPriorityQueue&quot;
+SCHEDULER_PERSIST = True
+
+# ITEM_PIPELINES
+ITEM_PIPELINES = {
+    &apos;scrapy_redis.pipelines.RedisPipeline&apos;: 400,
+}
+</pre>
+
+<h3 id="master-&#x914D;&#x7F6E;"><a href="#master-&#x914D;&#x7F6E;" class="headerlink" title="master &#x914D;&#x7F6E;"></a>master &#x914D;&#x7F6E;</h3><p>settings.py &#x4E2D;&#x6DFB;&#x52A0;</p>
+<pre>
+# redis
+REDIS_HOST = &apos;127.0.0.1&apos;
+REDIS_PORT = 6379
+</pre>
+
+<h3 id="slave-&#x914D;&#x7F6E;"><a href="#slave-&#x914D;&#x7F6E;" class="headerlink" title="slave &#x914D;&#x7F6E;"></a>slave &#x914D;&#x7F6E;</h3><p>settings.py &#x4E2D;&#x6DFB;&#x52A0;</p>
+<pre>
+# redis
+REDIS_URL = &apos;redis://host_ip:6379&apos;
+</pre>
+
+<h3 id="spider-&#x6539;&#x5199;"><a href="#spider-&#x6539;&#x5199;" class="headerlink" title="spider &#x6539;&#x5199;"></a>spider &#x6539;&#x5199;</h3><p>&#x5BFC;&#x5165;&#x6A21;&#x5757;</p>
+<pre>from scrapy_redis.spiders import RedisSpider</pre>
+
+<p>&#x7EE7;&#x627F; RedisSpider&#xFF0C;&#x5E76;&#x4ECE; Redis &#x8BFB;&#x53D6; url</p>
+<pre>
+class Search(RedisCrawlSpider):
+    name = &quot;Search&quot;
+    redis_key = &apos;Search:start_urls&apos;</pre>
+
+<h2 id="&#x8FD0;&#x884C;&#x722C;&#x866B;"><a href="#&#x8FD0;&#x884C;&#x722C;&#x866B;" class="headerlink" title="&#x8FD0;&#x884C;&#x722C;&#x866B;"></a>&#x8FD0;&#x884C;&#x722C;&#x866B;</h2><p>&#x5728; master &#x4E0A;&#x542F;&#x52A8; Redis</p>
+<pre>redis-server</pre>
+
+
+<p>&#x542F;&#x52A8; spider&#xFF0C;&#x4EFB;&#x610F;&#x987A;&#x5E8F;</p>
+<pre>scrapy crawl Search</pre>
+
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230; schedule &#x4E86;&#x591A;&#x5C11; request</p>
+<pre>
+$ scrapy crawl Search
+... [Search] DEBUG: Resuming crawl (8712 requests scheduled)</pre>
+
+
+<h2 id="&#x5BFC;&#x51FA;&#x6570;&#x636E;"><a href="#&#x5BFC;&#x51FA;&#x6570;&#x636E;" class="headerlink" title="&#x5BFC;&#x51FA;&#x6570;&#x636E;"></a>&#x5BFC;&#x51FA;&#x6570;&#x636E;</h2><p>&#x5199;&#x5230;&#x6570;&#x636E;&#x5E93;&#x91CC;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5728; process_items.py &#x91CC;&#x6DFB;&#x52A0;&#x4EE3;&#x7801;&#xFF0C;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E93; ip&#xFF0C;&#x63D2;&#x5165;&#x540C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x7528;&#x5BFC;&#x51FA;&#x5230; mongodb &#x7B49;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x53EA;&#x7528;&#x628A;&#x5B83;&#x8F6C;&#x5316;&#x4E3A;&#x6587;&#x672C;&#x6587;&#x4EF6;&#x5373;&#x53EF;&#x3002;</p>
+<h3 id="redis-dump"><a href="#redis-dump" class="headerlink" title="redis-dump"></a>redis-dump</h3><p>&#x5B89;&#x88C5; redis-dump</p>
+<pre>gem install redis-dump</pre>
+
+<p>&#x5BFC;&#x51FA;</p>
+<pre>redis-dump -u 127.0.0.1:6379 &gt; db.json</pre>
+
+<p>&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5B83;&#x5BFC;&#x51FA;&#x7684;&#x662F;&#x6570;&#x636E;&#x5E93;&#x91CC;&#x6240;&#x6709;&#x7684; key-value&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4E4B;&#x540E;&#x5904;&#x7406; items &#x7684;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x95EE;&#x9898;&#xFF0C;item list &#x592A;&#x5927;&#x8BFB;&#x53D6;&#x9020;&#x6210; memory error&#x3002;</p>
+<h3 id="python-&#x8FDE;&#x63A5;-redis"><a href="#python-&#x8FDE;&#x63A5;-redis" class="headerlink" title="python &#x8FDE;&#x63A5; redis"></a>python &#x8FDE;&#x63A5; redis</h3><p>&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5BFC;&#x5165;&#x6A21;&#x5757;&#xFF0C;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5176;&#x4ED6;&#x57FA;&#x672C;&#x6309;&#x7167; redis &#x547D;&#x4EE4;&#x6765;&#x3002;</p>
+<pre>import redis
+r = redis.Redis(host=&apos;106.75.136.128&apos;, port=6379)</pre>
+
+<p>&#x5982;</p>
+<pre>for i in range(0, r.llen(&apos;Search:items&apos;), 100):
+    items = r.lrange(&apos;Search:items&apos;, start=0, end=100)</pre>
+
+<p>&#x7136;&#x540E;&#x628A;&#x6587;&#x4EF6;&#x5199;&#x5230;&#x6587;&#x4EF6;&#x91CC;&#x3002;</p>
+<h2 id="&#x76D1;&#x63A7;"><a href="#&#x76D1;&#x63A7;" class="headerlink" title="&#x76D1;&#x63A7;"></a>&#x76D1;&#x63A7;</h2><p>&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x600E;&#x4E48;&#x76D1;&#x63A7; slave&#xFF0C;&#x77E5;&#x9053;&#x54EA;&#x53F0;&#x673A;&#x5668;&#x574F;&#x4E86;&#xFF0C;&#x53EF;&#x4EE5;&#x5199;&#x4E2A; socket &#x5411; master &#x62A5;&#x544A;&#xFF0C;&#x6216;&#x8005;&#x7528; email &#x544A;&#x8B66;&#x3002;</p>
+<h2 id="&#x5176;&#x4ED6;"><a href="#&#x5176;&#x4ED6;" class="headerlink" title="&#x5176;&#x4ED6;"></a>&#x5176;&#x4ED6;</h2><p>&#x6BCF;&#x6B21;&#x6267;&#x884C;&#x91CD;&#x65B0;&#x722C;&#x53D6;&#xFF0C;&#x5E94;&#x8BE5;&#x5C06;redis&#x4E2D;&#x5B58;&#x50A8;&#x7684;&#x6570;&#x636E;&#x6E05;&#x7A7A;&#xFF0C;&#x5426;&#x5219;&#x5F71;&#x54CD;&#x722C;&#x53D6;&#x73B0;&#x8C61;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;request &#x548C; url &#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x524D;&#x8005;&#x662F;&#x7531;&#x540E;&#x8005;&#x7ECF;&#x7531;&#x51FD;&#x6570;make_request_from_url&#x5B9E;&#x73B0;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x7531;spider&#x5B8C;&#x6210;&#x3002;spider&#x4F1A;&#x8FD4;&#x56DE;&#xFF08;return&#x3001;yield&#xFF09;request&#x7ED9;scrapy&#x5F15;&#x64CE;&#x8FDB;&#x800C;&#x4EA4;&#x5272;&#x8C03;&#x5EA6;&#x5668;&#x3002;url&#x4E5F;&#x662F;&#x5728;spider&#x4E2D;&#x5B9A;&#x4E49;&#x6216;&#x7531;spider&#x83B7;&#x53D6;&#x7684;&#x3002;</p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;:<br><a href="https://www.douban.com/group/topic/38361104/" target="_blank" rel="external">&#x4F7F;&#x7528;scrapy,redis,mongodb&#x5B9E;&#x73B0;&#x7684;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7F51;&#x7EDC;&#x722C;&#x866B;</a><br><a href="http://blog.csdn.net/u012150179/article/details/38091411" target="_blank" rel="external">scrapy-redis&#x5B9E;&#x73B0;&#x722C;&#x866B;&#x5206;&#x5E03;&#x5F0F;&#x722C;&#x53D6;&#x5206;&#x6790;&#x4E0E;&#x5B9E;&#x73B0;</a><br><a href="http://www.jikexueyuan.com/course/1556.html" target="_blank" rel="external">&#x5B9A;&#x5411;&#x722C;&#x866B;&#xFF1A;Scrapy &#x4E0E; Redis &#x5165;&#x95E8;</a><br><a href="http://www.pycoding.com/2016/03/19/scrapy-07.html" target="_blank" rel="external">Scrapy&#x7B14;&#x8BB0;&#xFF08;7&#xFF09;- &#x5185;&#x7F6E;&#x670D;&#x52A1;</a><br><a href="http://www.codexiu.cn/python/blog/6109/" target="_blank" rel="external">&#x57FA;&#x4E8E;Redis&#x7684;&#x4E09;&#x79CD;&#x5206;&#x5E03;&#x5F0F;&#x722C;&#x866B;&#x7B56;&#x7565;</a><br><a href="http://ju.outofmemory.cn/entry/206756" target="_blank" rel="external">&#x57FA;&#x4E8E;Python,scrapy,redis&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x722C;&#x866B;&#x5B9E;&#x73B0;&#x6846;&#x67B6;</a><br><a href="http://blog.csdn.net/u012150179/article/details/38226253" target="_blank" rel="external">scrapy-redis&#x6E90;&#x7801;&#x5206;&#x6790;</a><br><a href="http://www.lxway.net/550248426.html" target="_blank" rel="external">Scrapy Redis&#x6E90;&#x7801; spider&#x5206;&#x6790;</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Crawler/" rel="tag">#Crawler</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/15/讲座笔记 -- 腾讯应用宝/" rel="next" title="讲座笔记 -- 腾讯应用宝">
+                <i class="fa fa-chevron-left"></i> 讲座笔记 -- 腾讯应用宝
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/20/爬虫总结-五-其他技巧/" rel="prev" title="爬虫总结(五)-- 其他技巧">
+                爬虫总结(五)-- 其他技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scrapyd"><span class="nav-number">1.</span> <span class="nav-text">Scrapyd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Crawlera"><span class="nav-number">2.</span> <span class="nav-text">Crawlera</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scrapy-redis"><span class="nav-number">3.</span> <span class="nav-text">Scrapy-redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式原理"><span class="nav-number">3.1.</span> <span class="nav-text">分布式原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">3.2.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#零件分析"><span class="nav-number">3.2.1.</span> <span class="nav-text">零件分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度过程"><span class="nav-number">3.2.2.</span> <span class="nav-text">调度过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判重-amp-进入调度池"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">判重 & 进入调度池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调度"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">调度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-配置"><span class="nav-number">3.3.</span> <span class="nav-text">Redis 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-Redis"><span class="nav-number">3.3.1.</span> <span class="nav-text">下载 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-scrapy-redis"><span class="nav-number">3.3.2.</span> <span class="nav-text">下载 scrapy-redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Redis"><span class="nav-number">3.3.3.</span> <span class="nav-text">安装 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置文件"><span class="nav-number">3.3.4.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任意目录下运行"><span class="nav-number">3.3.5.</span> <span class="nav-text">任意目录下运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能错误"><span class="nav-number">3.3.6.</span> <span class="nav-text">可能错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-常用命令"><span class="nav-number">3.4.</span> <span class="nav-text">Redis 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行-Redis"><span class="nav-number">3.4.1.</span> <span class="nav-text">运行 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入命令行模式"><span class="nav-number">3.4.2.</span> <span class="nav-text">进入命令行模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空缓存"><span class="nav-number">3.4.3.</span> <span class="nav-text">清空缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所有-key"><span class="nav-number">3.4.4.</span> <span class="nav-text">查看所有 key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-list-item"><span class="nav-number">3.4.5.</span> <span class="nav-text">查看 list (item)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-set-dupefilter"><span class="nav-number">3.4.6.</span> <span class="nav-text">查看 set (dupefilter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-sorted-set-requests"><span class="nav-number">3.4.7.</span> <span class="nav-text">查看 sorted set (requests)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-list-items-长度"><span class="nav-number">3.4.8.</span> <span class="nav-text">查看 list (items) 长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-sorted-set-requests-长度"><span class="nav-number">3.4.9.</span> <span class="nav-text">查看 sorted set (requests) 长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-set-dupefilter-长度"><span class="nav-number">3.4.10.</span> <span class="nav-text">查看 set (dupefilter) 长度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy-redis-配置"><span class="nav-number">3.5.</span> <span class="nav-text">scrapy_redis 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用配置"><span class="nav-number">3.5.1.</span> <span class="nav-text">通用配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master-配置"><span class="nav-number">3.5.2.</span> <span class="nav-text">master 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slave-配置"><span class="nav-number">3.5.3.</span> <span class="nav-text">slave 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spider-改写"><span class="nav-number">3.5.4.</span> <span class="nav-text">spider 改写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行爬虫"><span class="nav-number">3.6.</span> <span class="nav-text">运行爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导出数据"><span class="nav-number">3.7.</span> <span class="nav-text">导出数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-dump"><span class="nav-number">3.7.1.</span> <span class="nav-text">redis-dump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-连接-redis"><span class="nav-number">3.7.2.</span> <span class="nav-text">python 连接 redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控"><span class="nav-number">3.8.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">3.9.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/06/17/爬虫总结-四-分布式爬虫/';
+      var disqus_title = "爬虫总结(四)-- 分布式爬虫";
+      var disqus_url = 'http://www.shuang0420.com/2016/06/17/爬虫总结-四-分布式爬虫/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

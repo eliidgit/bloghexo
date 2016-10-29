@@ -1,0 +1,1054 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Word2Vec,deep learning," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x7EFC;&amp;#x5408;&amp;#x5404;&amp;#x5BB6;&amp;#x535A;&amp;#x5BA2;&amp;#x6574;&amp;#x7406;&amp;#x7684;&amp;#x8BCD;&amp;#x5411;&amp;#x91CF;&amp;#x603B;&amp;#x7ED3;&amp;#x7B14;&amp;#x8BB0;&amp;#x3002;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="词向量总结笔记（简洁版）">
+<meta property="og:url" content="http://www.shuang0420.com/2016/06/21/词向量总结笔记（简洁版）/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x7EFC;&amp;#x5408;&amp;#x5404;&amp;#x5BB6;&amp;#x535A;&amp;#x5BA2;&amp;#x6574;&amp;#x7406;&amp;#x7684;&amp;#x8BCD;&amp;#x5411;&amp;#x91CF;&amp;#x603B;&amp;#x7ED3;&amp;#x7B14;&amp;#x8BB0;&amp;#x3002;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%A5%87%E5%BC%82%E5%80%BC.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/cnn%E4%BC%98%E5%8C%96%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/skipgram.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E4%BB%BB%E5%8A%A1%E8%AF%84%E4%BB%B7.png">
+<meta property="og:updated_time" content="2016-10-07T22:46:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="词向量总结笔记（简洁版）">
+<meta name="twitter:description" content="&amp;#x7EFC;&amp;#x5408;&amp;#x5404;&amp;#x5BB6;&amp;#x535A;&amp;#x5BA2;&amp;#x6574;&amp;#x7406;&amp;#x7684;&amp;#x8BCD;&amp;#x5411;&amp;#x91CF;&amp;#x603B;&amp;#x7ED3;&amp;#x7B14;&amp;#x8BB0;&amp;#x3002;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%A5%87%E5%BC%82%E5%80%BC.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/06/21/词向量总结笔记（简洁版）/"/>
+
+
+  <title> 词向量总结笔记（简洁版） | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                词向量总结笔记（简洁版）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-21T12:21:21-04:00" content="2016-06-21">
+              2016-06-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/21/词向量总结笔记（简洁版）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/21/词向量总结笔记（简洁版）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x7EFC;&#x5408;&#x5404;&#x5BB6;&#x535A;&#x5BA2;&#x6574;&#x7406;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#x603B;&#x7ED3;&#x7B14;&#x8BB0;&#x3002;<br><a id="more"></a></p>
+<h1 id="&#x673A;&#x5668;&#x5B66;&#x4E60;&#x901A;&#x7528;&#x62DB;&#x6570;"><a href="#&#x673A;&#x5668;&#x5B66;&#x4E60;&#x901A;&#x7528;&#x62DB;&#x6570;" class="headerlink" title="&#x673A;&#x5668;&#x5B66;&#x4E60;&#x901A;&#x7528;&#x62DB;&#x6570;"></a>&#x673A;&#x5668;&#x5B66;&#x4E60;&#x901A;&#x7528;&#x62DB;&#x6570;</h1><p>&#x5BF9;&#x95EE;&#x9898;&#x5EFA;&#x6A21;&#xFF0C;&#x6784;&#x9020;&#x76EE;&#x6807;&#x51FD;&#x6570;&#xFF0C;&#x5BF9;&#x76EE;&#x6807;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#xFF0C;&#x6C42;&#x5F97;&#x4E00;&#x7EC4;&#x6700;&#x4F18;&#x53C2;&#x6570;&#xFF0C;&#x5229;&#x7528;&#x8FD9;&#x7EC4;&#x6700;&#x4F18;&#x53C2;&#x6570;&#x5BF9;&#x5E94;&#x7684;&#x6A21;&#x578B;&#x6765;&#x9884;&#x6D4B;&#x3002;</p>
+<h1 id="&#x8BCD;&#x5411;&#x91CF;"><a href="#&#x8BCD;&#x5411;&#x91CF;" class="headerlink" title="&#x8BCD;&#x5411;&#x91CF;"></a>&#x8BCD;&#x5411;&#x91CF;</h1><h2 id="one-hot-Vector"><a href="#one-hot-Vector" class="headerlink" title="one-hot Vector"></a>one-hot Vector</h2><h3 id="one-hot-vector"><a href="#one-hot-vector" class="headerlink" title="one-hot vector"></a>one-hot vector</h3><p>&#x6700;&#x7B80;&#x5355;&#x7684;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#xFF1A;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x7684;&#x8BCD;&#x5E93;&#x603B;&#x5171;&#x6709;n&#x4E2A;&#x8BCD;&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x5F00;&#x4E00;&#x4E2A;1*n&#x7684;&#x9AD8;&#x7EF4;&#x5411;&#x91CF;&#xFF0C;&#x800C;&#x6BCF;&#x4E2A;&#x8BCD;&#x90FD;&#x4F1A;&#x5728;&#x67D0;&#x4E2A;&#x7D22;&#x5F15;index&#x4E0B;&#x53D6;&#x5230;1&#xFF0C;&#x5176;&#x4F59;&#x4F4D;&#x7F6E;&#x5168;&#x90E8;&#x90FD;&#x53D6;&#x503C;&#x4E3A;0&#x3002;</p>
+<h3 id="&#x95EE;&#x9898;"><a href="#&#x95EE;&#x9898;" class="headerlink" title="&#x95EE;&#x9898;"></a>&#x95EE;&#x9898;</h3><p>&#x8FD9;&#x79CD;&#x8BCD;&#x5411;&#x91CF;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x7B80;&#x5355;&#x7C97;&#x66B4;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x6BCF;&#x4E00;&#x4E2A;&#x8BCD;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x5B8C;&#x5168;&#x72EC;&#x7ACB;&#x7684;&#x4E2A;&#x4F53;&#x6765;&#x8868;&#x8FBE;&#x3002;&#x9057;&#x61BE;&#x7684;&#x662F;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#x6CA1;&#x529E;&#x6CD5;&#x7ED9;&#x6211;&#x4EEC;&#x4EFB;&#x4F55;&#x5F62;&#x5F0F;&#x7684;&#x8BCD;&#x7EC4;&#x76F8;&#x4F3C;&#x6027;&#x6743;&#x8861;&#x3002;&#x56E0;&#x4E3A;&#x4F60;&#x5F00;&#x4E86;&#x4E00;&#x4E2A;&#x6781;&#x9AD8;&#x7EF4;&#x5EA6;&#x7684;&#x7A7A;&#x95F4;&#xFF0C;&#x7136;&#x540E;&#x6BCF;&#x4E2A;&#x8BCD;&#x8BED;&#x90FD;&#x4F1A;&#x5360;&#x636E;&#x4E00;&#x4E2A;&#x7EF4;&#x5EA6;&#xFF0C;&#x56E0;&#x6B64;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x5728;&#x7A7A;&#x95F4;&#x4E2D;&#x5173;&#x8054;&#x8D77;&#x6765;&#x3002;</p>
+<h3 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;</h3><p>&#x53EF;&#x4EE5;&#x628A;&#x8BCD;&#x5411;&#x91CF;&#x7684;&#x7EF4;&#x5EA6;&#x964D;&#x4F4E;&#x4E00;&#x4E9B;&#xFF0C;&#x5728;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x5B50;&#x7A7A;&#x95F4;&#x4E2D;&#xFF0C;&#x53EF;&#x80FD;&#x539F;&#x672C;&#x6CA1;&#x6709;&#x5173;&#x8054;&#x7684;&#x8BCD;&#x5C31;&#x5173;&#x8054;&#x8D77;&#x6765;&#x4E86;&#x3002;</p>
+<h2 id="&#x57FA;&#x4E8E;-SVD-&#x7684;&#x65B9;&#x6CD5;"><a href="#&#x57FA;&#x4E8E;-SVD-&#x7684;&#x65B9;&#x6CD5;" class="headerlink" title="&#x57FA;&#x4E8E; SVD &#x7684;&#x65B9;&#x6CD5;"></a>&#x57FA;&#x4E8E; SVD &#x7684;&#x65B9;&#x6CD5;</h2><h3 id="SVD"><a href="#SVD" class="headerlink" title="SVD"></a>SVD</h3><p>&#x8FD9;&#x662F;&#x4E00;&#x79CD;&#x6784;&#x9020;&#x8BCD;&#x5D4C;&#x5165;&#xFF08;&#x5373;&#x8BCD;&#x5411;&#x91CF;&#xFF09;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x4F1A;&#x904D;&#x5386;&#x6240;&#x6709;&#x7684;&#x6587;&#x672C;&#x6570;&#x636E;&#x96C6;&#xFF0C;&#x7136;&#x540E;&#x7EDF;&#x8BA1;&#x8BCD;&#x51FA;&#x73B0;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x63A5;&#x7740;&#x7528;&#x4E00;&#x4E2A;&#x77E9;&#x9635; X &#x6765;&#x8868;&#x793A;&#x6240;&#x6709;&#x7684;&#x6B21;&#x6570;&#x60C5;&#x51B5;&#xFF0C;&#x7D27;&#x63A5;&#x7740;&#x5BF9;X&#x8FDB;&#x884C;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;&#x5F97;&#x5230;&#x4E00;&#x4E2A; USVT &#x7684;&#x5206;&#x89E3;&#x3002;&#x7136;&#x540E;&#x7528; U &#x7684;&#x884C;&#xFF08;rows&#xFF09;&#x4F5C;&#x4E3A;&#x6240;&#x6709;&#x8BCD;&#x8868;&#x4E2D;&#x8BCD;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#x3002;&#x5BF9;&#x4E8E;&#x77E9;&#x9635; X &#xFF0C;&#x6709;2&#x79CD;&#x9009;&#x62E9;&#xFF1A;&#x5168;&#x6587;&#x6216;&#x8005;&#x7A97;&#x53E3;&#x957F;&#x5EA6;&#x3002;</p>
+<ul>
+<li><p>&#x8BCD;-&#x6587;&#x6863;&#x77E9;&#x9635;<br>&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x8BCD;&#x7EC4;&#x6587;&#x6863;&#x77E9;&#x9635; X&#xFF0C;&#x5177;&#x4F53;&#x662F;&#x8FD9;&#x4E48;&#x505A;&#x7684;&#xFF1A;&#x904D;&#x5386;&#x6D77;&#x91CF;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x6BCF;&#x6B21;&#x8BCD;&#x7EC4; i &#x51FA;&#x73B0;&#x5728;&#x6587;&#x4EF6; j &#x4E2D;&#x65F6;&#xFF0C;&#x5C06; Xij &#x7684;&#x503C;&#x52A0;1&#x3002;&#x4E0D;&#x8FC7;&#x5927;&#x5BB6;&#x53EF;&#x60F3;&#x800C;&#x77E5;&#xFF0C;&#x8FD9;&#x4F1A;&#x662F;&#x4E2A;&#x5F88;&#x5927;&#x7684;&#x77E9;&#x9635;R|V|&#xD7;M&#xFF0C;&#x800C;&#x4E14;&#x77E9;&#x9635;&#x5927;&#x5C0F;&#x8FD8;&#x548C;&#x6587;&#x6863;&#x4E2A;&#x6570;M&#x6709;&#x5173;&#x7CFB;&#x3002;&#x6240;&#x4EE5;&#x54B1;&#x4EEC;&#x6700;&#x597D;&#x60F3;&#x529E;&#x6CD5;&#x5904;&#x7406;&#x548C;&#x4F18;&#x5316;&#x4E00;&#x4E0B;&#x3002;word-document&#x7684;&#x5171;&#x73B0;&#x77E9;&#x9635;&#x6700;&#x7EC8;&#x4F1A;&#x5F97;&#x5230;&#x6CDB;&#x5316;&#x7684;&#x4E3B;&#x9898;&#xFF08;&#x4F8B;&#x5982;&#x4F53;&#x80B2;&#x7C7B;&#x8BCD;&#x6C47;&#x4F1A;&#x6709;&#x76F8;&#x4F3C;&#x7684;&#x6807;&#x8BB0;&#xFF09;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x6D45;&#x5C42;&#x8BED;&#x4E49;&#x5206;&#x6790;(LSA, Latent Semantic Analysis)</p>
+</li>
+<li><p>&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7684;&#x5171;&#x73B0;&#x77E9;&#x9635; X<br>&#x628A;&#x77E9;&#x9635;X&#x8BB0;&#x5F55;&#x7684;&#x8BCD;&#x9891;&#x53D8;&#x6210;&#x4E00;&#x4E2A;&#x76F8;&#x5173;&#x6027;&#x77E9;&#x9635;&#xFF0C;&#x5BF9;X&#x505A;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;&#xFF0C;&#x89C2;&#x5BDF;&#x89C2;&#x5BDF;&#x5947;&#x5F02;&#x503C;&#xFF08;&#x77E9;&#x9635;&#x7684;&#x5BF9;&#x89D2;&#x5143;&#x7D20;&#xFF09;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x6211;&#x4EEC;&#x671F;&#x5F85;&#x4FDD;&#x7559;&#x7684;&#x767E;&#x5206;&#x6BD4;&#x6765;&#x8FDB;&#x884C;&#x9636;&#x6BB5;&#xFF08;&#x53EA;&#x4FDD;&#x7559;&#x524D;k&#x4E2A;&#x7EF4;&#x5EA6;&#xFF09;&#xFF0C;&#x628A;&#x5B50;&#x77E9;&#x9635; U1:|V|,1:k &#x89C6;&#x4F5C;&#x6211;&#x4EEC;&#x7684;&#x8BCD;&#x5D4C;&#x5165;&#x77E9;&#x9635;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5BF9;&#x4E8E;&#x8BCD;&#x8868;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x8BCD;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x7528;&#x4E00;&#x4E2A; k &#x7EF4;&#x7684;&#x5411;&#x91CF;&#x6765;&#x8868;&#x8FBE;&#x4E86;&#x3002;&#x7A97;&#x53E3;&#x957F;&#x5EA6;&#x5BB9;&#x6613;&#x6355;&#x83B7;&#x8BED;&#x6CD5;&#xFF08;POS&#xFF09;&#x548C;&#x8BED;&#x4E49;&#x4FE1;&#x606F;</p>
+</li>
+</ul>
+<h3 id="&#x5BF9;&#x5171;&#x73B0;&#x77E9;&#x9635;X&#x8FDB;&#x884C;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;"><a href="#&#x5BF9;&#x5171;&#x73B0;&#x77E9;&#x9635;X&#x8FDB;&#x884C;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;" class="headerlink" title="&#x5BF9;&#x5171;&#x73B0;&#x77E9;&#x9635;X&#x8FDB;&#x884C;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;"></a>&#x5BF9;&#x5171;&#x73B0;&#x77E9;&#x9635;X&#x8FDB;&#x884C;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;</h3><p><a href="http://www.flickering.cn/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E/2015/01/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%EF%BC%88we-recommend-a-singular-value-decomposition%EF%BC%89/" target="_blank" rel="external">&#x7279;&#x5F81;&#x503C;&#x5206;&#x89E3;&#x4E0E;&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;</a><br>&#x7279;&#x5F81;&#x503C;&#x5206;&#x89E3;&#x53EA;&#x9002;&#x7528;&#x4E8E;&#x65B9;&#x9635;&#x3002;&#x5F53;&#x77E9;&#x9635;&#x662F;&#x9AD8;&#x7EF4;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x77E9;&#x9635;&#x5C31;&#x662F;&#x9AD8;&#x7EF4;&#x7A7A;&#x95F4;&#x4E0B;&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x6027;&#x53D8;&#x6362;&#xFF0C;&#x4E00;&#x4E2A;&#x77E9;&#x9635;&#x4E58;&#x4EE5;&#x4E00;&#x4E2A;&#x5411;&#x91CF;&#x540E;&#x5F97;&#x5230;&#x7684;&#x5411;&#x91CF;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x5C06;&#x8FD9;&#x4E2A;&#x5411;&#x91CF;&#x8FDB;&#x884C;&#x4E86;&#x7EBF;&#x6027;&#x53D8;&#x6362;&#x3002;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x7279;&#x5F81;&#x503C;&#x5206;&#x89E3;&#x5F97;&#x5230;&#x7684;&#x524D;N&#x4E2A;&#x7279;&#x5F81;&#x5411;&#x91CF;&#xFF0C;&#x5BF9;&#x5E94;&#x4E86;&#x8FD9;&#x4E2A;&#x77E9;&#x9635;&#x6700;&#x4E3B;&#x8981;&#x7684;N&#x4E2A;&#x53D8;&#x5316;&#x65B9;&#x5411;&#x3002;&#x5229;&#x7528;&#x8FD9;&#x524D;N&#x4E2A;&#x53D8;&#x5316;&#x65B9;&#x5411;&#xFF0C;&#x53EF;&#x4EE5;&#x8FD1;&#x4F3C;&#x8FD9;&#x4E2A;&#x77E9;&#x9635;&#xFF08;&#x53D8;&#x6362;&#xFF09;&#x3002;&#x4E5F;&#x5C31;&#x662F; &#x2013; &#x63D0;&#x53D6;&#x8FD9;&#x4E2A;&#x77E9;&#x9635;&#x6700;&#x91CD;&#x8981;&#x7684;&#x7279;&#x5F81;&#x3002;&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#xFF0C;&#x7279;&#x5F81;&#x503C;&#x5206;&#x89E3;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x7279;&#x5F81;&#x503C;&#x4E0E;&#x7279;&#x5F81;&#x5411;&#x91CF;&#xFF0C;&#x7279;&#x5F81;&#x503C;&#x8868;&#x793A;&#x7684;&#x662F;&#x8FD9;&#x4E2A;&#x7279;&#x5F81;&#x5230;&#x5E95;&#x6709;&#x591A;&#x91CD;&#x8981;&#xFF0C;&#x800C;&#x7279;&#x5F81;&#x5411;&#x91CF;&#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x7279;&#x5F81;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x6BCF;&#x4E00;&#x4E2A;&#x7279;&#x5F81;&#x5411;&#x91CF;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x4E2A;&#x7EBF;&#x6027;&#x7684;&#x5B50;&#x7A7A;&#x95F4;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#x8FD9;&#x4E9B;&#x7EBF;&#x6027;&#x7684;&#x5B50;&#x7A7A;&#x95F4;&#x5E72;&#x5F88;&#x591A;&#x7684;&#x4E8B;&#x60C5;&#x3002;<br>&#x5947;&#x5F02;&#x503C;&#x5206;&#x89E3;&#x662F;&#x4E00;&#x4E2A;&#x80FD;&#x9002;&#x7528;&#x4E8E;&#x4EFB;&#x610F;&#x7684;&#x77E9;&#x9635;&#x7684;&#x4E00;&#x79CD;&#x5206;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6C42;&#x7279;&#x5F81;&#x503C;&#x5F97;&#x5230;&#x3002;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E5%A5%87%E5%BC%82%E5%80%BC.png" alt=""></p>
+<p><a href="http://www.52nlp.cn/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%AC%AC%E4%BA%8C%E8%AE%B2%E8%AF%8D%E5%90%91%E9%87%8F" target="_blank" rel="external">Python&#x4E2D;&#x7B80;&#x5355;&#x7684;&#x8BCD;&#x5411;&#x91CF;SVD&#x5206;&#x89E3;</a></p>
+<h3 id="&#x95EE;&#x9898;-1"><a href="#&#x95EE;&#x9898;-1" class="headerlink" title="&#x95EE;&#x9898;"></a>&#x95EE;&#x9898;</h3><ul>
+<li>&#x77E9;&#x9635;&#x7684;&#x7EF4;&#x5EA6;&#x4F1A;&#x7ECF;&#x5E38;&#x53D8;&#x5316;&#xFF08;&#x65B0;&#x7684;&#x8BCD;&#x8BED;&#x7ECF;&#x5E38;&#x4F1A;&#x589E;&#x52A0;&#xFF0C;&#x8BED;&#x6599;&#x5E93;&#x7684;&#x5927;&#x5C0F;&#x4E5F;&#x4F1A;&#x968F;&#x65F6;&#x53D8;&#x5316;&#xFF09;&#x3002;</li>
+<li>&#x77E9;&#x9635;&#x662F;&#x975E;&#x5E38;&#x7A00;&#x758F;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5927;&#x591A;&#x6570;&#x8BCD;&#x5E76;&#x4E0D;&#x540C;&#x65F6;&#x51FA;&#x73B0;&#x3002;</li>
+<li>&#x77E9;&#x9635;&#x7684;&#x7EF4;&#x5EA6;&#x901A;&#x5E38;&#x975E;&#x5E38;&#x9AD8;&#xFF08;&#x2248;106&#xD7;106&#xFF09;&#xFF0C;&#x9700;&#x8981;&#x5927;&#x91CF;&#x7684;&#x5B58;&#x50A8;</li>
+<li>&#x8BAD;&#x7EC3;&#x9700;&#x8981;O(n2)&#x7684;&#x590D;&#x6742;&#x5EA6;</li>
+<li>&#x5BF9;&#x4E8E;&#x65B0;&#x8BCD;&#x6216;&#x8005;&#x65B0;&#x7684;&#x6587;&#x6863;&#x5F88;&#x96BE;&#x53CA;&#x65F6;&#x66F4;&#x65B0;</li>
+<li>&#x9700;&#x8981;&#x4E13;&#x95E8;&#x5BF9;&#x77E9;&#x9635;X&#x8FDB;&#x884C;&#x7279;&#x6B8A;&#x5904;&#x7406;&#xFF0C;&#x4EE5;&#x5E94;&#x5BF9;&#x8BCD;&#x7EC4;&#x9891;&#x7387;&#x7684;&#x6781;&#x5EA6;&#x4E0D;&#x5E73;&#x8861;&#x7684;&#x72B6;&#x51B5;</li>
+</ul>
+<h3 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;&#x76F4;&#x63A5;&#x5B66;&#x4E60;&#x4F4E;&#x7EF4;&#x5EA6;&#x7684;&#x8BCD;&#x5411;&#x91CF;"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;&#x76F4;&#x63A5;&#x5B66;&#x4E60;&#x4F4E;&#x7EF4;&#x5EA6;&#x7684;&#x8BCD;&#x5411;&#x91CF;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;&#x76F4;&#x63A5;&#x5B66;&#x4E60;&#x4F4E;&#x7EF4;&#x5EA6;&#x7684;&#x8BCD;&#x5411;&#x91CF;"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;&#x76F4;&#x63A5;&#x5B66;&#x4E60;&#x4F4E;&#x7EF4;&#x5EA6;&#x7684;&#x8BCD;&#x5411;&#x91CF;</h3><p>idea: &#x5C06;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4FE1;&#x606F;&#x5B58;&#x50A8;&#x5728;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x4F4E;&#x7EF4;&#x5EA6;&#x7684;&#x5411;&#x91CF;&#x91CC;&#xFF1A;&#x5BC6;&#x96C6;&#x5411;&#x91CF;&#xFF08;dense vector)&#xFF0C;&#x7EF4;&#x6570;&#x901A;&#x5E38;&#x662F;25-1000<br>&#x7136;&#x800C;&#xFF0C;&#x5982;&#x4F55;&#x964D;&#x7EF4;&#xFF1F;</p>
+<h2 id="&#x57FA;&#x4E8E;&#x8FED;&#x4EE3;&#x7684;&#x65B9;&#x6CD5;"><a href="#&#x57FA;&#x4E8E;&#x8FED;&#x4EE3;&#x7684;&#x65B9;&#x6CD5;" class="headerlink" title="&#x57FA;&#x4E8E;&#x8FED;&#x4EE3;&#x7684;&#x65B9;&#x6CD5;"></a>&#x57FA;&#x4E8E;&#x8FED;&#x4EE3;&#x7684;&#x65B9;&#x6CD5;</h2><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6A21;&#x578B;&#xFF0C;&#x5B83;&#x80FD;&#x591F;&#x4E00;&#x6B65;&#x6B65;&#x8FED;&#x4EE3;&#x5730;&#x8FDB;&#x884C;&#x5B66;&#x4E60;&#xFF0C;&#x5E76;&#x6700;&#x7EC8;&#x5F97;&#x51FA;&#x6BCF;&#x4E2A;&#x5355;&#x8BCD;&#x57FA;&#x4E8E;&#x5176;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x6761;&#x4EF6;&#x6982;&#x7387;&#x3002;</p>
+<h3 id="n-gram"><a href="#n-gram" class="headerlink" title="n-gram"></a>n-gram</h3><p>&#x57FA;&#x672C;&#x601D;&#x60F3;&#xFF1A;&#x4E00;&#x4E2A;&#x8BCD;&#x51FA;&#x73B0;&#x7684;&#x6982;&#x7387;&#x53EA;&#x4E0E;&#x5B83;&#x524D;&#x9762;&#x56FA;&#x5B9A;&#x6570;&#x76EE;&#x7684;&#x8BCD;&#x76F8;&#x5173;&#x3002;<br>&#x4E3B;&#x8981;&#x5DE5;&#x4F5C;&#x662F;&#x5728;&#x9884;&#x6599;&#x4E2D;&#x7EDF;&#x8BA1;&#x5404;&#x79CD;&#x8BCD;&#x4E32;&#x51FA;&#x73B0;&#x7684;&#x6B21;&#x6570;&#x4EE5;&#x53CA;&#x5E73;&#x6ED1;&#x5316;&#x5904;&#x7406;&#xFF0C;&#x6982;&#x7387;&#x503C;&#x8BA1;&#x7B97;&#x53F7;&#x4E4B;&#x540E;&#x5C31;&#x5B58;&#x50A8;&#x8D77;&#x6765;&#xFF0C;&#x4E0B;&#x6B21;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#x4E00;&#x4E2A;&#x53E5;&#x5B50;&#x7684;&#x6982;&#x7387;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x627E;&#x5230;&#x76F8;&#x5173;&#x7684;&#x6982;&#x7387;&#x53C2;&#x6570;&#xFF0C;&#x5C06;&#x5B83;&#x4EEC;&#x8FDE;&#x4E58;&#x8D77;&#x6765;&#x5C31;&#x597D;&#x4E86;&#x3002;<br>&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x6982;&#x7387;&#x6A21;&#x578B;&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x5DF2;&#x77E5;&#x548C;&#x672A;&#x77E5;&#x53C2;&#x6570;&#x3002;&#x6BCF;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x8BAD;&#x7EC3;&#x6837;&#x672C;&#xFF0C;&#x5B83;&#x5C31;&#x80FD;&#x4ECE;&#x6A21;&#x578B;&#x7684;&#x8F93;&#x5165;&#x3001;&#x8F93;&#x51FA;&#x548C;&#x671F;&#x671B;&#x8F93;&#x51FA;&#xFF08;&#x6807;&#x7B7E;&#xFF09;&#xFF0C;&#x591A;&#x5B66;&#x5230;&#x4E00;&#x70B9;&#x70B9;&#x672A;&#x77E5;&#x53C2;&#x6570;&#x7684;&#x4FE1;&#x606F;&#x3002;<br>&#x5728;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E2A;&#x6A21;&#x578B;&#x90FD;&#x80FD;&#x591F;&#x8BC4;&#x4F30;&#x5176;&#x8BEF;&#x5DEE;&#xFF0C;&#x5E76;&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x7684;&#x66F4;&#x65B0;&#x89C4;&#x5219;&#xFF0C;&#x60E9;&#x7F5A;&#x90A3;&#x4E9B;&#x5BFC;&#x81F4;&#x8BEF;&#x5DEE;&#x7684;&#x53C2;&#x6570;&#x3002;(&#x8BEF;&#x5DEE;&#x201C;&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x201D;&#x6CD5;)&#x3002;</p>
+<h3 id="&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#xFF08;CBOW&#xFF09;"><a href="#&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#xFF08;CBOW&#xFF09;" class="headerlink" title="&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#xFF08;CBOW&#xFF09;"></a>&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#xFF08;CBOW&#xFF09;</h3><p>&#x4EE5; {&#x201C;The&#x201D;, &#x201C;cat&#x201D;, &#x201C;over&#x201D;, &#x201C;the&#x201D;, &#x201C;puddle&#x201D;} &#x4E3A;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x80FD;&#x591F;&#x9884;&#x6D4B;&#x6216;&#x4EA7;&#x751F;&#x5B83;&#x4EEC;&#x4E2D;&#x5FC3;&#x7684;&#x8BCD;&#x8BED;&#x201D;jumped&#x201D;&#x3002;&#x6A21;&#x578B;&#x8F93;&#x5165;&#x4E3A; x(c)&#xFF0C;&#x6A21;&#x578B;&#x8F93;&#x51FA;&#x4E3A; y&#xFF0C;y &#x5C31;&#x662F;&#x4E2D;&#x5FC3;&#x8BCD; &#x2018;jumped&#x2019;&#x3002;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x8BCD;&#x8BED;wi&#x5B66;&#x4E60;&#x4E86;&#x4E24;&#x4E2A;&#x5411;&#x91CF;&#x3002;</p>
+<p>&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#xFF08;CBOW&#xFF09;&#x4E2D;&#x7684;&#x5404;&#x4E2A;&#x8BB0;&#x53F7;&#xFF1A;</p>
+<ul>
+<li>$W_i$&#xFF1A;&#x5355;&#x8BCD;&#x8868; V &#x4E2D;&#x7684;&#x7B2C; i &#x4E2A;&#x5355;&#x8BCD;, one-hot &#x5411;&#x91CF;</li>
+<li>$v&#x2208;R^{n&#x2217;|V|}$&#xFF1A;&#x8F93;&#x5165;&#x8BCD;&#x77E9;&#x9635;</li>
+<li>$v_i$&#xFF1A;V&#x7684;&#x7B2C;i&#x5217;&#xFF0C;n &#x7EF4; $W_i$ &#x7684;&#x8F93;&#x5165;&#x5411;&#x91CF;</li>
+<li>$U&#x2208;R^{|V|&#x2217;n}$&#xFF1A;&#x8F93;&#x51FA;&#x8BCD;&#x77E9;&#x9635;</li>
+<li>$U_i$&#xFF1A;U &#x7684;&#x7B2C; i &#x884C;&#xFF0C;n &#x7EF4; $W_i$ &#x7684;&#x8F93;&#x51FA;&#x5411;&#x91CF;</li>
+</ul>
+<p>&#x628A;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x62C6;&#x5206;&#x6210;&#x4EE5;&#x4E0B;&#x51E0;&#x6B65;&#xFF1A;</p>
+<ul>
+<li>&#x5BF9;&#x4E8E; m &#x4E2A;&#x8BCD;&#x957F;&#x5EA6;&#x7684;&#x8F93;&#x5165;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x6211;&#x4EEC;&#x4EA7;&#x751F;&#x5B83;&#x4EEC;&#x7684; one-hot &#x5411;&#x91CF; $(x^{c&#x2212;m},&#x22EF;,x^{c&#x2212;1},x^{c+1},&#x22EF;,x^{c+m})$&#xFF0C;&#x4F5C;&#x4E3A;&#x6A21;&#x578B;&#x8F93;&#x5165;&#x3002;</li>
+<li>&#x6211;&#x4EEC;&#x5F97;&#x5230;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x5D4C;&#x5165;&#x8BCD;&#x5411;&#x91CF; $(v_{c&#x2212;m+1}=Vx^{c&#x2212;m+1},&#x22EF;,v_{c+m}=Vx^{c+m})$</li>
+<li>&#x5C06;&#x8FD9;&#x4E9B;&#x5411;&#x91CF;&#x53D6;&#x5E73;&#x5747; $\widehat{v}=\frac {V_{c&#x2212;m} +V_{c&#x2212;m+1} +&#x22EF;+V_{c+m}}{2m}$</li>
+<li>&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x5F97;&#x5206;&#x5411;&#x91CF; $z=U\widehat{v}$</li>
+<li>&#x5C06;&#x5F97;&#x5206;&#x5411;&#x91CF;&#x8F6C;&#x6362;&#x6210;&#x6982;&#x7387;&#x5206;&#x5E03;&#x5F62;&#x5F0F; $\widehat{y}=softmax(z)$</li>
+<li>&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x6211;&#x4EEC;&#x4EA7;&#x751F;&#x7684;&#x6982;&#x7387;&#x5206;&#x5E03; ,&#x4E0E;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x5206;&#x5E03; $\widehat{y}$ &#x76F8;&#x5339;&#x914D;&#x3002;&#x800C; y &#x521A;&#x597D;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x671F;&#x671B;&#x7684;&#x771F;&#x5B9E;&#x8BCD;&#x8BED;&#x7684;one-hot&#x5411;&#x91CF;&#x3002;</li>
+</ul>
+<p><strong> &#x600E;&#x6837;&#x627E;&#x5230;&#x77E9;&#x9635;U&#x3001;V&#xFF1F;</strong><br>&#x76EE;&#x6807;&#x51FD;&#x6570;&#x9009;&#x4EA4;&#x53C9;&#x71B5;&#xFF0C;&#x7528;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x53BB;&#x66F4;&#x65B0;&#x6BCF;&#x4E00;&#x4E2A;&#x76F8;&#x5173;&#x7684;&#x8BCD;&#x5411;&#x91CF; $U_c$ &#x548C; $V_j$.</p>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x8BD5;&#x56FE;&#x4ECE;&#x5DF2;&#x77E5;&#x6982;&#x7387;&#x5B66;&#x4E60;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6982;&#x7387;&#x65F6;&#xFF0C;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x662F;&#x4ECE;&#x4FE1;&#x606F;&#x8BBA;&#x7684;&#x89D2;&#x5EA6;&#x5BFB;&#x627E;&#x65B9;&#x6CD5;&#x6765;&#x8BC4;&#x4F30;&#x4E24;&#x4E2A;&#x6982;&#x7387;&#x5206;&#x5E03;&#x7684;&#x5DEE;&#x8DDD;&#x3002;&#x5176;&#x4E2D;&#x5E7F;&#x53D7;&#x597D;&#x8BC4;&#x53C8;&#x5E7F;&#x6CDB;&#x5E94;&#x7528;&#x7684;&#x4E00;&#x4E2A;&#x8BC4;&#x4F30;&#x5DEE;&#x5F02;/&#x635F;&#x5931;&#x7684;&#x51FD;&#x6570;&#x662F;&#x4EA4;&#x53C9;&#x71B5;&#xFF1A;<br>$H(\widehat{y},y) = -\sum_{j=1}^{|V|}y_jlog(\widehat{y}_j)$</p>
+<p>&#x7ED3;&#x5408;&#x6211;&#x4EEC;&#x5F53;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;y &#x53EA;&#x662F;&#x4E00;&#x4E2A;one-hot&#x5411;&#x91CF;&#xFF0C;&#x4E8E;&#x662F;&#x4E0A;&#x9762;&#x7684;&#x635F;&#x5931;&#x51FD;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x4E3A;&#xFF1A;<br>$H(\widehat{y},y) = -y_jlog(\widehat{y}_j)$</p>
+<p>&#x6211;&#x4EEC;&#x7528; c &#x8868;&#x793A; y &#x8FD9;&#x4E2A; one-hot &#x5411;&#x91CF;&#x53D6;&#x503C;&#x4E3A; 1 &#x7684;&#x90A3;&#x4E2A;&#x7EF4;&#x5EA6;&#x7684;&#x4E0B;&#x6807;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x6211;&#x4EEC;&#x9884;&#x6D4B;&#x4E3A;&#x51C6;&#x786E;&#x503C;&#x7684;&#x60C5;&#x51B5;&#x4E0B; $\widehat{y}_c=1$&#x3002;&#x4E8E;&#x662F;&#x635F;&#x5931;&#x4E3A; &#x2212;1 log(1) = 0&#x3002;&#x6240;&#x4EE5;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x7406;&#x60F3;&#x7684;&#x9884;&#x6D4B;&#x503C;&#xFF0C;&#x56E0;&#x4E3A;&#x9884;&#x6D4B;&#x5F97;&#x5230;&#x7684;&#x6982;&#x7387;&#x5206;&#x5E03;&#x548C;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x5206;&#x5E03;&#x5B8C;&#x5168;&#x4E00;&#x6837;&#xFF0C;&#x56E0;&#x6B64;&#x635F;&#x5931;&#x4E3A;0&#x3002;&#x76F8;&#x53CD;,&#x5F53;&#x6211;&#x4EEC;&#x7684;&#x9884;&#x6D4B;&#x7ED3;&#x679C;&#x975E;&#x5E38;&#x4E0D;&#x7406;&#x60F3;&#xFF0C; $\widehat{y}_c=0.01$&#x3002;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x7684;&#x635F;&#x5931;&#x4E3A;&#x2212;1 log(0.01) &#x2248; 4.605&#xFF0C;&#x635F;&#x5931;&#x975E;&#x5E38;&#x5927;&#xFF0C;&#x539F;&#x672C;&#x8FD9;&#x624D;&#x662F;&#x6807;&#x51C6;&#x7ED3;&#x679C;&#xFF0C;&#x53EF;&#x662F;&#x4F60;&#x7ED9;&#x4E86;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x4F4E;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x62FF;&#x5230;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x5927;&#x7684;loss&#x3002;&#x6700;&#x7EC8;&#x7684;&#x4F18;&#x5316;&#x51FD;&#x6570;&#x4E3A;&#xFF1A;</p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/cnn%E4%BC%98%E5%8C%96%E5%87%BD%E6%95%B0.png" alt=""></p>
+<h3 id="Skip-Gram&#x6A21;&#x578B;"><a href="#Skip-Gram&#x6A21;&#x578B;" class="headerlink" title="Skip-Gram&#x6A21;&#x578B;"></a>Skip-Gram&#x6A21;&#x578B;</h3><p>&#x4E0E;&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;&#x6A21;&#x578B;&#x5BF9;&#x5E94;&#x7684;&#x53E6;&#x4E00;&#x79CD;&#x601D;&#x8DEF;&#xFF0C;&#x662F;&#x4EE5;&#x4E2D;&#x5FC3;&#x7684;&#x8BCD;&#x8BED; &#x201D;jumped&#x201D; &#x4E3A;&#x8F93;&#x5165;&#xFF0C;&#x80FD;&#x591F;&#x9884;&#x6D4B;&#x6216;&#x4EA7;&#x751F;&#x5B83;&#x5468;&#x56F4;&#x7684;&#x8BCD;&#x8BED; &#x201D;The&#x201D;, &#x201C;cat&#x201D;, &#x201C;over&#x201D;, &#x201C;the&#x201D;, &#x201C;puddle&#x201D; &#x7B49;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53EB; &#x201D;jumped&#x201D; &#x4E3A;&#x4E0A;&#x4E0B;&#x6587;&#x3002;&#x6211;&#x4EEC;&#x628A;&#x5B83;&#x53EB;&#x505A;Skip-Gram &#x6A21;&#x578B;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x6A21;&#x578B;&#x7684;&#x5EFA;&#x7ACB;&#x4E0E;&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#xFF08;CBOW&#xFF09;&#x975E;&#x5E38;&#x76F8;&#x4F3C;&#xFF0C;&#x4F46;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4EA4;&#x6362;&#x4E86;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;&#x7684;&#x4F4D;&#x7F6E;&#x3002;&#x6211;&#x4EEC;&#x4EE4;&#x8F93;&#x5165;&#x7684;one-hot&#x5411;&#x91CF;&#xFF08;&#x4E2D;&#x5FC3;&#x8BCD;&#xFF09;&#x4E3A;x&#xFF08;&#x56E0;&#x4E3A;&#x5B83;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#xFF09;&#xFF0C;&#x8F93;&#x51FA;&#x5411;&#x91CF;&#x4E3A;y(j)&#x3002;U&#x548C;V&#x7684;&#x5B9A;&#x4E49;&#x4E0E;&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;&#x4E00;&#x6837;&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x73B0;&#x5728;&#x7684;&#x6570;&#x636E;&#x96C6;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre>the quick brown fox jumped over the lazy dog</pre>
+
+<p>&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x5305;&#x542B;&#x4E86;&#x8BCD;&#x8BED;&#x53CA;&#x5176;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#x3002;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;(Context)&#x662F;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x5BBD;&#x6CDB;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x6709;&#x591A;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x7406;&#x89E3;&#xFF1A;&#x4F8B;&#x5982;&#xFF0C;&#x8BCD;&#x8BED;&#x5468;&#x8FB9;&#x7684;&#x53E5;&#x6CD5;&#x7ED3;&#x6784;&#xFF0C;&#x8BCD;&#x8BED;&#x7684;&#x5DE6;&#x8FB9;&#x90E8;&#x5206;&#x7684;&#x82E5;&#x5E72;&#x4E2A;&#x8BCD;&#x8BED;&#x4FE1;&#x606F;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x53F3;&#x534A;&#x90E8;&#x5206;&#x7B49;&#x3002;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x6700;&#x539F;&#x59CB;&#x548C;&#x57FA;&#x672C;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x5373;&#x8BA4;&#x4E3A;&#x8BCD;&#x8BED;&#x5DE6;&#x53F3;&#x76F8;&#x90BB;&#x7684;&#x82E5;&#x5E72;&#x4E2A;&#x8BCD;&#x6C47;&#x662F;&#x8BE5;&#x8BCD;&#x5BF9;&#x5E94;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x53D6;&#x5DE6;&#x53F3;&#x7684;&#x8BCD;&#x7A97;&#x53E3;&#x4E3A;1&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x7684;(&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x8BCD;)&#x7684;pairs&#xFF1A;</p>
+<pre>
+([the, brown], quick), ([quick, fox], brown), ([brown, jumped], fox), ...</pre>
+
+<p>Skip-Gram&#x6A21;&#x578B;&#x662F;&#x901A;&#x8FC7;&#x8F93;&#x5165;&#x7684;&#x76EE;&#x6807;&#x8BCD;&#x6765;&#x9884;&#x6D4B;&#x5176;&#x5BF9;&#x5E94;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#xFF0C;&#x6240;&#x4EE5;&#x76EE;&#x6807;&#x662F;&#x901A;&#x8FC7;[quick]&#x6765;&#x9884;&#x6D4B;[the]&#x548C;[brown]&#xFF0C;&#x901A;&#x8FC7;[brown]&#x6765;&#x9884;&#x6D4B;[quick]&#x548C;[fox]&#x2026; &#x5C06;&#x4E0A;&#x9762;&#x7684;pair&#x8F6C;&#x6362;&#x4E3A;(inpUt, output)&#x7684;&#x5F62;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre>
+(quick, the), (quick, brown), (brown, quick), (brown, fox), ...</pre>
+
+
+<p>&#x5BF9;&#x5E94;&#x5230;&#x4E0A;&#x9762;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;Skip-Gram &#x6A21;&#x578B;&#x7684;&#x8FD0;&#x4F5C;&#x65B9;&#x5F0F;&#x62C6;&#x5206;&#x6210;&#x4EE5;&#x4E0B;&#x51E0;&#x6B65;&#xFF1A;</p>
+<ul>
+<li>&#x751F;&#x6210; one-hot &#x8F93;&#x5165;&#x5411;&#x91CF; x&#x3002;</li>
+<li>&#x5F97;&#x5230;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x5D4C;&#x5165;&#x8BCD;&#x5411;&#x91CF; $V_c$=$V_x$&#x3002;</li>
+<li>&#x56E0;&#x4E3A;&#x8FD9;&#x91CC;&#x4E0D;&#x9700;&#x8981;&#x53D6;&#x5E73;&#x5747;&#x503C;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x662F;$\widehat{v}=v_c$&#x3002;</li>
+<li>&#x901A;&#x8FC7;$U=UV_c$&#x4EA7;&#x751F; 2m &#x4E2A;&#x5F97;&#x5206;&#x5411;&#x91CF; $U_{c&#x2212;m},&#x22EF;,U_{c&#x2212;1},U_{c+1},&#x22EF;,U_{c+m}$&#x3002;</li>
+<li>&#x5C06;&#x5F97;&#x5206;&#x5411;&#x91CF;&#x8F6C;&#x6362;&#x6210;&#x6982;&#x7387;&#x5206;&#x5E03;&#x5F62;&#x5F0F; $y=softmax(u)$&#x3002;</li>
+<li>&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x6211;&#x4EEC;&#x4EA7;&#x751F;&#x7684;&#x6982;&#x7387;&#x5206;&#x5E03;&#x4E0E;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x5206;&#x5E03; $y^{c&#x2212;m},&#x22EF;,y^{c&#x2212;1},,y^{c+1}&#x22EF;,y^{c+m}$ &#x76F8;&#x5339;&#x914D;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x771F;&#x5B9E;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x7684; one-hot &#x5411;&#x91CF;&#x3002;</li>
+</ul>
+<p>&#x4E3A;&#x6A21;&#x578B;&#x8BBE;&#x5B9A;&#x4E00;&#x4E2A;&#x76EE;&#x6807;/&#x635F;&#x5931;&#x51FD;&#x6570;&#x3002;&#x4E0D;&#x8FC7;&#x4E0D;&#x540C;&#x7684;&#x5730;&#x65B9;&#x662F;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x5F15;&#x5165;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x5047;&#x8BBE;&#x6765;&#x5C06;&#x8054;&#x5408;&#x6982;&#x7387;&#x62C6;&#x5206;&#x6210;&#x72EC;&#x7ACB;&#x6982;&#x7387;&#x76F8;&#x4E58;&#x3002;&#x53EA;&#x8981;&#x7ED9;&#x51FA;&#x4E86;&#x4E2D;&#x5FC3;&#x8BCD;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8F93;&#x51FA;&#x8BCD;&#x662F;&#x5B8C;&#x5168;&#x72EC;&#x7ACB;&#x7684;&#x3002;&#x4F7F;&#x7528;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7B97;&#x6CD5;(SGD)&#x6765;&#x8FDB;&#x884C;&#x6700;&#x4F18;&#x5316;&#x6C42;&#x89E3;&#xFF0C;&#x5E76;&#x4E14;&#x4F7F;&#x7528;mini-batch&#x65B9;&#x6CD5; (&#x901A;&#x5E38;batch_size&#x5728;16&#x5230;512&#x4E4B;&#x95F4;)&#x3002;&#x53EF;&#x4EE5;&#x7528;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x53BB;&#x66F4;&#x65B0;&#x672A;&#x77E5;&#x53C2;&#x6570;&#x7684;&#x68AF;&#x5EA6;&#x3002;<br>&#x5BF9;&#x5E94;&#x7684;&#x4F18;&#x5316;&#x51FD;&#x6570;&#x662F;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/skipgram.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x518D;&#x6B21;&#x89C2;&#x5BDF;&#x4E00;&#x4E0B;&#x76EE;&#x6807;&#x51FD;&#x6570;&#xFF0C;&#x6CE8;&#x610F;&#x5230;&#x5BF9;&#x6574;&#x4E2A;&#x5355;&#x8BCD;&#x8868;|V|&#x6C42;&#x548C;&#x7684;&#x8BA1;&#x7B97;&#x91CF;&#x662F;&#x975E;&#x5E38;&#x5DE8;&#x5927;&#x7684;&#xFF0C;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5BF9;&#x76EE;&#x6807;&#x51FD;&#x6570;&#x7684;&#x66F4;&#x65B0;&#x548C;&#x6C42;&#x503C;&#x64CD;&#x4F5C;&#x90FD;&#x4F1A;&#x6709;O(|V|)&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x601D;&#x8DEF;&#x53BB;&#x7B80;&#x5316;&#x4E00;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x60F3;&#x529E;&#x6CD5;&#x53BB;&#x6C42;&#x5B83;&#x7684;&#x8FD1;&#x4F3C;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x7167;&#x8D1F;&#x9762;&#x91C7;&#x6837;&#xFF08;Negative Sampling&#xFF09;</p>
+<h4 id="why-skip-gram"><a href="#why-skip-gram" class="headerlink" title="why skip-gram"></a>why skip-gram</h4><p>&#x5728;NLP&#x4E2D;&#xFF0C;&#x8BED;&#x6599;&#x7684;&#x9009;&#x53D6;&#x662F;&#x4E00;&#x4E2A;&#x76F8;&#x5F53;&#x91CD;&#x8981;&#x7684;&#x95EE;&#x9898;&#x3002;<br>&#x9996;&#x5148;&#xFF0C;&#x8BED;&#x6599;&#x5FC5;&#x987B;&#x5145;&#x5206;&#x3002;&#x4E00;&#x65B9;&#x9762;&#x8BCD;&#x5178;&#x7684;&#x8BCD;&#x91CF;&#x8981;&#x8DB3;&#x591F;&#x5927;&#xFF0C;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x5C3D;&#x53EF;&#x80FD;&#x5730;&#x5305;&#x542B;&#x53CD;&#x6620;&#x8BCD;&#x8BED;&#x4E4B;&#x95F4;&#x5173;&#x7CFB;&#x7684;&#x53E5;&#x5B50;&#xFF0C;&#x5982;&#x201C;&#x9C7C;&#x5728;&#x6C34;&#x4E2D;&#x6E38;&#x201D;&#x8FD9;&#x79CD;&#x53E5;&#x5F0F;&#x5728;&#x8BED;&#x6599;&#x4E2D;&#x5C3D;&#x53EF;&#x80FD;&#x5730;&#x591A;&#xFF0C;&#x6A21;&#x578B;&#x624D;&#x80FD;&#x5B66;&#x4E60;&#x5230;&#x8BE5;&#x53E5;&#x4E2D;&#x7684;&#x8BED;&#x4E49;&#x548C;&#x8BED;&#x6CD5;&#x5173;&#x7CFB;&#xFF0C;&#x8FD9;&#x548C;&#x4EBA;&#x7C7B;&#x5B66;&#x4E60;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x662F;&#x4E00;&#x4E2A;&#x9053;&#x7406;&#xFF0C;&#x91CD;&#x590D;&#x6B21;&#x6570;&#x591A;&#x4E86;&#xFF0C;&#x4E5F;&#x5C31;&#x4F1A;&#x6A21;&#x578B;&#x4E86;&#x3002;<br>&#x5176;&#x6B21;&#xFF0C;&#x8BED;&#x6599;&#x5FC5;&#x987B;&#x51C6;&#x786E;&#x3002;&#x6240;&#x9009;&#x53D6;&#x7684;&#x8BED;&#x6599;&#x80FD;&#x591F;&#x6B63;&#x786E;&#x53CD;&#x6620;&#x8BE5;&#x8BED;&#x8A00;&#x7684;&#x8BED;&#x4E49;&#x548C;&#x8BED;&#x6CD5;&#x5173;&#x7CFB;&#x3002;&#x5982;&#x4E2D;&#x6587;&#x7684;&#x300A;&#x4EBA;&#x6C11;&#x65E5;&#x62A5;&#x300B;&#x6BD4;&#x8F83;&#x51C6;&#x786E;&#x3002;&#x4F46;&#x66F4;&#x591A;&#x65F6;&#x5019;&#x4E0D;&#x662F;&#x8BED;&#x6599;&#x9009;&#x53D6;&#x5F15;&#x53D1;&#x51C6;&#x786E;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x800C;&#x662F;&#x5904;&#x7406;&#x7684;&#x65B9;&#x6CD5;&#x3002;<br>&#x7531;&#x4E8E;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x7684;&#x9650;&#x5236;&#xFF0C;&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x8D85;&#x51FA;&#x7A97;&#x53E3;&#x7684;&#x8BCD;&#x8BED;&#x4E0E;&#x5F53;&#x524D;&#x8BCD;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x4E0D;&#x80FD;&#x6B63;&#x786E;&#x5730;&#x53CD;&#x6620;&#x5230;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x5355;&#x7EAF;&#x6269;&#x5927;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x4F1A;&#x589E;&#x52A0;&#x8BAD;&#x7EC3;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x3002;Skip-gram&#x6A21;&#x578B;&#x7684;&#x63D0;&#x51FA;&#x5F88;&#x597D;&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B; skip-gram &#x7684;&#x5B9A;&#x4E49;&#x3002;</p>
+<p>Skip-gram &#x5B9E;&#x9645;&#x4E0A;&#x7684;&#x5B9A;&#x4E49;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x5141;&#x8BB8;&#x8DF3;&#x51E0;&#x4E2A;&#x5B57;&#x7684;&#x610F;&#x601D;&#x3002;&#x4F9D;&#x7167;&#x539F;&#x8BBA;&#x6587;&#x91CC;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x8FD9;&#x4E2A;&#x53E5;&#x5B50;&#xFF1A;</p>
+<pre>Insurgents killed in ongoing fighting.</pre>
+
+<p>&#x5728; bi-grams &#x7684;&#x65F6;&#x5019;&#x662F;&#x62C6;&#x6210;&#xFF1A;</p>
+<pre>{ insurgents killed, killed in, in ongoing, ongoing fighting }</pre>
+
+<p>&#x5728; 2-skip-bi-grams &#x7684;&#x65F6;&#x5019;&#x62C6;&#x6210;&#xFF1A;</p>
+<pre>{ insurgents killed, insurgents in, insurgents ongoing, killed in, killed ongoing, killed fighting, in ongoing, in fighting, ongoing fighting }</pre>
+
+<p>&#x5728; tri-grams &#x7684;&#x65F6;&#x5019;&#x662F;&#xFF1A;</p>
+<pre>{ insurgents killed in, killed in ongoing, in ongoing fighting }</pre>
+
+<p>&#x5728; 2-skip-tri-grams &#x7684;&#x65F6;&#x5019;&#x662F;&#xFF1A;</p>
+<pre>{ insurgents killed in, insurgents killed ongoing, insurgents killed fighting, insurgentsin ongoing, insurgents in fighting, insurgents ongoing fighting, killed in ongoing, killed in fighting, killed ongoing fighting, in ongoing fighting }</pre>
+
+<p>&#x8FD9;&#x6837;&#x5C31;&#x6709;&#x529E;&#x6CD5;&#x5728;&#x6574;&#x7BC7;&#x6587;&#x7AE0;&#x90FD;&#x662F;&#x7528;&#x201C;&#x53F0;&#x6E7E;&#x5927;&#x5B66;&#x201D;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4EE5;&#x201C;&#x53F0;&#x5927;&#x201D;&#x627E;&#x5230;&#x6587;&#x7AE0;&#xFF0C;&#x89E3;&#x51B3;&#x4E00;&#x4E9B;&#x201C;&#x540C;&#x4E49;&#x8BCD;&#x201D;&#x60F3;&#x8981;&#x89E3;&#x51B3;&#x7684;&#x95EE;&#x9898;&#x3002;Skip-gram &#x4E00;&#x65B9;&#x9762;&#x53CD;&#x6620;&#x4E86;&#x53E5;&#x5B50;&#x7684;&#x771F;&#x5B9E;&#x610F;&#x601D;&#xFF0C;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x8FD8;&#x6269;&#x5927;&#x4E86;&#x8BED;&#x6599;&#xFF0C;2&#x5143;&#x8BCD;&#x7EC4;&#x7531;&#x539F;&#x6765;&#x7684;4&#x4E2A;&#x6269;&#x5C55;&#x5230;&#x4E86;9&#x4E2A;&#xFF0C;3&#x5143;&#x8BCD;&#x7EC4;&#x7531;&#x539F;&#x6765;&#x7684;3&#x4E2A;&#x6269;&#x5C55;&#x5230;&#x4E86;10&#x4E2A;&#x3002;</p>
+<h3 id="Word2Vec-&#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x9884;&#x6D4B;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x9AD8;&#x6548;&#x5730;&#x5B66;&#x4E60;Word-Embedding&#x3002;"><a href="#Word2Vec-&#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x9884;&#x6D4B;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x9AD8;&#x6548;&#x5730;&#x5B66;&#x4E60;Word-Embedding&#x3002;" class="headerlink" title="Word2Vec &#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x9884;&#x6D4B;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x9AD8;&#x6548;&#x5730;&#x5B66;&#x4E60;Word Embedding&#x3002;"></a>Word2Vec &#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x9884;&#x6D4B;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x9AD8;&#x6548;&#x5730;&#x5B66;&#x4E60;Word Embedding&#x3002;</h3><p>&#x5B9E;&#x73B0;&#x7684;&#x6A21;&#x578B;&#x6709;&#x4E24;&#x79CD;&#xFF1A;&#x8FDE;&#x7EED;&#x8BCD;&#x888B;&#x6A21;&#x578B;(CBOW)&#x548C;Skip-Gram&#x6A21;&#x578B;&#x3002;&#x7B97;&#x6CD5;&#x4E0A;&#x8FD9;&#x4E24;&#x4E2A;&#x6A21;&#x578B;&#x662F;&#x76F8;&#x4F3C;&#x7684;</p>
+<ul>
+<li>CBOW &#x4ECE;&#x8F93;&#x5165;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#x6765;&#x9884;&#x6D4B;&#x76EE;&#x6807;&#x8BCD;</li>
+<li>skip-gram&#x6A21;&#x578B;&#x5219;&#x662F;&#x76F8;&#x53CD;&#x7684;&#xFF0C;&#x4ECE;&#x76EE;&#x6807;&#x8BCD;&#x6765;&#x9884;&#x6D4B;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;<br>&#x4E00;&#x822C;&#x800C;&#x8A00;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E0A;&#x7684;&#x533A;&#x522B;&#x4F7F;&#x5F97;CBOW&#x6A21;&#x578B;&#x66F4;&#x9002;&#x5408;&#x5E94;&#x7528;&#x5728;&#x5C0F;&#x89C4;&#x6A21;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E0A;&#xFF0C;&#x80FD;&#x591F;&#x5BF9;&#x5F88;&#x591A;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x4FE1;&#x606F;&#x8FDB;&#x884C;&#x5E73;&#x6ED1;&#x5904;&#x7406;&#xFF1B;&#x800C;Skip-Gram&#x6A21;&#x578B;&#x5219;&#x6BD4;&#x8F83;&#x9002;&#x5408;&#x7528;&#x4E8E;&#x5927;&#x89C4;&#x6A21;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E0A;&#x3002;</li>
+</ul>
+<h2 id="&#x5411;&#x91CF;&#x7A7A;&#x95F4;&#x6A21;&#x578B;-Vector-space-models-VSMs"><a href="#&#x5411;&#x91CF;&#x7A7A;&#x95F4;&#x6A21;&#x578B;-Vector-space-models-VSMs" class="headerlink" title="&#x5411;&#x91CF;&#x7A7A;&#x95F4;&#x6A21;&#x578B;(Vector space models, VSMs)"></a>&#x5411;&#x91CF;&#x7A7A;&#x95F4;&#x6A21;&#x578B;(Vector space models, VSMs)</h2><p>&#x5C06;&#x8BCD;&#x8BED;&#x8868;&#x793A;&#x4E3A;&#x4E00;&#x4E2A;&#x8FDE;&#x7EED;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#xFF0C;&#x5E76;&#x4E14;&#x8BED;&#x4E49;&#x63A5;&#x8FD1;&#x7684;&#x8BCD;&#x8BED;&#x5BF9;&#x5E94;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#x5728;&#x7A7A;&#x95F4;&#x4E0A;&#x4E5F;&#x662F;&#x63A5;&#x8FD1;&#x7684;&#x3002;<br>&#x5206;&#x5E03;&#x5F0F;&#x5047;&#x8BF4;&#x7406;&#x8BBA;&#xFF1A;&#x8BE5;&#x5047;&#x8BF4;&#x7684;&#x601D;&#x60F3;&#x662F;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x8BCD;&#x7684;&#x4E0A;&#x4E0B;&#x6587;(context)&#x76F8;&#x540C;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E24;&#x4E2A;&#x8BCD;&#x6240;&#x8868;&#x8FBE;&#x7684;&#x8BED;&#x4E49;&#x4E5F;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF1B;&#x6362;&#x8A00;&#x4E4B;&#xFF0C;&#x4E24;&#x4E2A;&#x8BCD;&#x7684;&#x8BED;&#x4E49;&#x662F;&#x5426;&#x76F8;&#x540C;&#x6216;&#x76F8;&#x4F3C;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x4E24;&#x4E2A;&#x8BCD;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5185;&#x5BB9;&#xFF0C;&#x4E0A;&#x4E0B;&#x6587;&#x76F8;&#x540C;&#x8868;&#x793A;&#x4E24;&#x4E2A;&#x8BCD;&#x662F;&#x53EF;&#x4EE5;&#x7B49;&#x4EF7;&#x66FF;&#x6362;&#x7684;&#x3002;</p>
+<p>&#x8BCD;&#x5411;&#x91CF;&#x751F;&#x6210;&#x65B9;&#x6CD5;&#x4E3B;&#x8981;&#x5206;&#x4E24;&#x5927;&#x7C7B;&#xFF1A;</p>
+<ul>
+<li>&#x8BA1;&#x6570;&#x6CD5;(coUnt-based methods, e.g. Latent Semantic Analysis)<br>&#x5728;&#x5927;&#x578B;&#x8BED;&#x6599;&#x4E2D;&#x7EDF;&#x8BA1;&#x8BCD;&#x8BED;&#x53CA;&#x90BB;&#x8FD1;&#x7684;&#x8BCD;&#x7684;&#x5171;&#x73B0;&#x9891;&#x7387;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x4E4B;&#x4E3A;&#x6BCF;&#x4E2A;&#x8BCD;&#x90FD;&#x6620;&#x5C04;&#x4E3A;&#x4E00;&#x4E2A;&#x7A20;&#x5BC6;&#x7684;&#x5411;&#x91CF;&#x8868;&#x793A;&#xFF1B;</li>
+<li>&#x9884;&#x6D4B;&#x6CD5;(predictiVe methods, e.g. neural probabilistic language models)&#x3002;<br>&#x76F4;&#x63A5;&#x5229;&#x7528;&#x8BCD;&#x8BED;&#x7684;&#x90BB;&#x8FD1;&#x8BCD;&#x4FE1;&#x606F;&#x6765;&#x5F97;&#x5230;&#x9884;&#x6D4B;&#x8BCD;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#xFF08;&#x8BCD;&#x5411;&#x91CF;&#x901A;&#x5E38;&#x4F5C;&#x4E3A;&#x6A21;&#x578B;&#x7684;&#x8BAD;&#x7EC3;&#x53C2;&#x6570;&#xFF09;&#x3002;</li>
+</ul>
+<h1 id="&#x8BCD;&#x5411;&#x91CF;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;"><a href="#&#x8BCD;&#x5411;&#x91CF;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;" class="headerlink" title="&#x8BCD;&#x5411;&#x91CF;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;"></a>&#x8BCD;&#x5411;&#x91CF;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;</h1><h2 id="&#x5185;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;"><a href="#&#x5185;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;" class="headerlink" title="&#x5185;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;"></a>&#x5185;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;</h2><p>&#x5185;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;&#x7684;&#x7279;&#x70B9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x822C;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x5B50;&#x4EFB;&#x52A1;&#x4E2D;&#x8FDB;&#x884C;&#x8BC4;&#x6D4B;</li>
+<li>&#x8BA1;&#x7B97;&#x5F88;&#x5FEB;</li>
+<li>&#x6709;&#x52A9;&#x4E8E;&#x7406;&#x89E3;&#x76F8;&#x5173;&#x7684;&#x7CFB;&#x7EDF;</li>
+<li>&#x5728;&#x5B9E;&#x9645;&#x7684;NLP&#x4EFB;&#x52A1;&#x4E2D;&#x8868;&#x73B0;&#x597D;&#x574F;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x5916;&#x90E8;&#x5173;&#x8054;&#x5B9E;&#x9645;&#x5E94;&#x7528;</li>
+</ul>
+<h3 id="&#x65B9;&#x6CD5;&#xFF1A;&#x8BCD;&#x5411;&#x91CF;&#x7C7B;&#x6BD4;"><a href="#&#x65B9;&#x6CD5;&#xFF1A;&#x8BCD;&#x5411;&#x91CF;&#x7C7B;&#x6BD4;" class="headerlink" title="&#x65B9;&#x6CD5;&#xFF1A;&#x8BCD;&#x5411;&#x91CF;&#x7C7B;&#x6BD4;"></a>&#x65B9;&#x6CD5;&#xFF1A;&#x8BCD;&#x5411;&#x91CF;&#x7C7B;&#x6BD4;</h3><p>&#x6211;&#x4EEC;&#x5148;&#x8F93;&#x5165;&#x4E00;&#x7EC4;&#x4E0D;&#x5B8C;&#x6574;&#x7684;&#x7C7B;&#x6BD4; a:b::c:? &#x5185;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;&#x7CFB;&#x7EDF;&#x627E;&#x51FA;&#x6700;&#x5927;&#x5316;&#x4F59;&#x5F26;&#x76F8;&#x4F3C;&#x5EA6;&#x7684;&#x8BCD;&#x5411;&#x91CF;<br>&#x7406;&#x60F3;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x60F3;&#x5F97;&#x5230;xb&#x2212;xa=xd&#x2212;xc(&#x4F8B;&#x5982;&#xFF0C;&#x738B;&#x540E;&#x2013;&#x56FD;&#x738B; = &#x5973;&#x6F14;&#x5458; &#x2013; &#x7537;&#x6F14;&#x5458;)&#x3002;&#x4E8E;&#x662F;xb&#x2212;xa+xc=xd, &#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x627E;&#x51FA;&#x4E00;&#x4E2A;&#x4E0E;xb&#x2212;xa+xc&#x7684;&#x6807;&#x51C6;&#x5316;&#x5185;&#x79EF;&#xFF08;&#x6BD4;&#x5982;&#x4F59;&#x5F26;&#x76F8;&#x4F3C;&#x5EA6;&#xFF09;&#x53D6;&#x6700;&#x5927;&#x503C;&#x7684;&#x8BCD;&#x5411;&#x91CF;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E4%BB%BB%E5%8A%A1%E8%AF%84%E4%BB%B7.png" alt=""></p>
+<p>&#x7C7B;&#x6BD4;&#x8BED;&#x6599;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre>
+&#x9996;&#x90FD;&#x57CE;&#x5E02;1 : &#x56FD;&#x5BB6;1 : : &#x9996;&#x90FD;&#x57CE;&#x5E02;2 : &#x56FD;&#x5BB6;2
+Beijing:China::Astana       Kazakhstan
+Beijing:China::Asmara       Eritrea
+...
+
+&#x6BD4;&#x8F83;&#x7EA7;
+bad:worst::big            biggest
+bad:worst::easy           easiest
+...
+
+&#x65F6;&#x6001;
+dancing:danced::decreased         decreased
+dancing:danced::falling           fell
+...
+</pre>
+
+<p><a href="https://code.google.com/archive/p/word2vec/source" target="_blank" rel="external">&#x8BC4;&#x6D4B;&#x8BED;&#x6599;</a></p>
+<h3 id="&#x65B9;&#x6CD5;&#xFF1A;&#x76F8;&#x5173;&#x6027;&#x8BC4;&#x4EF7;"><a href="#&#x65B9;&#x6CD5;&#xFF1A;&#x76F8;&#x5173;&#x6027;&#x8BC4;&#x4EF7;" class="headerlink" title="&#x65B9;&#x6CD5;&#xFF1A;&#x76F8;&#x5173;&#x6027;&#x8BC4;&#x4EF7;"></a>&#x65B9;&#x6CD5;&#xFF1A;&#x76F8;&#x5173;&#x6027;&#x8BC4;&#x4EF7;</h3><p>&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x8BC4;&#x6D4B;&#x8BCD;&#x5411;&#x91CF;&#x8D28;&#x91CF;&#x7684;&#x7B80;&#x5355;&#x65B9;&#x6CD5;&#x662F;&#x4EBA;&#x4E3A;&#x5BF9;&#x4E24;&#x4E2A;&#x8BCD;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x5728;&#x4E00;&#x4E2A;&#x56FA;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x6253;&#x5206;(&#x6BD4;&#x5982;&#x8BF4; 0-10)&#xFF0C;&#x518D;&#x8DDF;&#x5BF9;&#x5E94;&#x5411;&#x91CF;&#x7684;&#x4F59;&#x5F26;&#x76F8;&#x9002;&#x5EA6;&#x8FDB;&#x884C;&#x5BF9;&#x6BD4;&#x3002;<br><a href="https://code.google.com/archive/p/word2vec/source/default/source" target="_blank" rel="external">&#x8BC4;&#x6D4B;&#x8BED;&#x6599;</a></p>
+<h3 id="&#x8003;&#x8651;&#x53C2;&#x6570;"><a href="#&#x8003;&#x8651;&#x53C2;&#x6570;" class="headerlink" title="&#x8003;&#x8651;&#x53C2;&#x6570;"></a>&#x8003;&#x8651;&#x53C2;&#x6570;</h3><ul>
+<li>&#x8BCD;&#x5411;&#x91CF;&#x7684;&#x7EF4;&#x5EA6;</li>
+<li>&#x8D44;&#x6599;&#x5E93;&#x7684;&#x5927;&#x5C0F;</li>
+<li>&#x8D44;&#x6599;&#x6E90;/&#x7C7B;&#x578B;</li>
+<li>&#x4E0A;&#x4E0B;&#x6587;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;</li>
+<li>&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x5BF9;&#x79F0;&#x6027;</li>
+</ul>
+<p>&#x4E00;&#x822C;&#x800C;&#x8A00;&#xFF0C;</p>
+<ul>
+<li>&#x7CBE;&#x5EA6;&#x548C;&#x4F7F;&#x7528;&#x7684;&#x6A21;&#x578B;&#x9AD8;&#x5EA6;&#x76F8;&#x5173;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4E9B;&#x751F;&#x6210;&#x8BCD;&#x5411;&#x91CF;&#x7684;&#x65B9;&#x6CD5;&#x6240;&#x4F9D;&#x636E;&#x7684;&#x7279;&#x6027;&#x662F;&#x5B8C;&#x5168;&#x4E0D;&#x540C;&#x7684;(&#x5982;&#x540C;&#x65F6;&#x51FA;&#x73B0;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x5947;&#x5F02;&#x5411;&#x91CF;&#x7B49;&#x3002;)</li>
+<li>&#x6587;&#x96C6;&#x91CF;&#x8D8A;&#x5927;&#xFF0C;&#x7CBE;&#x5EA6;&#x8D8A;&#x9AD8;&#xFF0C;&#x56E0;&#x4E3A;&#x4F8B;&#x5B50;&#x8D8A;&#x591A;&#xFF0C;&#x751F;&#x6210;&#x7684;&#x7CFB;&#x7EDF;&#x5B66;&#x4E60;&#x5230;&#x7684;&#x7ECF;&#x9A8C;&#x5C31;&#x66F4;&#x4E30;&#x5BCC;&#x3002;&#x6BD4;&#x5982;&#x5728;&#x5B8C;&#x6210;&#x8BCD;&#x6C47;&#x7C7B;&#x6BD4;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x5982;&#x679C;&#x4E4B;&#x524D;&#x6CA1;&#x6709;&#x63A5;&#x89E6;&#x6D4B;&#x8BD5;&#x8BCD;&#xFF0C;&#x5C31;&#x53EF;&#x80FD;&#x4F1A;&#x751F;&#x6210;&#x9519;&#x8BEF;&#x7684;&#x7ED3;&#x679C;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x7EF4;&#x5EA6;&#x7279;&#x522B;&#x4F4E;&#x6216;&#x7279;&#x522B;&#x9AD8;&#xFF0C;&#x7CBE;&#x5EA6;&#x5C31;&#x4F1A;&#x6BD4;&#x8F83;&#x4F4E;&#x3002;&#x4F4E;&#x7EF4;&#x5EA6;&#x8BCD;&#x5411;&#x91CF;&#x65E0;&#x6CD5;&#x6355;&#x6349;&#x6587;&#x96C6;&#x4E2D;&#x4E0D;&#x540C;&#x8BCD;&#x8BED;&#x7684;&#x4E0D;&#x540C;&#x610F;&#x4E49;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x89C6;&#x4E3A;&#x6211;&#x4EEC;&#x6A21;&#x578B;&#x590D;&#x6742;&#x5EA6;&#x8FC7;&#x4F4E;&#x800C;&#x5BFC;&#x81F4;&#x7684;&#x9AD8;&#x504F;&#x5DEE;&#x3002;&#x6BD4;&#x5982; &#x201C;king&#x201D;, &#x201C;queen&#x201D;, &#x201C;man&#x201D;, &#x201C;woman&#x201D; &#x8FD9;&#x51E0;&#x4E2A;&#x8BCD;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x81F3;&#x5C11;2&#x4E2A;&#x7EF4;&#x5EA6;&#x50CF;&#x201D;gender&#x201D; &#x5982; &#x201C;leadership&#x201D; &#x6765;&#x628A;&#x5B83;&#x4EEC;&#x7F16;&#x8BD1;&#x6210; 2-&#x5B57;&#x8282; &#x8BCD;&#x5411;&#x91CF;&#x3002; &#x8FC7;&#x4F4E;&#x7684;&#x7EF4;&#x5EA6;&#x5C06;&#x65E0;&#x6CD5;&#x6355;&#x6349;&#x56DB;&#x4E2A;&#x8BCD;&#x4E4B;&#x95F4;&#x7684;&#x8BED;&#x4E49;&#x5DEE;&#x522B;&#xFF0C;&#x800C;&#x8FC7;&#x9AD8;&#x7684;&#x7EF4;&#x5EA6;&#x5C06;&#x6355;&#x6349;&#x5230;&#x4E00;&#x4E9B;&#x5BF9;&#x6CDB;&#x5316;&#x80FD;&#x529B;&#x6CA1;&#x6709;&#x7528;&#x7684;&#x566A;&#x97F3;&#x2013; &#x5373;&#x9AD8;&#x65B9;&#x5DEE;&#x7684;&#x95EE;&#x9898;&#x3002;</li>
+</ul>
+<h2 id="&#x5916;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;"><a href="#&#x5916;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;" class="headerlink" title="&#x5916;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;"></a>&#x5916;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;</h2><p>&#x5916;&#x90E8;&#x4EFB;&#x52A1;&#x8BC4;&#x4EF7;&#x7684;&#x7279;&#x70B9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x5728;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x4EFB;&#x52A1;&#x4E2D;&#x8FDB;&#x884C;&#x8BC4;&#x6D4B;</li>
+<li>&#x9700;&#x8981;&#x82B1;&#x5F88;&#x957F;&#x7684;&#x65F6;&#x95F4;&#x6765;&#x8BA1;&#x7B97;&#x7CBE;&#x5EA6;</li>
+<li>&#x4E0D;&#x592A;&#x6E05;&#x695A;&#x662F;&#x5426;&#x662F;&#x67D0;&#x4E2A;&#x5B50;&#x7CFB;&#x7EDF;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x5B50;&#x7CFB;&#x7EDF;&#xFF0C;&#x53C8;&#x6216;&#x662F;&#x51E0;&#x4E2A;&#x5B50;&#x7CFB;&#x7EDF;&#x4E92;&#x76F8;&#x4F5C;&#x7528;&#x5F15;&#x8D77;&#x7684;&#x95EE;&#x9898;</li>
+<li>&#x5982;&#x679C;&#x66FF;&#x6362;&#x539F;&#x6709;&#x7684;&#x5B50;&#x7CFB;&#x7EDF;&#x540E;&#x83B7;&#x5F97;&#x7CBE;&#x5EA6;&#x63D0;&#x5347;&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x66FF;&#x6362;&#x5F88;&#x53EF;&#x80FD;&#x662F;&#x6709;&#x6548;&#x7684;</li>
+</ul>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;&#xFF1A;<br><a href="http://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651641662&amp;idx=1&amp;sn=5cfba5999c1dd436af43523f53497094&amp;scene=21#wechat_redirect" target="_blank" rel="external">&#x65AF;&#x5766;&#x798F;&#x5927;&#x5B66;&#x8BFE;&#x7A0B;&#xFF1A;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x4E0E;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x5904;&#x7406;</a><br><a href="http://www.52nlp.cn/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%AC%AC%E4%BA%8C%E8%AE%B2%E8%AF%8D%E5%90%91%E9%87%8F" target="_blank" rel="external">&#x65AF;&#x5766;&#x798F;&#x5927;&#x5B66;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x4E0E;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x5904;&#x7406;&#x7B2C;&#x4E8C;&#x8BB2;&#xFF1A;&#x8BCD;&#x5411;&#x91CF;</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Word2Vec/" rel="tag">#Word2Vec</a>
+          
+            <a href="/tags/deep-learning/" rel="tag">#deep learning</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/20/TensorFlow实战-MNIST/" rel="next" title="TensorFlow实战-MNIST">
+                <i class="fa fa-chevron-left"></i> TensorFlow实战-MNIST
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/22/句向量总结笔记（简洁版）/" rel="prev" title="句向量总结笔记（简洁版）">
+                句向量总结笔记（简洁版） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习通用招数"><span class="nav-number">1.</span> <span class="nav-text">机器学习通用招数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词向量"><span class="nav-number">2.</span> <span class="nav-text">词向量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#one-hot-Vector"><span class="nav-number">2.1.</span> <span class="nav-text">one-hot Vector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#one-hot-vector"><span class="nav-number">2.1.1.</span> <span class="nav-text">one-hot vector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.1.3.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-SVD-的方法"><span class="nav-number">2.2.</span> <span class="nav-text">基于 SVD 的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SVD"><span class="nav-number">2.2.1.</span> <span class="nav-text">SVD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对共现矩阵X进行奇异值分解"><span class="nav-number">2.2.2.</span> <span class="nav-text">对共现矩阵X进行奇异值分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案：直接学习低维度的词向量"><span class="nav-number">2.2.4.</span> <span class="nav-text">解决方案：直接学习低维度的词向量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于迭代的方法"><span class="nav-number">2.3.</span> <span class="nav-text">基于迭代的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#n-gram"><span class="nav-number">2.3.1.</span> <span class="nav-text">n-gram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续词袋模型（CBOW）"><span class="nav-number">2.3.2.</span> <span class="nav-text">连续词袋模型（CBOW）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-Gram模型"><span class="nav-number">2.3.3.</span> <span class="nav-text">Skip-Gram模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#why-skip-gram"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">why skip-gram</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word2Vec-是一个典型的预测模型，用于高效地学习Word-Embedding。"><span class="nav-number">2.3.4.</span> <span class="nav-text">Word2Vec 是一个典型的预测模型，用于高效地学习Word Embedding。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间模型-Vector-space-models-VSMs"><span class="nav-number">2.4.</span> <span class="nav-text">向量空间模型(Vector space models, VSMs)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词向量任务评价"><span class="nav-number">3.</span> <span class="nav-text">词向量任务评价</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部任务评价"><span class="nav-number">3.1.</span> <span class="nav-text">内部任务评价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法：词向量类比"><span class="nav-number">3.1.1.</span> <span class="nav-text">方法：词向量类比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法：相关性评价"><span class="nav-number">3.1.2.</span> <span class="nav-text">方法：相关性评价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑参数"><span class="nav-number">3.1.3.</span> <span class="nav-text">考虑参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部任务评价"><span class="nav-number">3.2.</span> <span class="nav-text">外部任务评价</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/06/21/词向量总结笔记（简洁版）/';
+      var disqus_title = "词向量总结笔记（简洁版）";
+      var disqus_url = 'http://www.shuang0420.com/2016/06/21/词向量总结笔记（简洁版）/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

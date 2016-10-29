@@ -1,0 +1,971 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NLP,Search Engines," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x600E;&amp;#x6837;&amp;#x8BC4;&amp;#x4F30; search engine &amp;#x7684;&amp;#x6548;&amp;#x679C;&amp;#xFF1F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Search Engines笔记 - Evaluating Search Effectiveness">
+<meta property="og:url" content="http://www.shuang0420.com/2016/09/20/Search Engines笔记 - Evaluating Search Effectiveness/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x600E;&amp;#x6837;&amp;#x8BC4;&amp;#x4F30; search engine &amp;#x7684;&amp;#x6548;&amp;#x679C;&amp;#xFF1F;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/Test_collections.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/AP&MAP.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/AP_MAP_dis.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/metrics_reconsider.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/NCDG.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/RBP%20.png">
+<meta property="og:updated_time" content="2016-10-18T12:35:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Search Engines笔记 - Evaluating Search Effectiveness">
+<meta name="twitter:description" content="&amp;#x600E;&amp;#x6837;&amp;#x8BC4;&amp;#x4F30; search engine &amp;#x7684;&amp;#x6548;&amp;#x679C;&amp;#xFF1F;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/Test_collections.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/09/20/Search Engines笔记 - Evaluating Search Effectiveness/"/>
+
+
+  <title> Search Engines笔记 - Evaluating Search Effectiveness | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Search Engines笔记 - Evaluating Search Effectiveness
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-20T21:59:21-04:00" content="2016-09-20">
+              2016-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Search-Engines/" itemprop="url" rel="index">
+                    <span itemprop="name">Search Engines</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/20/Search Engines笔记 - Evaluating Search Effectiveness/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/20/Search Engines笔记 - Evaluating Search Effectiveness/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x600E;&#x6837;&#x8BC4;&#x4F30; search engine &#x7684;&#x6548;&#x679C;&#xFF1F;<br><a id="more"></a></p>
+<h1 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h1><ul>
+<li>Obtain a corpus of <strong>documents</strong></li>
+<li>Obtain a set of <strong>information needs</strong></li>
+<li>Obtain <strong>relevance judgments</strong></li>
+<li><strong>Measure</strong> how well each method finds relevant documents</li>
+<li><strong>Compare</strong> the effectiveness of different methods</li>
+</ul>
+<p>&#x6240;&#x4EE5;&#x6709;&#x4E94;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li>documents</li>
+<li>information needs</li>
+<li>relevance judgements</li>
+<li>metrics</li>
+<li>comparison of methods</li>
+</ul>
+<p>&#x6211;&#x4EEC;&#x9010;&#x4E00;&#x6765;&#x8BA8;&#x8BBA;</p>
+<h1 id="Test-collections"><a href="#Test-collections" class="headerlink" title="Test collections"></a>Test collections</h1><p>documents, information needs, relevance judgements &#x4E09;&#x90E8;&#x5206;&#x5408;&#x8D77;&#x6765;&#x79F0;&#x4E3A;&#x4E00;&#x4E2A; test collection&#x3002;&#x5E38;&#x7528;&#x7684; test collections &#x6709;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/Test_collections.png" alt=""></p>
+<p>&#x8FD9;&#x4E9B; test collections &#x90FD;&#x975E;&#x5E38;&#x5B9E;&#x7528;&#xFF0C;&#x7136;&#x800C;&#x90FD;&#x6709;&#x5404;&#x81EA;&#x7684; bias&#x3002;</p>
+<h2 id="Information-Needs"><a href="#Information-Needs" class="headerlink" title="Information Needs"></a>Information Needs</h2><p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x4E00;&#x4E2A; test collection &#x6709; 50-200 &#x4E2A; information needs&#x3002;information need &#x901A;&#x5E38;&#x7531; query &#x6765;&#x4F53;&#x73B0;&#xFF0C;&#x5F53;&#x7136;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; search engines &#x4E2D;&#x83B7;&#x5F97;&#x7684; user behavior, user history, population behavior &#x6765;&#x4F53;&#x73B0;&#x3002;&#x90A3;&#x4E48;&#xFF0C;<strong>&#x600E;&#x6837;&#x83B7;&#x5F97; information needs &#x5462;&#xFF1F;</strong> &#x901A;&#x5E38;&#x6709;&#x4E09;&#x79CD;&#x529E;&#x6CD5;&#x3002;</p>
+<ul>
+<li>Ask &#x5411;&#x7528;&#x6237;&#x8BE2;&#x95EE;&#x4ED6;&#x4EEC;&#x8981;&#x627E;&#x4EC0;&#x4E48;&#xFF0C;&#x8FD9;&#x5F53;&#x7136;&#x662F;&#x6700;&#x4F18;&#x7684;&#x65B9;&#x6CD5;&#x3002;</li>
+<li>Observe &#x901A;&#x8FC7; search log&#xFF0C;&#x6839;&#x636E; query, clicks &#x7B49;&#x6765;&#x89C2;&#x5BDF;&#x7528;&#x6237;&#x9700;&#x8981;&#x4EC0;&#x4E48;&#xFF0C;&#x7136;&#x540E;&#x6839;&#x636E;&#x89C2;&#x5BDF;&#x7ED3;&#x679C;&#x6765;&#x8FD8;&#x539F; information needs&#x3002;</li>
+<li>Guess &#x6839;&#x636E;&#x6587;&#x6863;&#x6765;&#x731C;&#x8FD9;&#x4E9B;&#x6587;&#x6863;&#x80FD;&#x6EE1;&#x8DB3;&#x4EC0;&#x4E48;&#x6837;&#x7684; information needs&#xFF0C;&#x8FD9;&#x662F; weakest option&#xFF0C;&#x4F46;&#x5F80;&#x5F80;&#x4E5F;&#x662F;&#x552F;&#x4E00;&#x7684;&#x9009;&#x62E9;&#x3002;</li>
+</ul>
+<h2 id="Relevance-Assessment"><a href="#Relevance-Assessment" class="headerlink" title="Relevance Assessment"></a>Relevance Assessment</h2><p>&#x4EBA;&#x4E3A;&#x5224;&#x65AD;&#xFF0C;&#x901A;&#x5E38;&#x662F;&#x4E3B;&#x89C2;&#x7684;&#x3002;<br>&#x7528;&#x4E0D;&#x540C;&#x7684; techniques &#x68C0;&#x7D22;&#x51FA;&#x6587;&#x6863;&#xFF0C;&#x7136;&#x540E;&#x4EBA;&#x4E3A;&#x5224;&#x65AD;&#x6BCF;&#x4E00;&#x79CD; technique &#x4E0B;&#x7684; top n &#x7684;&#x6587;&#x6863;&#xFF0C;relevant set &#x5C31;&#x662F;&#x8FD9;&#x4E9B;&#x5224;&#x65AD;&#x4E3A;&#x76F8;&#x5173;&#x7684;&#x6587;&#x6863;&#x7684;&#x96C6;&#x5408;&#x3002;</p>
+<h1 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h1><h2 id="Unranked-Boolean-Retrieval-Model"><a href="#Unranked-Boolean-Retrieval-Model" class="headerlink" title="Unranked Boolean Retrieval Model"></a>Unranked Boolean Retrieval Model</h2><p>P,R,P@n,F1 &#x90FD;&#x662F; set-based measures&#x3002;&#x9002;&#x5408; unranked boolean retrieval model&#xFF0C;&#x9002;&#x5408;&#x6587;&#x672C;&#x5206;&#x7C7B;&#xFF0C;&#x7136;&#x800C;&#x5BF9; ranked retrieval model &#x6CA1;&#x90A3;&#x4E48;&#x9002;&#x7528;&#x3002;</p>
+<h3 id="Precision-and-Recall"><a href="#Precision-and-Recall" class="headerlink" title="Precision and Recall"></a>Precision and Recall</h3><p>$$Precision = {|Relevant \cap Retrieved| \over |Retrieved|} $$<br>$$Recall = {|Relevant \cap Retrieved| \over |Relevant|}$$</p>
+<p>&#x7406;&#x8BBA;&#x4E0A;&#x6765;&#x8BB2;&#xFF0C;&#x6574;&#x4E2A;&#x6587;&#x6863;&#x96C6;&#x90FD;&#x4F1A;&#x88AB; rank&#xFF0C;&#x7136;&#x540E;&#x5BF9;&#x6574;&#x4E2A;&#x6587;&#x6863;&#x96C6;&#x6765;&#x8BA1;&#x7B97; P&amp;R&#xFF0C;&#x7136;&#x800C;&#x8FD9;&#x662F;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5F15;&#x5165;&#x4E86; P@n &#x548C; MAP(Mean average precision)&#x3002;</p>
+<h3 id="P-n"><a href="#P-n" class="headerlink" title="P@n"></a>P@n</h3><p>&#x975E;&#x5E38;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x6392;&#x540D;&#x524D; n &#x7684;&#x6587;&#x6863;&#x7684; precision&#x3002;&#x5982; P@5,P@10&#x3002;&#x5E26;&#x6765;&#x7684;&#x95EE;&#x9898;&#x662F;&#x5E76;&#x6CA1;&#x6709;&#x5BF9; query &#x7684;&#x96BE;&#x5EA6;&#x8FDB;&#x884C; normalize&#x3002;&#x7B80;&#x5355;&#x7684; query &#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x66F4;&#x591A;&#x7684;&#x76F8;&#x5173;&#x6587;&#x6863;&#xFF0C;&#x96BE;&#x7684; query &#x80FD;&#x5F97;&#x5230;&#x7684;&#x76F8;&#x5173;&#x6587;&#x6863;&#x66F4;&#x5C11;&#x3002;&#x6240;&#x4EE5; P@n &#x7684; stability &#x4E0D;&#x5982; MAP.</p>
+<h3 id="F-Measure"><a href="#F-Measure" class="headerlink" title="F-Measure"></a>F-Measure</h3><p>&#x5BF9; precision &#x548C; recall &#x8FDB;&#x884C; weight<br>$$F = {1 \over \alpha {1 \over P} + (1- \alpha) {1 \over R}}$$<br>&#x5982;&#x679C; precision &#x548C; recall &#x7684;&#x6743;&#x91CD;&#x76F8;&#x540C;&#xFF0C;&#x90A3;&#x5C31;&#x662F; $F={2PR \over P+R}$</p>
+<h3 id="Average-Results"><a href="#Average-Results" class="headerlink" title="Average Results"></a>Average Results</h3><h4 id="Micro-average-across-documents"><a href="#Micro-average-across-documents" class="headerlink" title="Micro average across documents"></a>Micro average across documents</h4><p>&#x6BCF;&#x7BC7;&#x6587;&#x6863;&#x7684;&#x91CD;&#x8981;&#x6027;&#x76F8;&#x540C;&#xFF0C;queries with many relevant documents dominate&#xFF0C;machine learning &#x5E38;&#x7528;&#xFF0C; IR &#x4E0D;&#x5E38;&#x7528;&#xFF0C;&#x56E0;&#x4E3A; class distribution &#x66F4;&#x52A0;&#x7684; skewed&#x3002;</p>
+<h4 id="Macro-average-across-queries"><a href="#Macro-average-across-queries" class="headerlink" title="Macro average across queries"></a>Macro average across queries</h4><p>&#x6BCF;&#x4E2A; query &#x7684;&#x91CD;&#x8981;&#x6027;&#x76F8;&#x540C;&#xFF0C;ad-hoc retrieval &#x6700;&#x5E38;&#x7528;&#x7684; averaging method&#x3002;</p>
+<h2 id="Ranked-Retrieval"><a href="#Ranked-Retrieval" class="headerlink" title="Ranked Retrieval"></a>Ranked Retrieval</h2><ul>
+<li>Average Precision (AP)</li>
+<li>Mean Average Precision (MAP)</li>
+<li>Interpolated Average Precision</li>
+</ul>
+<h3 id="AP-and-MAP"><a href="#AP-and-MAP" class="headerlink" title="AP and MAP"></a>AP and MAP</h3><p>MAP &#x662F; single-value&#x3002;<br>AP measures P at each relevant document for the ith query and average the measurements for the ith query&#x3002;&#x5BF9;&#x5355;&#x4E2A;&#x9700;&#x6C42;&#xFF0C;&#x6C42;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x4E2D;&#x6BCF;&#x7BC7;&#x76F8;&#x5173;&#x6587;&#x6863;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684; precision &#x7684;&#x5E73;&#x5747;&#x503C;&#x3002;&#x76F8;&#x5F53;&#x4E8E;&#x67D0;&#x4E2A; query &#x4E0B;&#x5BF9;&#x5E94;&#x7684;&#x591A;&#x6761; precision-recall curve &#x4E0B;&#x9762;&#x79EF;&#x7684;&#x5E73;&#x5747;&#x503C;&#x3002;<br>&#x5BF9;&#x6240;&#x6709;&#x9700;&#x6C42;&#x5E73;&#x5747;&#x5C31;&#x80FD;&#x5F97;&#x5230; MAP&#x3002;MAP measures the mean of the Average Precision values for all queries&#x3002;MAP &#x53EF;&#x4EE5;&#x5728;&#x6BCF;&#x4E2A; recall &#x6C34;&#x5E73;&#x4E0A;&#x63D0;&#x4F9B;&#x5355;&#x6307;&#x6807;&#x7ED3;&#x679C;&#xFF0C;&#x5177;&#x6709;&#x975E;&#x5E38;&#x597D;&#x7684; discrimination &#x548C; stability&#x3002;MAP &#x4E0D;&#x9700;&#x8981;&#x9009;&#x62E9;&#x56FA;&#x5B9A;&#x7684; recall &#x6C34;&#x5E73;&#xFF0C;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x63D2;&#x503C;&#xFF0C;&#x5373;&#x4F7F;&#x6709;&#x4E9B; query &#x7684;&#x76F8;&#x5173;&#x6587;&#x6863;&#x6570;&#x5F88;&#x591A;&#x800C;&#x6709;&#x4E9B;&#x5F88;&#x5C11;&#xFF0C;&#x6700;&#x7EC8;&#x7684; MAP &#x663E;&#x793A;&#x6BCF;&#x4E2A; query &#x7684;&#x4F5C;&#x7528;&#x5374;&#x662F;&#x76F8;&#x7B49;&#x7684;&#x3002;&#x5355;&#x4E2A;&#x7CFB;&#x7EDF;&#x5728;&#x4E0D;&#x540C;information needs &#x7684; MAP&#x503C;&#x76F8;&#x5DEE;&#x8F83;&#x5927;&#xFF08;0.1-0.7&#xFF09;&#xFF0C;&#x4E0D;&#x540C;&#x7CFB;&#x7EDF;&#x5728;&#x540C;&#x4E00; information need &#x4E0A;&#x7684; MAP &#x5DEE;&#x5F02;&#x53CD;&#x800C;&#x76F8;&#x5BF9;&#x8981;&#x5C0F;&#x4E00;&#x4E9B;&#x3002;</p>
+<p>&#x4E00;&#x9053;&#x9898;&#x89E3;&#x51B3;&#x3002;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/AP&amp;MAP.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">AP1=(1+1+0.75+0.67)/4=0.855</div><div class="line">AP2=(1+0.84+0.5)/5=0.468</div><div class="line">MAP=(0.468+0.855)/2=0.6615</div></pre></td></tr></table></figure></p>
+<p>&#x770B;&#x4E00;&#x4E0B; AP &#x548C; MAP &#x7684;&#x5206;&#x5E03;&#x3002;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/AP_MAP_dis.png" alt=""></p>
+<p>MAP &#x7528;&#x7684;&#x975E;&#x5E38;&#x591A;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x80FD;&#x5F88;&#x597D;&#x7684;&#x4F53;&#x73B0;&#x7CFB;&#x7EDF;&#x7684;&#x4F18;&#x52A3;&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x5982;&#x679C; MAP(A)&gt;MAP(B)&#xFF0C;&#x90A3;&#x4E48; A&#x7CFB;&#x7EDF;&#x66F4;&#x6709;&#x53EF;&#x80FD;&#x6BD4; B&#x7CFB;&#x7EDF;&#x597D;&#xFF0C;&#x50CF; P@n &#x7B49;&#x5176;&#x5B83; metrics &#x5C31;&#x4E0D;&#x80FD;&#x5982;&#x6B64;&#x80AF;&#x5B9A;&#x3002;&#x53E6;&#x5916;&#xFF0C;MAP &#x8BA1;&#x7B97;&#x5F88;&#x5FEB;&#xFF0C;&#x548C; NDCG &#x76F8;&#x6BD4;&#x3002;</p>
+<h3 id="MRR-Mean-Reciprocal-Rank"><a href="#MRR-Mean-Reciprocal-Rank" class="headerlink" title="MRR (Mean Reciprocal Rank)"></a>MRR (Mean Reciprocal Rank)</h3><p>&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x66F4;&#x5173;&#x5FC3;&#x7B2C;&#x4E00;&#x7BC7;&#x76F8;&#x5173;&#x6587;&#x6863;&#x3002;&#x800C;&#x6392;&#x540D;&#x8F83;&#x4F4E;&#x7684;&#x6587;&#x6863;&#x901A;&#x5E38;&#x4E0D;&#x4F1A;&#x88AB;&#x6D4F;&#x89C8;&#x5230;&#x3002;<br>Reciprocal rank &#x6307;&#x7684;&#x662F; 1/rank of first relevant document&#x3002;&#x6240;&#x4EE5; MRR &#x5C31;&#x662F; average of reciprocal rank values across a set of queries&#x3002;</p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/metrics_reconsider.png" alt=""></p>
+<p>&#x9002;&#x7528;&#x573A;&#x666F;&#x4E3E;&#x4F8B;&#xFF1A;&#x67D0;&#x4E2A;&#x5B66;&#x751F;&#x60F3;&#x627E; cmu 11642 &#x7684;&#x8BFE;&#x7A0B;&#x4E3B;&#x9875;&#x3002;</p>
+<h3 id="NDCG-Normalized-Discounted-Cumulative-Gain"><a href="#NDCG-Normalized-Discounted-Cumulative-Gain" class="headerlink" title="NDCG (Normalized Discounted Cumulative Gain)"></a>NDCG (Normalized Discounted Cumulative Gain)</h3><p>Web search engines &#x4E2D;&#x5E38;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x3002;multi-valued relevance assessment&#xFF0C;&#x8BC4;&#x4F30; ranking &#x7684;&#x8D28;&#x91CF;&#x3002;<br>$$NDCG@k = Z_k \sum_{i=1}^k{2^{R_i}-1 \over log(1+i)}$$</p>
+<ul>
+<li>$R_i$ &#x6307;&#x6392;&#x540D;&#x5728; i &#x7684;&#x76F8;&#x5173;&#x6587;&#x6863;&#x7684; relevance &#x5206;&#x6570;</li>
+<li>$Z_k$ normalizes so that NDCG=1 at k for a perfect ranking&#x3002;<br>$Z_k$ = 1/DCG@k for the &#x201C;ideal&#x201D; ranking<br>Required to combine scores for different queries</li>
+</ul>
+<p>&#x9002;&#x7528;&#x573A;&#x666F;&#xFF1A;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x591A;&#x4E2A;&#x76F8;&#x5173;&#x6587;&#x6863;&#xFF0C;probability that a person views a page depends upon its rank. eg. &#x987E;&#x5BA2;&#x60F3;&#x8981;&#x5728;&#x7F51;&#x4E0A;&#x4E70;&#x4E00;&#x53F0;&#x7535;&#x8111;&#xFF0C;&#x9700;&#x8981;&#x6BD4;&#x8F83;&#x4E0D;&#x540C;&#x7684;&#x578B;&#x53F7;&#x3001;&#x5916;&#x89C2;&#x3001;&#x4EF7;&#x94B1;&#x3001;&#x6392;&#x540D;&#x3002;</p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/NCDG.png" alt=""></p>
+<h3 id="RBP-Rank-Biased-Precision"><a href="#RBP-Rank-Biased-Precision" class="headerlink" title="RBP (Rank-Biased Precision)"></a>RBP (Rank-Biased Precision)</h3><p>&#x975E;&#x5E38;&#x7B80;&#x5355;&#x7684; model&#xFF0C;&#x5BF9;&#x7528;&#x6237;&#x884C;&#x4E3A;&#x8FDB;&#x884C;&#x5EFA;&#x6A21;&#x3002;multi-valued relevance assessments&#xFF0C;&#x7528;user&#x2019;s persistence &#x6765;&#x8BC4;&#x4F30; rank &#x8D28;&#x91CF;&#x3002;<br>$$RBP = (1-p) \sum_{i=1}^n R_ip^{i-1}$$</p>
+<ul>
+<li>p: a parameter that models the user&#x2019;s persistence</li>
+<li>n: Number of documents</li>
+<li>Ri: The relevance of the document at rank I</li>
+</ul>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/RBP%20.png" alt=""></p>
+<h1 id="trec-eval"><a href="#trec-eval" class="headerlink" title="trec-eval"></a>trec-eval</h1><p>ad-hoc retrieval &#x7684;&#x6807;&#x51C6;&#x7684;&#x8BC4;&#x4F30;&#x5DE5;&#x5177;&#x3002;<br><a href="http://boston.lti.cs.cmu.edu/classes/11-642/HW/HTS/trec_eval.pdf" target="_blank" rel="external">&#x683C;&#x5F0F;</a></p>
+<p>Precision-recall curve &#x5448;&#x73B0;&#x660E;&#x663E;&#x7684;&#x952F;&#x9F7F;&#x5F62;&#x72B6;&#xFF0C;&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x7684;&#x7B2C; k+1 &#x7BC7;&#x6587;&#x6863;&#x4E0D;&#x76F8;&#x5173;&#xFF0C;&#x90A3;&#x4E48;&#x5728; k+1 &#x7BC7;&#x6587;&#x6863;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684; recall &#x548C;&#x524D; k &#x7BC7;&#x6587;&#x6863;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684; recall &#x4E00;&#x6837;&#xFF0C;&#x4F46;&#x662F; precision &#x663E;&#x7136;&#x4E0B;&#x964D;&#x3002;&#x53CD;&#x4E4B;&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x7684;&#x7B2C; k+1 &#x7BC7;&#x6587;&#x6863;&#x76F8;&#x5173;&#xFF0C;&#x90A3;&#x4E48; recall &#x548C; precision &#x90FD;&#x4F1A;&#x589E;&#x5927;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x66F2;&#x7EBF;&#x4F1A;&#x5448;&#x952F;&#x9F7F;&#x5F62;&#x4E0A;&#x5347;&#x3002;&#x5C06;&#x8FD9;&#x4E9B;&#x7EC6;&#x5FAE;&#x7684;&#x53D8;&#x5316;&#x53BB;&#x6389;&#x901A;&#x5E38;&#x91C7;&#x7528;&#x5DEE;&#x503C;</p>
+<h1 id="Build-your-own-test-collection"><a href="#Build-your-own-test-collection" class="headerlink" title="Build your own test collection"></a>Build your own test collection</h1><ol>
+<li>Collect a large set of representative documents</li>
+<li>Collect a set of representative information needs (at least 25, preferably 50-100)</li>
+<li>Translate each information need into a set of queries (at least several queries per information need)</li>
+<li>Run each query against each search engine (save top N documents, at least 50 docs per query)</li>
+<li>Pool all results for an information needs (different queries,different engines; sort them into random order)</li>
+<li>Have a person judge each document (one person judge all documents for one information need)</li>
+</ol>
+<h1 id="Evaluation-in-a-Dynamic-Environment"><a href="#Evaluation-in-a-Dynamic-Environment" class="headerlink" title="Evaluation in a Dynamic Environment"></a>Evaluation in a Dynamic Environment</h1>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag">#NLP</a>
+          
+            <a href="/tags/Search-Engines/" rel="tag">#Search Engines</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/20/数据结构和算法 -- 搜索/" rel="next" title="数据结构和算法 -- 搜索">
+                <i class="fa fa-chevron-left"></i> 数据结构和算法 -- 搜索
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/25/Search Engines笔记 - Document Representation/" rel="prev" title="Search Engines笔记 - Document Representations">
+                Search Engines笔记 - Document Representations <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Methodology"><span class="nav-number">1.</span> <span class="nav-text">Methodology</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Test-collections"><span class="nav-number">2.</span> <span class="nav-text">Test collections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Needs"><span class="nav-number">2.1.</span> <span class="nav-text">Information Needs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relevance-Assessment"><span class="nav-number">2.2.</span> <span class="nav-text">Relevance Assessment</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Metrics"><span class="nav-number">3.</span> <span class="nav-text">Metrics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unranked-Boolean-Retrieval-Model"><span class="nav-number">3.1.</span> <span class="nav-text">Unranked Boolean Retrieval Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Precision-and-Recall"><span class="nav-number">3.1.1.</span> <span class="nav-text">Precision and Recall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P-n"><span class="nav-number">3.1.2.</span> <span class="nav-text">P@n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#F-Measure"><span class="nav-number">3.1.3.</span> <span class="nav-text">F-Measure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Average-Results"><span class="nav-number">3.1.4.</span> <span class="nav-text">Average Results</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Micro-average-across-documents"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">Micro average across documents</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Macro-average-across-queries"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">Macro average across queries</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ranked-Retrieval"><span class="nav-number">3.2.</span> <span class="nav-text">Ranked Retrieval</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AP-and-MAP"><span class="nav-number">3.2.1.</span> <span class="nav-text">AP and MAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MRR-Mean-Reciprocal-Rank"><span class="nav-number">3.2.2.</span> <span class="nav-text">MRR (Mean Reciprocal Rank)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NDCG-Normalized-Discounted-Cumulative-Gain"><span class="nav-number">3.2.3.</span> <span class="nav-text">NDCG (Normalized Discounted Cumulative Gain)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RBP-Rank-Biased-Precision"><span class="nav-number">3.2.4.</span> <span class="nav-text">RBP (Rank-Biased Precision)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#trec-eval"><span class="nav-number">4.</span> <span class="nav-text">trec-eval</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Build-your-own-test-collection"><span class="nav-number">5.</span> <span class="nav-text">Build your own test collection</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Evaluation-in-a-Dynamic-Environment"><span class="nav-number">6.</span> <span class="nav-text">Evaluation in a Dynamic Environment</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/09/20/Search Engines笔记 - Evaluating Search Effectiveness/';
+      var disqus_title = "Search Engines笔记 - Evaluating Search Effectiveness";
+      var disqus_url = 'http://www.shuang0420.com/2016/09/20/Search Engines笔记 - Evaluating Search Effectiveness/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

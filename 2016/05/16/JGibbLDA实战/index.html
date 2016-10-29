@@ -1,0 +1,949 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LDA,machine learning,topic modeling,cluster," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x5C1D;&amp;#x8BD5;&amp;#x4E86;&amp;#x4E0B;JGibbLDA&amp;#xFF0C;&amp;#x53D1;&amp;#x73B0;&amp;#x6309;&amp;#x5B98;&amp;#x65B9;&amp;#x6559;&amp;#x7A0B;&amp;#x7528;&amp;#x4EE5;&amp;#x4E0B;&amp;#x547D;&amp;#x4EE4;&amp;#x76F4;&amp;#x63A5;&amp;#x8FD0;&amp;#x884C;jar&amp;#x5305;&amp;#x4F1A;&amp;#x51">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JGibbLDA实战">
+<meta property="og:url" content="http://www.shuang0420.com/2016/05/16/JGibbLDA实战/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x5C1D;&amp;#x8BD5;&amp;#x4E86;&amp;#x4E0B;JGibbLDA&amp;#xFF0C;&amp;#x53D1;&amp;#x73B0;&amp;#x6309;&amp;#x5B98;&amp;#x65B9;&amp;#x6559;&amp;#x7A0B;&amp;#x7528;&amp;#x4EE5;&amp;#x4E0B;&amp;#x547D;&amp;#x4EE4;&amp;#x76F4;&amp;#x63A5;&amp;#x8FD0;&amp;#x884C;jar&amp;#x5305;&amp;#x4F1A;&amp;#x51">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/err.png">
+<meta property="og:updated_time" content="2016-06-09T12:09:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JGibbLDA实战">
+<meta name="twitter:description" content="&amp;#x5C1D;&amp;#x8BD5;&amp;#x4E86;&amp;#x4E0B;JGibbLDA&amp;#xFF0C;&amp;#x53D1;&amp;#x73B0;&amp;#x6309;&amp;#x5B98;&amp;#x65B9;&amp;#x6559;&amp;#x7A0B;&amp;#x7528;&amp;#x4EE5;&amp;#x4E0B;&amp;#x547D;&amp;#x4EE4;&amp;#x76F4;&amp;#x63A5;&amp;#x8FD0;&amp;#x884C;jar&amp;#x5305;&amp;#x4F1A;&amp;#x51">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/err.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/05/16/JGibbLDA实战/"/>
+
+
+  <title> JGibbLDA实战 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JGibbLDA实战
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-05-16T20:50:23-04:00" content="2016-05-16">
+              2016-05-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/machine-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">machine learning</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/16/JGibbLDA实战/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/16/JGibbLDA实战/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x5C1D;&#x8BD5;&#x4E86;&#x4E0B;JGibbLDA&#xFF0C;&#x53D1;&#x73B0;&#x6309;&#x5B98;&#x65B9;&#x6559;&#x7A0B;&#x7528;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x76F4;&#x63A5;&#x8FD0;&#x884C;jar&#x5305;&#x4F1A;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;</p>
+<a id="more"></a>
+<h3 id="&#x9519;&#x8BEF;"><a href="#&#x9519;&#x8BEF;" class="headerlink" title="&#x9519;&#x8BEF;"></a>&#x9519;&#x8BEF;</h3><p>&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre>java -mx512M -cp bin:lib/args4j-2.0.6.jar jgibblda.LDA -est -alpha 0.5 -beta 0.1 -ntopics 100 -niters 1000 -savestep 100 -twords 20 -dfile models/casestudy/newdocs.dat</pre>
+
+<p>&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/err.png" alt=""></p>
+<h3 id="&#x624B;&#x52A8;&#x914D;&#x7F6E;"><a href="#&#x624B;&#x52A8;&#x914D;&#x7F6E;" class="headerlink" title="&#x624B;&#x52A8;&#x914D;&#x7F6E;"></a>&#x624B;&#x52A8;&#x914D;&#x7F6E;</h3><p>&#x4E8E;&#x662F;&#x5C1D;&#x8BD5;&#x5BFC;&#x5165;eclipse&#x8FD0;&#x884C;&#x624B;&#x52A8;&#x914D;&#x7F6E;&#xFF0C;&#x6210;&#x529F;&#xFF0C;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#x3002;</p>
+<ol>
+<li><p>&#x4E0B;&#x8F7D;JGibbLDA&#x7684;jar&#x5305;&#x5E76;&#x89E3;&#x538B;&#xFF1B;<br>&#x7F51;&#x5740;&#xFF1A;<a href="http://jgibblda.sourceforge.net/#Griffiths04" target="_blank" rel="external">http://jgibblda.sourceforge.net/#Griffiths04</a></p>
+</li>
+<li><p>&#x5BFC;&#x5165;eclipse&#xFF0C;&#x786E;&#x4FDD;jar&#x5305;&#x5728;&#x76EE;&#x5F55;&#x4E2D;</p>
+</li>
+<li><p>&#x627E;&#x5230;LDACmdOption.java&#x6587;&#x4EF6;&#xFF0C; &#x4FEE;&#x6539;&#x90E8;&#x5206;&#x4EE3;&#x7801;</p>
+<pre> @Option(name=&quot;-dir&quot;, usage=&quot;Specify directory&quot;)
+ public String dir = &quot;models/casestudy-en&quot;;
+
+ @Option(name=&quot;-dfile&quot;, usage=&quot;Specify data file&quot;)
+ public String dfile = &quot;models/casestudy-en/newdocs.dat&quot;;</pre>
+
+<p>&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;dfile&#x7684;&#x683C;&#x5F0F;&#x5FC5;&#x987B;&#x662F;&#x1F447;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#xFF1A;</p>
+<pre>[M]
+[document1]
+[document2]
+...
+[documentM]</pre>
+
+<p>&#x7B2C;&#x4E00;&#x884C;[M]&#x662F;documents&#x7684;&#x603B;&#x6570;&#xFF0C;&#x4E4B;&#x540E;&#x7684;&#x6BCF;&#x4E00;&#x884C;&#x662F;&#x4E00;&#x4E2A;document&#xFF0C;&#x6BCF;&#x4E2A;document&#x662F;&#x4E00;&#x4E2A;word list&#xFF0C;&#x6216;&#x8005;&#x8BF4;&#x662F;bag of words&#x3002;</p>
+<pre>[document i] = [word i1] [word i2] ... [word iNi]</pre>
+
+<p>&#x5404;&#x53C2;&#x6570;&#x542B;&#x4E49;&#xFF1A;<br><strong>-est </strong>&#x4ECE;&#x8BAD;&#x7EC3;&#x8BED;&#x6599;&#x4E2D;&#x8BC4;&#x4F30;&#x51FA;LDA&#x6A21;&#x578B;<br><strong>-alpha</strong> LDA&#x6A21;&#x578B;&#x4E2D;&#x7684;alpha&#x6570;&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;50/K(K&#x662F;&#x4E3B;&#x9898;&#x6570;&#x76EE;)<br><strong>-beta</strong> LDA&#x6A21;&#x578B;&#x4E2D;&#x7684;beta&#x6570;&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;0.1<br><strong>-ntopics</strong> &#x4E3B;&#x9898;&#x6570;&#x76EE;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x662F;100<br><strong>-niters</strong> GIbbs&#x91C7;&#x6837;&#x7684;&#x8FED;&#x4EE3;&#x6570;&#x76EE;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;2000<br><strong>-savestep</strong> &#x6307;&#x5B9A;&#x5F00;&#x59CB;&#x4FDD;&#x5B58;LDA&#x6A21;&#x578B;&#x7684;&#x8FED;&#x4EE3;&#x6B21;&#x6570;<br><strong>-dir</strong> &#x8BAD;&#x7EC3;&#x8BED;&#x6599;&#x76EE;&#x5F55;<br><strong>-dfile</strong> &#x8BAD;&#x7EC3;&#x8BED;&#x6599;&#x6587;&#x4EF6;&#x540D;&#x79F0;</p>
+</li>
+<li><p>&#x4FEE;&#x6539;&#x9879;&#x76EE;&#x7684;Run Configurations&#xFF0C;&#x5728;Java Application&#x4E2D;&#x9009;&#x62E9;LDA&#xFF0C;&#x70B9;&#x51FB;(x)=Arguments&#xFF0C;&#x8F93;&#x5165;</p>
+<pre>-est -alpha 0.2 -beta 0.1 -ntopics 100 -niters 1000 -savestep 100 -twords 100 -dir  Users\x\MyEclipse1\JGibbLDA-v.1.0\models\casestudy-en -dfile &quot;newdocs.dat&quot;</pre>
+
+<p> &#x82E5;&#x5229;&#x7528;&#x5DF2;&#x8BAD;&#x7EC3;&#x7684;LDA&#x6A21;&#x578B;&#x9884;&#x6D4B;&#xFF0C;&#x8F93;&#x5165;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<pre>-inf -dir  Users\x\MyEclipse1\JGibbLDA-v.1.0\models\casestudy-en -dfile &quot;test.txt&quot;</pre>
+
+<p> &#x6CE8;&#x610F;&#xFF0C;&#x8FDB;&#x884C;&#x9884;&#x6D4B;&#x65F6;&#xFF0C;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x5FC5;&#x987B;&#x5305;&#x542B;&#x5DF2;&#x6709;&#x7684;LDA&#x8BAD;&#x7EC3;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#xFF0C;&#x5305;&#x62EC;model-final.others&#x3001;model-final.phi&#x3001;model-final.tassign&#x3001;model-final.theta&#x3001;model-final.twords&#x3001;wordmap.txt&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x8FD0;&#x884C;&#x62A5;&#x9519;&#xFF0C;&#x5C1D;&#x8BD5;&#x4FEE;&#x6539;LDACmdOption.java&#x7684;modelName&#xFF0C;&#x786E;&#x4FDD;&#x548C;&#x6587;&#x4EF6;&#x540D;&#x7684;modelname&#x90E8;&#x5206;&#x4E00;&#x81F4;&#x3002;<br><pre>@Option(name=&#x201D;-model&#x201D;, usage=&#x201D;Specify the model name&#x201D;)<br> public String modelName = &#x201C;model-final&#x201D;;</pre>   </p>
+<p> &#x5982;&#x679C;&#x51FA;&#x73B0;java heap limited&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5728;VM arguments&#x4E0B;&#x6DFB;&#x52A0;</p>
+<pre>-Xms1g -Xmx1g -Xmn512m</pre>
+</li>
+<li><p>Run<br>&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x4E3B;&#x8981;&#x6709;&#xFF1A;<br><strong><model_name>.others</model_name></strong>  &#x6587;&#x4EF6;&#x5B58;&#x50A8;LDA&#x6A21;&#x578B;&#x53C2;&#x6570;&#xFF0C;&#x5982;alpha&#x3001;beta&#x7B49;&#x3002;<br><strong><model_name>.phi </model_name></strong> &#x6BCF;&#x4E2A;topic&#x5185;&#x5BF9;doc&#x7684;&#x5206;&#x5E03;&#x60C5;&#x51B5;&#x3002;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x8BCD;&#x8BED;-&#x4E3B;&#x9898;&#x5206;&#x5E03;&#xFF0C;&#x6BCF;&#x4E00;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x4E3B;&#x9898;&#xFF0C;&#x5217;&#x5185;&#x5BB9;&#x4E3A;&#x8BCD;&#x8BED;&#x3002;<br><strong><model_name>.theta </model_name></strong> &#x6BCF;&#x4E2A;doc&#x5185;&#x5BF9;&#x5E94;&#x4E0A;&#x9762;&#x7684;n&#x4E2A;topic&#x7684;&#x5206;&#x5E03;&#x60C5;&#x51B5;&#x3002;&#x6587;&#x4EF6;&#x4E3B;&#x9898;&#x6587;&#x6863;&#x5206;&#x5E03;&#xFF0C;&#x6BCF;&#x4E00;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x6587;&#x6863;&#xFF0C;&#x5217;&#x5185;&#x5BB9;&#x662F;&#x4E3B;&#x9898;&#x6982;&#x7387;&#x3002;<br><strong><model_name>.tassign</model_name></strong>  &#x6587;&#x4EF6;&#x662F;&#x8BAD;&#x7EC3;&#x9884;&#x6599;&#x4E2D;&#x5355;&#x8BCD;&#x7684;&#x4E3B;&#x9898;&#x6307;&#x5B9A;&#xFF08;&#x5F52;&#x5C5E;&#xFF09;&#xFF0C;&#x6BCF;&#x4E00;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x8BED;&#x6599;&#x6587;&#x6863;&#x3002;<br><strong><model_name>.twords</model_name></strong>  n&#x4E2A;topic&#xFF0C;&#x4EE5;&#x53CA;&#x6BCF;&#x4E2A;topic&#x4E0B;&#x9762;&#x5305;&#x542B;&#x7684;&#x5177;&#x4F53;&#x7684;&#x5B57;&#x8BCD;<br><strong>wordmap.txt</strong>  &#x8BCD;-id&#x6620;&#x5C04;<br>&#x5176;&#x4E2D;<model_name>&#x6839;&#x636E;&#x91C7;&#x6837;&#x8FED;&#x4EE3;&#x6B21;&#x6570;&#x6765;&#x6307;&#x5B9A;&#xFF0C;&#x5982;model-00800&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x91C7;&#x6837;&#x540D;&#x79F0;&#x547D;&#x540D;&#x4E3A;model-final&#x3002;</model_name></p>
+</li>
+</ol>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;&#xFF1A;<br><a href="http://www.ithao123.cn/content-4208214.html" target="_blank" rel="external">http://www.ithao123.cn/content-4208214.html</a><br><a href="http://jgibblda.sourceforge.net/" target="_blank" rel="external">http://jgibblda.sourceforge.net/</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LDA/" rel="tag">#LDA</a>
+          
+            <a href="/tags/machine-learning/" rel="tag">#machine learning</a>
+          
+            <a href="/tags/topic-modeling/" rel="tag">#topic modeling</a>
+          
+            <a href="/tags/cluster/" rel="tag">#cluster</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/13/让百度、google收录博客/" rel="next" title="让百度、google收录博客">
+                <i class="fa fa-chevron-left"></i> 让百度、google收录博客
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/18/Gensim-用Python做主题模型/" rel="prev" title="Gensim-用Python做主题模型">
+                Gensim-用Python做主题模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">1.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动配置"><span class="nav-number">2.</span> <span class="nav-text">手动配置</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/05/16/JGibbLDA实战/';
+      var disqus_title = "JGibbLDA实战";
+      var disqus_url = 'http://www.shuang0420.com/2016/05/16/JGibbLDA实战/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

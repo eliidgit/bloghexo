@@ -1,0 +1,1141 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="gensim,分词," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="jieba&amp;#x201C;&amp;#x7ED3;&amp;#x5DF4;&amp;#x201D;&amp;#x4E2D;&amp;#x6587;&amp;#x5206;&amp;#x8BCD;&amp;#xFF1A;&amp;#x505A;&amp;#x6700;&amp;#x597D;&amp;#x7684; Python &amp;#x4E2D;&amp;#x6587;&amp;#x5206;&amp;#x8BCD;&amp;#x7EC4;&amp;#x4EF6;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-jieba-分词----官方文档截取">
+<meta property="og:url" content="http://www.shuang0420.com/2016/04/01/python-jieba-分词----官方文档截取/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="jieba&amp;#x201C;&amp;#x7ED3;&amp;#x5DF4;&amp;#x201D;&amp;#x4E2D;&amp;#x6587;&amp;#x5206;&amp;#x8BCD;&amp;#xFF1A;&amp;#x505A;&amp;#x6700;&amp;#x597D;&amp;#x7684; Python &amp;#x4E2D;&amp;#x6587;&amp;#x5206;&amp;#x8BCD;&amp;#x7EC4;&amp;#x4EF6;">
+<meta property="og:updated_time" content="2016-06-09T12:08:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python-jieba-分词----官方文档截取">
+<meta name="twitter:description" content="jieba&amp;#x201C;&amp;#x7ED3;&amp;#x5DF4;&amp;#x201D;&amp;#x4E2D;&amp;#x6587;&amp;#x5206;&amp;#x8BCD;&amp;#xFF1A;&amp;#x505A;&amp;#x6700;&amp;#x597D;&amp;#x7684; Python &amp;#x4E2D;&amp;#x6587;&amp;#x5206;&amp;#x8BCD;&amp;#x7EC4;&amp;#x4EF6;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/04/01/python-jieba-分词----官方文档截取/"/>
+
+
+  <title> python-jieba-分词----官方文档截取 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python-jieba-分词----官方文档截取
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-01T10:22:06-04:00" content="2016-04-01">
+              2016-04-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/machine-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">machine learning</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/01/python-jieba-分词----官方文档截取/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/01/python-jieba-分词----官方文档截取/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="jieba"><a href="#jieba" class="headerlink" title="jieba"></a>jieba</h1><p>&#x201C;&#x7ED3;&#x5DF4;&#x201D;&#x4E2D;&#x6587;&#x5206;&#x8BCD;&#xFF1A;&#x505A;&#x6700;&#x597D;&#x7684; Python &#x4E2D;&#x6587;&#x5206;&#x8BCD;&#x7EC4;&#x4EF6;</p>
+<a id="more"></a>
+<h1 id="&#x7279;&#x70B9;"><a href="#&#x7279;&#x70B9;" class="headerlink" title="&#x7279;&#x70B9;"></a>&#x7279;&#x70B9;</h1><ul>
+<li>&#x652F;&#x6301;&#x4E09;&#x79CD;&#x5206;&#x8BCD;&#x6A21;&#x5F0F;&#xFF1A;</li>
+</ul>
+<ol>
+<li>&#x7CBE;&#x786E;&#x6A21;&#x5F0F;&#xFF0C;&#x8BD5;&#x56FE;&#x5C06;&#x53E5;&#x5B50;&#x6700;&#x7CBE;&#x786E;&#x5730;&#x5207;&#x5F00;&#xFF0C;&#x9002;&#x5408;&#x6587;&#x672C;&#x5206;&#x6790;&#xFF1B;</li>
+<li>&#x5168;&#x6A21;&#x5F0F;&#xFF0C;&#x628A;&#x53E5;&#x5B50;&#x4E2D;&#x6240;&#x6709;&#x7684;&#x53EF;&#x4EE5;&#x6210;&#x8BCD;&#x7684;&#x8BCD;&#x8BED;&#x90FD;&#x626B;&#x63CF;&#x51FA;&#x6765;, &#x901F;&#x5EA6;&#x975E;&#x5E38;&#x5FEB;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x89E3;&#x51B3;&#x6B67;&#x4E49;&#xFF1B;</li>
+<li>&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x6A21;&#x5F0F;&#xFF0C;&#x5728;&#x7CBE;&#x786E;&#x6A21;&#x5F0F;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;&#x5BF9;&#x957F;&#x8BCD;&#x518D;&#x6B21;&#x5207;&#x5206;&#xFF0C;&#x63D0;&#x9AD8;&#x53EC;&#x56DE;&#x7387;&#xFF0C;&#x9002;&#x5408;&#x7528;&#x4E8E;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x5206;&#x8BCD;&#x3002;</li>
+</ol>
+<ul>
+<li><p>&#x652F;&#x6301;&#x7E41;&#x4F53;&#x5206;&#x8BCD;</p>
+</li>
+<li><p>&#x652F;&#x6301;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;</p>
+</li>
+</ul>
+<h1 id="&#x5B89;&#x88C5;&#x8BF4;&#x660E;"><a href="#&#x5B89;&#x88C5;&#x8BF4;&#x660E;" class="headerlink" title="&#x5B89;&#x88C5;&#x8BF4;&#x660E;"></a>&#x5B89;&#x88C5;&#x8BF4;&#x660E;</h1><p>&#x4EE3;&#x7801;&#x5BF9; Python 2/3 &#x5747;&#x517C;&#x5BB9;</p>
+<ul>
+<li>&#x5168;&#x81EA;&#x52A8;&#x5B89;&#x88C5;&#xFF1A;easy_install jieba &#x6216;&#x8005; pip install jieba / pip3 install jieba</li>
+<li>&#x534A;&#x81EA;&#x52A8;&#x5B89;&#x88C5;&#xFF1A;&#x5148;&#x4E0B;&#x8F7D; <a href="http://pypi.python.org/pypi/jieba/" target="_blank" rel="external">http://pypi.python.org/pypi/jieba/</a> &#xFF0C;&#x89E3;&#x538B;&#x540E;&#x8FD0;&#x884C; python setup.py install</li>
+<li>&#x624B;&#x52A8;&#x5B89;&#x88C5;&#xFF1A;&#x5C06; jieba &#x76EE;&#x5F55;&#x653E;&#x7F6E;&#x4E8E;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x6216;&#x8005; site-packages &#x76EE;&#x5F55;</li>
+</ul>
+<p>&#x901A;&#x8FC7; import jieba &#x6765;&#x5F15;&#x7528;</p>
+<h1 id="&#x7B97;&#x6CD5;"><a href="#&#x7B97;&#x6CD5;" class="headerlink" title="&#x7B97;&#x6CD5;"></a>&#x7B97;&#x6CD5;</h1><ul>
+<li>&#x57FA;&#x4E8E;&#x524D;&#x7F00;&#x8BCD;&#x5178;&#x5B9E;&#x73B0;&#x9AD8;&#x6548;&#x7684;&#x8BCD;&#x56FE;&#x626B;&#x63CF;&#xFF0C;&#x751F;&#x6210;&#x53E5;&#x5B50;&#x4E2D;&#x6C49;&#x5B57;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x6210;&#x8BCD;&#x60C5;&#x51B5;&#x6240;&#x6784;&#x6210;&#x7684;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE; (DAG)</li>
+<li>&#x91C7;&#x7528;&#x4E86;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x67E5;&#x627E;&#x6700;&#x5927;&#x6982;&#x7387;&#x8DEF;&#x5F84;, &#x627E;&#x51FA;&#x57FA;&#x4E8E;&#x8BCD;&#x9891;&#x7684;&#x6700;&#x5927;&#x5207;&#x5206;&#x7EC4;&#x5408;</li>
+<li>&#x5BF9;&#x4E8E;&#x672A;&#x767B;&#x5F55;&#x8BCD;&#xFF0C;&#x91C7;&#x7528;&#x4E86;&#x57FA;&#x4E8E;&#x6C49;&#x5B57;&#x6210;&#x8BCD;&#x80FD;&#x529B;&#x7684; HMM &#x6A21;&#x578B;&#xFF0C;&#x4F7F;&#x7528;&#x4E86; Viterbi &#x7B97;&#x6CD5;</li>
+</ul>
+<h1 id="&#x4E3B;&#x8981;&#x529F;&#x80FD;"><a href="#&#x4E3B;&#x8981;&#x529F;&#x80FD;" class="headerlink" title="&#x4E3B;&#x8981;&#x529F;&#x80FD;"></a>&#x4E3B;&#x8981;&#x529F;&#x80FD;</h1><h2 id="&#x5206;&#x8BCD;"><a href="#&#x5206;&#x8BCD;" class="headerlink" title="&#x5206;&#x8BCD;"></a>&#x5206;&#x8BCD;</h2><p>jieba.cut &#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4E09;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;: &#x9700;&#x8981;&#x5206;&#x8BCD;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1B;cut_all &#x53C2;&#x6570;&#x7528;&#x6765;&#x63A7;&#x5236;&#x662F;&#x5426;&#x91C7;&#x7528;&#x5168;&#x6A21;&#x5F0F;&#xFF1B;HMM &#x53C2;&#x6570;&#x7528;&#x6765;&#x63A7;&#x5236;&#x662F;&#x5426;&#x4F7F;&#x7528; HMM &#x6A21;&#x578B;<br>jieba.cut_for_search &#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;&#x9700;&#x8981;&#x5206;&#x8BCD;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1B;&#x662F;&#x5426;&#x4F7F;&#x7528; HMM &#x6A21;&#x578B;&#x3002;&#x8BE5;&#x65B9;&#x6CD5;&#x9002;&#x5408;&#x7528;&#x4E8E;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x6784;&#x5EFA;&#x5012;&#x6392;&#x7D22;&#x5F15;&#x7684;&#x5206;&#x8BCD;&#xFF0C;&#x7C92;&#x5EA6;&#x6BD4;&#x8F83;&#x7EC6;<br>&#x5F85;&#x5206;&#x8BCD;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x53EF;&#x4EE5;&#x662F; unicode &#x6216; UTF-8 &#x5B57;&#x7B26;&#x4E32;&#x3001;GBK &#x5B57;&#x7B26;&#x4E32;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x4E0D;&#x5EFA;&#x8BAE;&#x76F4;&#x63A5;&#x8F93;&#x5165; GBK &#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x53EF;&#x80FD;&#x65E0;&#x6CD5;&#x9884;&#x6599;&#x5730;&#x9519;&#x8BEF;&#x89E3;&#x7801;&#x6210; UTF-8<br>jieba.cut &#x4EE5;&#x53CA; jieba.cut_for_search &#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x6784;&#x90FD;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x8FED;&#x4EE3;&#x7684; generator&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; for &#x5FAA;&#x73AF;&#x6765;&#x83B7;&#x5F97;&#x5206;&#x8BCD;&#x540E;&#x5F97;&#x5230;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x8BCD;&#x8BED;(unicode)&#xFF0C;&#x6216;&#x8005;&#x7528; jieba.lcut &#x4EE5;&#x53CA; jieba.lcut_for_search &#x76F4;&#x63A5;&#x8FD4;&#x56DE; list<br>jieba.Tokenizer(dictionary=DEFAULT_DICT) &#x65B0;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49;&#x5206;&#x8BCD;&#x5668;&#xFF0C;&#x53EF;&#x7528;&#x4E8E;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x8BCD;&#x5178;&#x3002;jieba.dt &#x4E3A;&#x9ED8;&#x8BA4;&#x5206;&#x8BCD;&#x5668;&#xFF0C;&#x6240;&#x6709;&#x5168;&#x5C40;&#x5206;&#x8BCD;&#x76F8;&#x5173;&#x51FD;&#x6570;&#x90FD;&#x662F;&#x8BE5;&#x5206;&#x8BCD;&#x5668;&#x7684;&#x6620;&#x5C04;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;</p>
+<pre>
+# encoding=utf-8
+import jieba
+
+seg_list = jieba.cut(&quot;&#x6211;&#x6765;&#x5230;&#x5317;&#x4EAC;&#x6E05;&#x534E;&#x5927;&#x5B66;&quot;, cut_all=True)
+print(&quot;Full Mode: &quot; + &quot;/ &quot;.join(seg_list))  # &#x5168;&#x6A21;&#x5F0F;
+
+seg_list = jieba.cut(&quot;&#x6211;&#x6765;&#x5230;&#x5317;&#x4EAC;&#x6E05;&#x534E;&#x5927;&#x5B66;&quot;, cut_all=False)
+print(&quot;Default Mode: &quot; + &quot;/ &quot;.join(seg_list))  # &#x7CBE;&#x786E;&#x6A21;&#x5F0F;
+
+seg_list = jieba.cut(&quot;&#x4ED6;&#x6765;&#x5230;&#x4E86;&#x7F51;&#x6613;&#x676D;&#x7814;&#x5927;&#x53A6;&quot;)  # &#x9ED8;&#x8BA4;&#x662F;&#x7CBE;&#x786E;&#x6A21;&#x5F0F;
+print(&quot;, &quot;.join(seg_list))
+
+seg_list = jieba.cut_for_search(&quot;&#x5C0F;&#x660E;&#x7855;&#x58EB;&#x6BD5;&#x4E1A;&#x4E8E;&#x4E2D;&#x56FD;&#x79D1;&#x5B66;&#x9662;&#x8BA1;&#x7B97;&#x6240;&#xFF0C;&#x540E;&#x5728;&#x65E5;&#x672C;&#x4EAC;&#x90FD;&#x5927;&#x5B66;&#x6DF1;&#x9020;&quot;)  # &#x641C;&#x7D22;&#x5F15;&#x64CE;&#x6A21;&#x5F0F;
+print(&quot;, &quot;.join(seg_list))</pre>
+
+<p>&#x8F93;&#x51FA;:</p>
+<p>&#x3010;&#x5168;&#x6A21;&#x5F0F;&#x3011;: &#x6211;/ &#x6765;&#x5230;/ &#x5317;&#x4EAC;/ &#x6E05;&#x534E;/ &#x6E05;&#x534E;&#x5927;&#x5B66;/ &#x534E;&#x5927;/ &#x5927;&#x5B66;</p>
+<p>&#x3010;&#x7CBE;&#x786E;&#x6A21;&#x5F0F;&#x3011;: &#x6211;/ &#x6765;&#x5230;/ &#x5317;&#x4EAC;/ &#x6E05;&#x534E;&#x5927;&#x5B66;</p>
+<p>&#x3010;&#x65B0;&#x8BCD;&#x8BC6;&#x522B;&#x3011;&#xFF1A;&#x4ED6;, &#x6765;&#x5230;, &#x4E86;, &#x7F51;&#x6613;, &#x676D;&#x7814;, &#x5927;&#x53A6;    (&#x6B64;&#x5904;&#xFF0C;&#x201C;&#x676D;&#x7814;&#x201D;&#x5E76;&#x6CA1;&#x6709;&#x5728;&#x8BCD;&#x5178;&#x4E2D;&#xFF0C;&#x4F46;&#x662F;&#x4E5F;&#x88AB;Viterbi&#x7B97;&#x6CD5;&#x8BC6;&#x522B;&#x51FA;&#x6765;&#x4E86;)</p>
+<p>&#x3010;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x6A21;&#x5F0F;&#x3011;&#xFF1A; &#x5C0F;&#x660E;, &#x7855;&#x58EB;, &#x6BD5;&#x4E1A;, &#x4E8E;, &#x4E2D;&#x56FD;, &#x79D1;&#x5B66;, &#x5B66;&#x9662;, &#x79D1;&#x5B66;&#x9662;, &#x4E2D;&#x56FD;&#x79D1;&#x5B66;&#x9662;, &#x8BA1;&#x7B97;, &#x8BA1;&#x7B97;&#x6240;, &#x540E;, &#x5728;, &#x65E5;&#x672C;, &#x4EAC;&#x90FD;, &#x5927;&#x5B66;, &#x65E5;&#x672C;&#x4EAC;&#x90FD;&#x5927;&#x5B66;, &#x6DF1;&#x9020;</p>
+<h2 id="&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;"><a href="#&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;" class="headerlink" title="&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;"></a>&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;</h2><p>&#x8F7D;&#x5165;&#x8BCD;&#x5178;</p>
+<p>&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x81EA;&#x5DF1;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x8BCD;&#x5178;&#xFF0C;&#x4EE5;&#x4FBF;&#x5305;&#x542B; jieba &#x8BCD;&#x5E93;&#x91CC;&#x6CA1;&#x6709;&#x7684;&#x8BCD;&#x3002;&#x867D;&#x7136; jieba &#x6709;&#x65B0;&#x8BCD;&#x8BC6;&#x522B;&#x80FD;&#x529B;&#xFF0C;&#x4F46;&#x662F;&#x81EA;&#x884C;&#x6DFB;&#x52A0;&#x65B0;&#x8BCD;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x66F4;&#x9AD8;&#x7684;&#x6B63;&#x786E;&#x7387;<br>&#x7528;&#x6CD5;&#xFF1A;</p>
+<pre>jieba.load_userdict(file_name) # file_name &#x4E3A;&#x6587;&#x4EF6;&#x7C7B;&#x5BF9;&#x8C61;&#x6216;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;&#x7684;&#x8DEF;&#x5F84;</pre>
+
+<p>&#x8BCD;&#x5178;&#x683C;&#x5F0F;&#x548C; dict.txt &#x4E00;&#x6837;&#xFF0C;&#x4E00;&#x4E2A;&#x8BCD;&#x5360;&#x4E00;&#x884C;&#xFF1B;&#x6BCF;&#x4E00;&#x884C;&#x5206;&#x4E09;&#x90E8;&#x5206;&#xFF1A;&#x8BCD;&#x8BED;&#x3001;&#x8BCD;&#x9891;&#xFF08;&#x53EF;&#x7701;&#x7565;&#xFF09;&#x3001;&#x8BCD;&#x6027;&#xFF08;&#x53EF;&#x7701;&#x7565;&#xFF09;&#xFF0C;&#x7528;&#x7A7A;&#x683C;&#x9694;&#x5F00;&#xFF0C;&#x987A;&#x5E8F;&#x4E0D;&#x53EF;&#x98A0;&#x5012;&#x3002;file_name &#x82E5;&#x4E3A;&#x8DEF;&#x5F84;&#x6216;&#x4E8C;&#x8FDB;&#x5236;&#x65B9;&#x5F0F;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5219;&#x6587;&#x4EF6;&#x5FC5;&#x987B;&#x4E3A; UTF-8 &#x7F16;&#x7801;&#x3002;<br>&#x8BCD;&#x9891;&#x7701;&#x7565;&#x65F6;&#x4F7F;&#x7528;&#x81EA;&#x52A8;&#x8BA1;&#x7B97;&#x7684;&#x80FD;&#x4FDD;&#x8BC1;&#x5206;&#x51FA;&#x8BE5;&#x8BCD;&#x7684;&#x8BCD;&#x9891;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<p>&#x521B;&#x65B0;&#x529E; 3 i<br>&#x4E91;&#x8BA1;&#x7B97; 5<br>&#x51F1;&#x7279;&#x7433; nz<br>&#x53F0;&#x4E2D;<br>&#x66F4;&#x6539;&#x5206;&#x8BCD;&#x5668;&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A; jieba.dt&#xFF09;&#x7684; tmp_dir &#x548C; cache_file &#x5C5E;&#x6027;&#xFF0C;&#x53EF;&#x5206;&#x522B;&#x6307;&#x5B9A;&#x7F13;&#x5B58;&#x6587;&#x4EF6;&#x6240;&#x5728;&#x7684;&#x6587;&#x4EF6;&#x5939;&#x53CA;&#x5176;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x7528;&#x4E8E;&#x53D7;&#x9650;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;</p>
+<p>&#x8303;&#x4F8B;&#xFF1A;</p>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/userdict.txt" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/userdict.txt</a></p>
+<p>&#x7528;&#x6CD5;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/test_userdict.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/test_userdict.py</a></p>
+<p>&#x4E4B;&#x524D;&#xFF1A; &#x674E;&#x5C0F;&#x798F; / &#x662F; / &#x521B;&#x65B0; / &#x529E; / &#x4E3B;&#x4EFB; / &#x4E5F; / &#x662F; / &#x4E91; / &#x8BA1;&#x7B97; / &#x65B9;&#x9762; / &#x7684; / &#x4E13;&#x5BB6; /</p>
+<p>&#x52A0;&#x8F7D;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5E93;&#x540E;&#xFF1A;&#x3000;&#x674E;&#x5C0F;&#x798F; / &#x662F; / &#x521B;&#x65B0;&#x529E; / &#x4E3B;&#x4EFB; / &#x4E5F; / &#x662F; / &#x4E91;&#x8BA1;&#x7B97; / &#x65B9;&#x9762; / &#x7684; / &#x4E13;&#x5BB6; /</p>
+<p>&#x8C03;&#x6574;&#x8BCD;&#x5178;</p>
+<p>&#x4F7F;&#x7528; add_word(word, freq=None, tag=None) &#x548C; del_word(word) &#x53EF;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x52A8;&#x6001;&#x4FEE;&#x6539;&#x8BCD;&#x5178;&#x3002;<br>&#x4F7F;&#x7528; suggest_freq(segment, tune=True) &#x53EF;&#x8C03;&#x8282;&#x5355;&#x4E2A;&#x8BCD;&#x8BED;&#x7684;&#x8BCD;&#x9891;&#xFF0C;&#x4F7F;&#x5176;&#x80FD;&#xFF08;&#x6216;&#x4E0D;&#x80FD;&#xFF09;&#x88AB;&#x5206;&#x51FA;&#x6765;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x81EA;&#x52A8;&#x8BA1;&#x7B97;&#x7684;&#x8BCD;&#x9891;&#x5728;&#x4F7F;&#x7528; HMM &#x65B0;&#x8BCD;&#x53D1;&#x73B0;&#x529F;&#x80FD;&#x65F6;&#x53EF;&#x80FD;&#x65E0;&#x6548;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre>
+&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;&#x5982;&#x679C;&#x653E;&#x5230;post&#x4E2D;&#x5C06;&#x51FA;&#x9519;&#x3002;&apos;, HMM=False)))
+&#x5982;&#x679C;/&#x653E;&#x5230;/post/&#x4E2D;&#x5C06;/&#x51FA;&#x9519;/&#x3002;
+&gt;&gt;&gt; jieba.suggest_freq((&apos;&#x4E2D;&apos;, &apos;&#x5C06;&apos;), True)
+494
+&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;&#x5982;&#x679C;&#x653E;&#x5230;post&#x4E2D;&#x5C06;&#x51FA;&#x9519;&#x3002;&apos;, HMM=False)))
+&#x5982;&#x679C;/&#x653E;&#x5230;/post/&#x4E2D;/&#x5C06;/&#x51FA;&#x9519;/&#x3002;
+&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;&#x300C;&#x53F0;&#x4E2D;&#x300D;&#x6B63;&#x786E;&#x5E94;&#x8BE5;&#x4E0D;&#x4F1A;&#x88AB;&#x5207;&#x5F00;&apos;, HMM=False)))
+&#x300C;/&#x53F0;/&#x4E2D;/&#x300D;/&#x6B63;&#x786E;/&#x5E94;&#x8BE5;/&#x4E0D;&#x4F1A;/&#x88AB;/&#x5207;&#x5F00;
+&gt;&gt;&gt; jieba.suggest_freq(&apos;&#x53F0;&#x4E2D;&apos;, True)
+69
+&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;&#x300C;&#x53F0;&#x4E2D;&#x300D;&#x6B63;&#x786E;&#x5E94;&#x8BE5;&#x4E0D;&#x4F1A;&#x88AB;&#x5207;&#x5F00;&apos;, HMM=False)))
+&#x300C;/&#x53F0;&#x4E2D;/&#x300D;/&#x6B63;&#x786E;/&#x5E94;&#x8BE5;/&#x4E0D;&#x4F1A;/&#x88AB;/&#x5207;&#x5F00;
+&quot;&#x901A;&#x8FC7;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x8BCD;&#x5178;&#x6765;&#x589E;&#x5F3A;&#x6B67;&#x4E49;&#x7EA0;&#x9519;&#x80FD;&#x529B;&quot; --- https://github.com/fxsjy/jieba/issues/14
+</pre>
+
+<h2 id="&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;"><a href="#&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;" class="headerlink" title="&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;"></a>&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;</h2><p>&#x57FA;&#x4E8E; TF-IDF &#x7B97;&#x6CD5;&#x7684;&#x5173;&#x952E;&#x8BCD;&#x62BD;&#x53D6;</p>
+<pre>
+import jieba.analyse
+
+jieba.analyse.extract_tags(sentence, topK=20, withWeight=False, allowPOS=())</pre>
+
+<p>sentence &#x4E3A;&#x5F85;&#x63D0;&#x53D6;&#x7684;&#x6587;&#x672C;<br>topK &#x4E3A;&#x8FD4;&#x56DE;&#x51E0;&#x4E2A; TF/IDF &#x6743;&#x91CD;&#x6700;&#x5927;&#x7684;&#x5173;&#x952E;&#x8BCD;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; 20<br>withWeight &#x4E3A;&#x662F;&#x5426;&#x4E00;&#x5E76;&#x8FD4;&#x56DE;&#x5173;&#x952E;&#x8BCD;&#x6743;&#x91CD;&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; False<br>allowPOS &#x4EC5;&#x5305;&#x62EC;&#x6307;&#x5B9A;&#x8BCD;&#x6027;&#x7684;&#x8BCD;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;&#x7A7A;&#xFF0C;&#x5373;&#x4E0D;&#x7B5B;&#x9009;<br>jieba.analyse.TFIDF(idf_path=None) &#x65B0;&#x5EFA; TFIDF &#x5B9E;&#x4F8B;&#xFF0C;idf_path &#x4E3A; IDF &#x9891;&#x7387;&#x6587;&#x4EF6;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B; &#xFF08;&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;&#xFF09;</p>
+<p><a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags.py</a></p>
+<p>&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;&#x6240;&#x4F7F;&#x7528;&#x9006;&#x5411;&#x6587;&#x4EF6;&#x9891;&#x7387;&#xFF08;IDF&#xFF09;&#x6587;&#x672C;&#x8BED;&#x6599;&#x5E93;&#x53EF;&#x4EE5;&#x5207;&#x6362;&#x6210;&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6599;&#x5E93;&#x7684;&#x8DEF;&#x5F84;</p>
+<p>&#x7528;&#x6CD5;&#xFF1A; <pre>jieba.analyse.set_idf_path(file_name) # file_name&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6599;&#x5E93;&#x7684;&#x8DEF;&#x5F84;</pre></p>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6599;&#x5E93;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/extra_dict/idf.txt.big" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/extra_dict/idf.txt.big</a><br>&#x7528;&#x6CD5;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags_idfpath.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags_idfpath.py</a></p>
+<p>&#x5173;&#x952E;&#x8BCD;&#x63D0;&#x53D6;&#x6240;&#x4F7F;&#x7528;&#x505C;&#x6B62;&#x8BCD;&#xFF08;Stop Words&#xFF09;&#x6587;&#x672C;&#x8BED;&#x6599;&#x5E93;&#x53EF;&#x4EE5;&#x5207;&#x6362;&#x6210;&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6599;&#x5E93;&#x7684;&#x8DEF;&#x5F84;</p>
+<p>&#x7528;&#x6CD5;&#xFF1A; <pre>jieba.analyse.set_stop_words(file_name) # file_name&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6599;&#x5E93;&#x7684;&#x8DEF;&#x5F84;</pre></p>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6599;&#x5E93;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/extra_dict/stop_words.txt" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/extra_dict/stop_words.txt</a><br>&#x7528;&#x6CD5;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags_stop_words.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags_stop_words.py</a></p>
+<p>&#x5173;&#x952E;&#x8BCD;&#x4E00;&#x5E76;&#x8FD4;&#x56DE;&#x5173;&#x952E;&#x8BCD;&#x6743;&#x91CD;&#x503C;&#x793A;&#x4F8B;</p>
+<p>&#x7528;&#x6CD5;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags_with_weight.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags_with_weight.py</a></p>
+<p>&#x57FA;&#x4E8E; TextRank &#x7B97;&#x6CD5;&#x7684;&#x5173;&#x952E;&#x8BCD;&#x62BD;&#x53D6;</p>
+<pre>jieba.analyse.textrank(sentence, topK=20, withWeight=False, allowPOS=(&apos;ns&apos;, &apos;n&apos;, &apos;vn&apos;, &apos;v&apos;)) #&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#xFF0C;&#x63A5;&#x53E3;&#x76F8;&#x540C;&#xFF0C;&#x6CE8;&#x610F;&#x9ED8;&#x8BA4;&#x8FC7;&#x6EE4;&#x8BCD;&#x6027;&#x3002;</pre>
+<pre>jieba.analyse.TextRank() #&#x65B0;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49; TextRank &#x5B9E;&#x4F8B;</pre>
+
+<p>&#x7B97;&#x6CD5;&#x8BBA;&#x6587;&#xFF1A; TextRank: Bringing Order into Texts</p>
+<p><strong>&#x57FA;&#x672C;&#x601D;&#x60F3;:</strong></p>
+<ul>
+<li>&#x5C06;&#x5F85;&#x62BD;&#x53D6;&#x5173;&#x952E;&#x8BCD;&#x7684;&#x6587;&#x672C;&#x8FDB;&#x884C;&#x5206;&#x8BCD;</li>
+<li>&#x4EE5;&#x56FA;&#x5B9A;&#x7A97;&#x53E3;&#x5927;&#x5C0F;(&#x9ED8;&#x8BA4;&#x4E3A;5&#xFF0C;&#x901A;&#x8FC7;span&#x5C5E;&#x6027;&#x8C03;&#x6574;)&#xFF0C;&#x8BCD;&#x4E4B;&#x95F4;&#x7684;&#x5171;&#x73B0;&#x5173;&#x7CFB;&#xFF0C;&#x6784;&#x5EFA;&#x56FE;</li>
+<li>&#x8BA1;&#x7B97;&#x56FE;&#x4E2D;&#x8282;&#x70B9;&#x7684;PageRank&#xFF0C;&#x6CE8;&#x610F;&#x662F;&#x65E0;&#x5411;&#x5E26;&#x6743;&#x56FE;</li>
+</ul>
+<p>&#x4F7F;&#x7528;&#x793A;&#x4F8B;:</p>
+<p>&#x89C1; test/demo.py</p>
+<h2 id="&#x8BCD;&#x6027;&#x6807;&#x6CE8;"><a href="#&#x8BCD;&#x6027;&#x6807;&#x6CE8;" class="headerlink" title="&#x8BCD;&#x6027;&#x6807;&#x6CE8;"></a>&#x8BCD;&#x6027;&#x6807;&#x6CE8;</h2><p>jieba.posseg.POSTokenizer(tokenizer=None) &#x65B0;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49;&#x5206;&#x8BCD;&#x5668;&#xFF0C;tokenizer &#x53C2;&#x6570;&#x53EF;&#x6307;&#x5B9A;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x7684; jieba.Tokenizer &#x5206;&#x8BCD;&#x5668;&#x3002;jieba.posseg.dt &#x4E3A;&#x9ED8;&#x8BA4;&#x8BCD;&#x6027;&#x6807;&#x6CE8;&#x5206;&#x8BCD;&#x5668;&#x3002;<br>&#x6807;&#x6CE8;&#x53E5;&#x5B50;&#x5206;&#x8BCD;&#x540E;&#x6BCF;&#x4E2A;&#x8BCD;&#x7684;&#x8BCD;&#x6027;&#xFF0C;&#x91C7;&#x7528;&#x548C; ictclas &#x517C;&#x5BB9;&#x7684;&#x6807;&#x8BB0;&#x6CD5;&#x3002;<br>&#x7528;&#x6CD5;&#x793A;&#x4F8B;</p>
+<pre>
+&gt;&gt;&gt; import jieba.posseg as pseg
+&gt;&gt;&gt; words = pseg.cut(&quot;&#x6211;&#x7231;&#x5317;&#x4EAC;&#x5929;&#x5B89;&#x95E8;&quot;)
+&gt;&gt;&gt; for word, flag in words:
+...    print(&apos;%s %s&apos; % (word, flag))
+...
+&#x6211; r
+&#x7231; v
+&#x5317;&#x4EAC; ns
+&#x5929;&#x5B89;&#x95E8; ns
+</pre>
+
+<h2 id="&#x5E76;&#x884C;&#x5206;&#x8BCD;"><a href="#&#x5E76;&#x884C;&#x5206;&#x8BCD;" class="headerlink" title="&#x5E76;&#x884C;&#x5206;&#x8BCD;"></a>&#x5E76;&#x884C;&#x5206;&#x8BCD;</h2><p>&#x539F;&#x7406;&#xFF1A;&#x5C06;&#x76EE;&#x6807;&#x6587;&#x672C;&#x6309;&#x884C;&#x5206;&#x9694;&#x540E;&#xFF0C;&#x628A;&#x5404;&#x884C;&#x6587;&#x672C;&#x5206;&#x914D;&#x5230;&#x591A;&#x4E2A; Python &#x8FDB;&#x7A0B;&#x5E76;&#x884C;&#x5206;&#x8BCD;&#xFF0C;&#x7136;&#x540E;&#x5F52;&#x5E76;&#x7ED3;&#x679C;&#xFF0C;&#x4ECE;&#x800C;&#x83B7;&#x5F97;&#x5206;&#x8BCD;&#x901F;&#x5EA6;&#x7684;&#x53EF;&#x89C2;&#x63D0;&#x5347;<br>&#x57FA;&#x4E8E; python &#x81EA;&#x5E26;&#x7684; multiprocessing &#x6A21;&#x5757;&#xFF0C;&#x76EE;&#x524D;&#x6682;&#x4E0D;&#x652F;&#x6301; Windows<br>&#x7528;&#x6CD5;&#xFF1A;</p>
+<pre>
+jieba.enable_parallel(4) # &#x5F00;&#x542F;&#x5E76;&#x884C;&#x5206;&#x8BCD;&#x6A21;&#x5F0F;&#xFF0C;&#x53C2;&#x6570;&#x4E3A;&#x5E76;&#x884C;&#x8FDB;&#x7A0B;&#x6570;
+jieba.disable_parallel() # &#x5173;&#x95ED;&#x5E76;&#x884C;&#x5206;&#x8BCD;&#x6A21;&#x5F0F;
+</pre>
+
+<p>&#x4F8B;&#x5B50;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/parallel/test_file.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/parallel/test_file.py</a></p>
+<p>&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;&#xFF1A;&#x5728; 4 &#x6838; 3.4GHz Linux &#x673A;&#x5668;&#x4E0A;&#xFF0C;&#x5BF9;&#x91D1;&#x5EB8;&#x5168;&#x96C6;&#x8FDB;&#x884C;&#x7CBE;&#x786E;&#x5206;&#x8BCD;&#xFF0C;&#x83B7;&#x5F97;&#x4E86; 1MB/s &#x7684;&#x901F;&#x5EA6;&#xFF0C;&#x662F;&#x5355;&#x8FDB;&#x7A0B;&#x7248;&#x7684; 3.3 &#x500D;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5E76;&#x884C;&#x5206;&#x8BCD;&#x4EC5;&#x652F;&#x6301;&#x9ED8;&#x8BA4;&#x5206;&#x8BCD;&#x5668; jieba.dt &#x548C; jieba.posseg.dt&#x3002;</p>
+<h2 id="Tokenize&#xFF1A;&#x8FD4;&#x56DE;&#x8BCD;&#x8BED;&#x5728;&#x539F;&#x6587;&#x7684;&#x8D77;&#x6B62;&#x4F4D;&#x7F6E;"><a href="#Tokenize&#xFF1A;&#x8FD4;&#x56DE;&#x8BCD;&#x8BED;&#x5728;&#x539F;&#x6587;&#x7684;&#x8D77;&#x6B62;&#x4F4D;&#x7F6E;" class="headerlink" title="Tokenize&#xFF1A;&#x8FD4;&#x56DE;&#x8BCD;&#x8BED;&#x5728;&#x539F;&#x6587;&#x7684;&#x8D77;&#x6B62;&#x4F4D;&#x7F6E;"></a>Tokenize&#xFF1A;&#x8FD4;&#x56DE;&#x8BCD;&#x8BED;&#x5728;&#x539F;&#x6587;&#x7684;&#x8D77;&#x6B62;&#x4F4D;&#x7F6E;</h2><p>&#x6CE8;&#x610F;&#xFF0C;&#x8F93;&#x5165;&#x53C2;&#x6570;&#x53EA;&#x63A5;&#x53D7; unicode</p>
+<pre>
+# &#x9ED8;&#x8BA4;&#x6A21;&#x5F0F;
+result = jieba.tokenize(u&apos;&#x6C38;&#x548C;&#x670D;&#x88C5;&#x9970;&#x54C1;&#x6709;&#x9650;&#x516C;&#x53F8;&apos;)
+for tk in result:
+    print(&quot;word %s\t\t start: %d \t\t end:%d&quot; % (tk[0],tk[1],tk[2]))
+word &#x6C38;&#x548C;                start: 0                end:2
+word &#x670D;&#x88C5;                start: 2                end:4
+word &#x9970;&#x54C1;                start: 4                end:6
+word &#x6709;&#x9650;&#x516C;&#x53F8;            start: 6                end:10
+
+# &#x641C;&#x7D22;&#x6A21;&#x5F0F;
+result = jieba.tokenize(u&apos;&#x6C38;&#x548C;&#x670D;&#x88C5;&#x9970;&#x54C1;&#x6709;&#x9650;&#x516C;&#x53F8;&apos;, mode=&apos;search&apos;)
+for tk in result:
+    print(&quot;word %s\t\t start: %d \t\t end:%d&quot; % (tk[0],tk[1],tk[2]))
+word &#x6C38;&#x548C;                start: 0                end:2
+word &#x670D;&#x88C5;                start: 2                end:4
+word &#x9970;&#x54C1;                start: 4                end:6
+word &#x6709;&#x9650;                start: 6                end:8
+word &#x516C;&#x53F8;                start: 8                end:10
+word &#x6709;&#x9650;&#x516C;&#x53F8;            start: 6                end:10
+</pre>
+
+
+<h2 id="ChineseAnalyzer-for-Whoosh-&#x641C;&#x7D22;&#x5F15;&#x64CE;"><a href="#ChineseAnalyzer-for-Whoosh-&#x641C;&#x7D22;&#x5F15;&#x64CE;" class="headerlink" title="ChineseAnalyzer for Whoosh &#x641C;&#x7D22;&#x5F15;&#x64CE;"></a>ChineseAnalyzer for Whoosh &#x641C;&#x7D22;&#x5F15;&#x64CE;</h2><p>&#x5F15;&#x7528;&#xFF1A; from jieba.analyse import ChineseAnalyzer<br>&#x7528;&#x6CD5;&#x793A;&#x4F8B;&#xFF1A;<a href="https://github.com/fxsjy/jieba/blob/master/test/test_whoosh.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/test_whoosh.py</a></p>
+<h2 id="&#x547D;&#x4EE4;&#x884C;&#x5206;&#x8BCD;"><a href="#&#x547D;&#x4EE4;&#x884C;&#x5206;&#x8BCD;" class="headerlink" title="&#x547D;&#x4EE4;&#x884C;&#x5206;&#x8BCD;"></a>&#x547D;&#x4EE4;&#x884C;&#x5206;&#x8BCD;</h2><p>&#x4F7F;&#x7528;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre>python -m jieba news.txt &gt; cut_result.txt</pre>
+
+<p>&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;&#xFF08;&#x7FFB;&#x8BD1;&#xFF09;&#xFF1A;</p>
+<p>&#x4F7F;&#x7528;:</p>
+<pre>python -m jieba [options] filename</pre>
+
+<p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x8F93;&#x5165;&#x3002;<br>&#x2013;help &#x9009;&#x9879;&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre>
+$&gt; python -m jieba --help
+Jieba command line interface.
+
+positional arguments:
+  filename              input file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d [DELIM], --delimiter [DELIM]
+                        use DELIM instead of &apos; / &apos; for word delimiter; or a
+                        space if it is used without DELIM
+  -p [DELIM], --pos [DELIM]
+                        enable POS tagging; if DELIM is specified, use DELIM
+                        instead of &apos;\_&apos; for POS delimiter
+  -D DICT, --dict DICT  use DICT as dictionary
+  -u USER_DICT, --user-dict USER_DICT
+                        use USER_DICT together with the default dictionary or
+                        DICT (if specified)
+  -a, --cut-all         full pattern cutting (ignored with POS tagging)
+  -n, --no-hmm          don&apos;t use the Hidden Markov Model
+  -q, --quiet           don&apos;t print loading messages to stderr
+  -V, --version         show program&apos;s version number and exit
+</pre>
+
+<p>If no filename specified, use STDIN instead.</p>
+<h2 id="&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#x673A;&#x5236;"><a href="#&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#x673A;&#x5236;" class="headerlink" title="&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#x673A;&#x5236;"></a>&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#x673A;&#x5236;</h2><p>jieba &#x91C7;&#x7528;&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF0C;import jieba &#x548C; jieba.Tokenizer() &#x4E0D;&#x4F1A;&#x7ACB;&#x5373;&#x89E6;&#x53D1;&#x8BCD;&#x5178;&#x7684;&#x52A0;&#x8F7D;&#xFF0C;&#x4E00;&#x65E6;&#x6709;&#x5FC5;&#x8981;&#x624D;&#x5F00;&#x59CB;&#x52A0;&#x8F7D;&#x8BCD;&#x5178;&#x6784;&#x5EFA;&#x524D;&#x7F00;&#x5B57;&#x5178;&#x3002;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x624B;&#x5DE5;&#x521D;&#x59CB; jieba&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x521D;&#x59CB;&#x5316;&#x3002;</p>
+<p>import jieba<br>jieba.initialize()  # &#x624B;&#x52A8;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x53EF;&#x9009;&#xFF09;<br>&#x5728; 0.28 &#x4E4B;&#x524D;&#x7684;&#x7248;&#x672C;&#x662F;&#x4E0D;&#x80FD;&#x6307;&#x5B9A;&#x4E3B;&#x8BCD;&#x5178;&#x7684;&#x8DEF;&#x5F84;&#x7684;&#xFF0C;&#x6709;&#x4E86;&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#x673A;&#x5236;&#x540E;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x6539;&#x53D8;&#x4E3B;&#x8BCD;&#x5178;&#x7684;&#x8DEF;&#x5F84;:</p>
+<p>jieba.set_dictionary(&#x2018;data/dict.txt.big&#x2019;)<br>&#x4F8B;&#x5B50;&#xFF1A; <a href="https://github.com/fxsjy/jieba/blob/master/test/test_change_dictpath.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/test_change_dictpath.py</a></p>
+<h2 id="&#x5176;&#x4ED6;&#x8BCD;&#x5178;"><a href="#&#x5176;&#x4ED6;&#x8BCD;&#x5178;" class="headerlink" title="&#x5176;&#x4ED6;&#x8BCD;&#x5178;"></a>&#x5176;&#x4ED6;&#x8BCD;&#x5178;</h2><p>&#x5360;&#x7528;&#x5185;&#x5B58;&#x8F83;&#x5C0F;&#x7684;&#x8BCD;&#x5178;&#x6587;&#x4EF6; <a href="https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.small" target="_blank" rel="external">https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.small</a></p>
+<p>&#x652F;&#x6301;&#x7E41;&#x4F53;&#x5206;&#x8BCD;&#x66F4;&#x597D;&#x7684;&#x8BCD;&#x5178;&#x6587;&#x4EF6; <a href="https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.big" target="_blank" rel="external">https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.big</a></p>
+<p>&#x4E0B;&#x8F7D;&#x4F60;&#x6240;&#x9700;&#x8981;&#x7684;&#x8BCD;&#x5178;&#xFF0C;&#x7136;&#x540E;&#x8986;&#x76D6; jieba/dict.txt &#x5373;&#x53EF;&#xFF1B;&#x6216;&#x8005;&#x7528; jieba.set_dictionary(&#x2018;data/dict.txt.big&#x2019;)</p>
+<h2 id="&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#x5B9E;&#x73B0;"><a href="#&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#x5B9E;&#x73B0;" class="headerlink" title="&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#x5B9E;&#x73B0;"></a>&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#x5B9E;&#x73B0;</h2><p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; Java &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;piaolingxue &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/huaban/jieba-analysis" target="_blank" rel="external">https://github.com/huaban/jieba-analysis</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; C++ &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;yanyiwu &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/yanyiwu/cppjieba" target="_blank" rel="external">https://github.com/yanyiwu/cppjieba</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; Node.js &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;yanyiwu &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/yanyiwu/nodejieba" target="_blank" rel="external">https://github.com/yanyiwu/nodejieba</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; Erlang &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;falood &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/falood/exjieba" target="_blank" rel="external">https://github.com/falood/exjieba</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; R &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;qinwf &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/qinwf/jiebaR" target="_blank" rel="external">https://github.com/qinwf/jiebaR</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; iOS &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;yanyiwu &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/yanyiwu/iosjieba" target="_blank" rel="external">https://github.com/yanyiwu/iosjieba</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; PHP &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;fukuball &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/fukuball/jieba-php" target="_blank" rel="external">https://github.com/fukuball/jieba-php</a></p>
+<p>&#x7ED3;&#x5DF4;&#x5206;&#x8BCD; .NET(C#) &#x7248;&#x672C;</p>
+<p>&#x4F5C;&#x8005;&#xFF1A;anderscui &#x5730;&#x5740;&#xFF1A;<a href="https://github.com/anderscui/jieba.NET/" target="_blank" rel="external">https://github.com/anderscui/jieba.NET/</a></p>
+<p>&#x7CFB;&#x7EDF;&#x96C6;&#x6210;</p>
+<p>Solr: <a href="https://github.com/sing1ee/jieba-solr" target="_blank" rel="external">https://github.com/sing1ee/jieba-solr</a><br>&#x5206;&#x8BCD;&#x901F;&#x5EA6;</p>
+<p>1.5 MB / Second in Full Mode<br>400 KB / Second in Default Mode<br>&#x6D4B;&#x8BD5;&#x73AF;&#x5883;: Intel(R) Core(TM) i7-2600 CPU @ 3.4GHz&#xFF1B;&#x300A;&#x56F4;&#x57CE;&#x300B;.txt</p>
+<h1 id="&#x5E38;&#x89C1;&#x95EE;&#x9898;"><a href="#&#x5E38;&#x89C1;&#x95EE;&#x9898;" class="headerlink" title="&#x5E38;&#x89C1;&#x95EE;&#x9898;"></a>&#x5E38;&#x89C1;&#x95EE;&#x9898;</h1><ul>
+<li>&#x6A21;&#x578B;&#x7684;&#x6570;&#x636E;&#x662F;&#x5982;&#x4F55;&#x751F;&#x6210;&#x7684;&#xFF1F;</li>
+</ul>
+<p>&#x8BE6;&#x89C1;&#xFF1A; <a href="https://github.com/fxsjy/jieba/issues/7" target="_blank" rel="external">https://github.com/fxsjy/jieba/issues/7</a></p>
+<ul>
+<li>&#x201C;&#x53F0;&#x4E2D;&#x201D;&#x603B;&#x662F;&#x88AB;&#x5207;&#x6210;&#x201C;&#x53F0; &#x4E2D;&#x201D;&#xFF1F;&#xFF08;&#x4EE5;&#x53CA;&#x7C7B;&#x4F3C;&#x60C5;&#x51B5;&#xFF09;</li>
+</ul>
+<p>P(&#x53F0;&#x4E2D;) &#xFF1C; P(&#x53F0;)&#xD7;P(&#x4E2D;)&#xFF0C;&#x201C;&#x53F0;&#x4E2D;&#x201D;&#x8BCD;&#x9891;&#x4E0D;&#x591F;&#x5BFC;&#x81F4;&#x5176;&#x6210;&#x8BCD;&#x6982;&#x7387;&#x8F83;&#x4F4E;</p>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;&#x5F3A;&#x5236;&#x8C03;&#x9AD8;&#x8BCD;&#x9891;</p>
+<p>jieba.add_word(&#x2018;&#x53F0;&#x4E2D;&#x2019;) &#x6216;&#x8005; jieba.suggest_freq(&#x2018;&#x53F0;&#x4E2D;&#x2019;, True)</p>
+<ul>
+<li>&#x201C;&#x4ECA;&#x5929;&#x5929;&#x6C14; &#x4E0D;&#x9519;&#x201D;&#x5E94;&#x8BE5;&#x88AB;&#x5207;&#x6210;&#x201C;&#x4ECA;&#x5929; &#x5929;&#x6C14; &#x4E0D;&#x9519;&#x201D;&#xFF1F;&#xFF08;&#x4EE5;&#x53CA;&#x7C7B;&#x4F3C;&#x60C5;&#x51B5;&#xFF09;</li>
+</ul>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;&#x5F3A;&#x5236;&#x8C03;&#x4F4E;&#x8BCD;&#x9891;</p>
+<p>jieba.suggest_freq((&#x2018;&#x4ECA;&#x5929;&#x2019;, &#x2018;&#x5929;&#x6C14;&#x2019;), True)</p>
+<p>&#x6216;&#x8005;&#x76F4;&#x63A5;&#x5220;&#x9664;&#x8BE5;&#x8BCD; jieba.del_word(&#x2018;&#x4ECA;&#x5929;&#x5929;&#x6C14;&#x2019;)</p>
+<ul>
+<li>&#x5207;&#x51FA;&#x4E86;&#x8BCD;&#x5178;&#x4E2D;&#x6CA1;&#x6709;&#x7684;&#x8BCD;&#x8BED;&#xFF0C;&#x6548;&#x679C;&#x4E0D;&#x7406;&#x60F3;&#xFF1F;</li>
+</ul>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;&#x5173;&#x95ED;&#x65B0;&#x8BCD;&#x53D1;&#x73B0;</p>
+<p>jieba.cut(&#x2018;&#x4E30;&#x7530;&#x592A;&#x7701;&#x4E86;&#x2019;, HMM=False) jieba.cut(&#x2018;&#x6211;&#x4EEC;&#x4E2D;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x53DB;&#x5F92;&#x2019;, HMM=False)</p>
+<p>&#x66F4;&#x591A;&#x95EE;&#x9898;&#x8BF7;&#x70B9;&#x51FB;&#xFF1A;<a href="https://github.com/fxsjy/jieba/issues?sort=updated&amp;state=closed" target="_blank" rel="external">https://github.com/fxsjy/jieba/issues?sort=updated&amp;state=closed</a></p>
+<p>&#x4FEE;&#x8BA2;&#x5386;&#x53F2;</p>
+<p><a href="https://github.com/fxsjy/jieba/blob/master/Changelog" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/Changelog</a></p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;<br><a href="https://github.com/fxsjy/jieba" target="_blank" rel="external">https://github.com/fxsjy/jieba</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gensim/" rel="tag">#gensim</a>
+          
+            <a href="/tags/分词/" rel="tag">#分词</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/22/linux-python转码问题/" rel="next" title="linux-python转码问题">
+                <i class="fa fa-chevron-left"></i> linux-python转码问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/22/让进程在后台可靠运行的几种方法/" rel="prev" title="让进程在后台可靠运行的几种方法">
+                让进程在后台可靠运行的几种方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jieba"><span class="nav-number">1.</span> <span class="nav-text">jieba</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特点"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装说明"><span class="nav-number">3.</span> <span class="nav-text">安装说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">4.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主要功能"><span class="nav-number">5.</span> <span class="nav-text">主要功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分词"><span class="nav-number">5.1.</span> <span class="nav-text">分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加自定义词典"><span class="nav-number">5.2.</span> <span class="nav-text">添加自定义词典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词提取"><span class="nav-number">5.3.</span> <span class="nav-text">关键词提取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词性标注"><span class="nav-number">5.4.</span> <span class="nav-text">词性标注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行分词"><span class="nav-number">5.5.</span> <span class="nav-text">并行分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tokenize：返回词语在原文的起止位置"><span class="nav-number">5.6.</span> <span class="nav-text">Tokenize：返回词语在原文的起止位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ChineseAnalyzer-for-Whoosh-搜索引擎"><span class="nav-number">5.7.</span> <span class="nav-text">ChineseAnalyzer for Whoosh 搜索引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行分词"><span class="nav-number">5.8.</span> <span class="nav-text">命令行分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟加载机制"><span class="nav-number">5.9.</span> <span class="nav-text">延迟加载机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他词典"><span class="nav-number">5.10.</span> <span class="nav-text">其他词典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他语言实现"><span class="nav-number">5.11.</span> <span class="nav-text">其他语言实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">6.</span> <span class="nav-text">常见问题</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/04/01/python-jieba-分词----官方文档截取/';
+      var disqus_title = "python-jieba-分词----官方文档截取";
+      var disqus_url = 'http://www.shuang0420.com/2016/04/01/python-jieba-分词----官方文档截取/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

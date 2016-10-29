@@ -1,0 +1,1068 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="链表," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x94FE;&amp;#x8868;&amp;#x5B9E;&amp;#x73B0;&amp;#xFF0F;&amp;#x79FB;&amp;#x9664;&amp;#x8282;&amp;#x70B9;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x76F8;&amp;#x52A0;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x90E8;&amp;#x5206;&amp;#x7FFB;&amp;#x8F6C;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x6539;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构和算法 -- 链表">
+<meta property="og:url" content="http://www.shuang0420.com/2016/09/04/数据结构和算法 -- 链表/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x94FE;&amp;#x8868;&amp;#x5B9E;&amp;#x73B0;&amp;#xFF0F;&amp;#x79FB;&amp;#x9664;&amp;#x8282;&amp;#x70B9;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x76F8;&amp;#x52A0;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x90E8;&amp;#x5206;&amp;#x7FFB;&amp;#x8F6C;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x6539;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-04%20%E4%B8%8B%E5%8D%885.30.48.png">
+<meta property="og:updated_time" content="2016-10-26T02:26:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构和算法 -- 链表">
+<meta name="twitter:description" content="&amp;#x94FE;&amp;#x8868;&amp;#x5B9E;&amp;#x73B0;&amp;#xFF0F;&amp;#x79FB;&amp;#x9664;&amp;#x8282;&amp;#x70B9;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x76F8;&amp;#x52A0;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x90E8;&amp;#x5206;&amp;#x7FFB;&amp;#x8F6C;&amp;#xFF0F;&amp;#x94FE;&amp;#x8868;&amp;#x6539;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-04%20%E4%B8%8B%E5%8D%885.30.48.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/09/04/数据结构和算法 -- 链表/"/>
+
+
+  <title> 数据结构和算法 -- 链表 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构和算法 -- 链表
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-04T09:55:12-04:00" content="2016-09-04">
+              2016-09-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构和算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构和算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/04/数据结构和算法 -- 链表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/04/数据结构和算法 -- 链表/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x94FE;&#x8868;&#x5B9E;&#x73B0;&#xFF0F;&#x79FB;&#x9664;&#x8282;&#x70B9;&#xFF0F;&#x94FE;&#x8868;&#x76F8;&#x52A0;&#xFF0F;&#x94FE;&#x8868;&#x90E8;&#x5206;&#x7FFB;&#x8F6C;&#xFF0F;&#x94FE;&#x8868;&#x6539;&#x5E8F;/&#x94FE;&#x8868;&#x53BB;&#x91CD;&#xFF0F;&#x94FE;&#x8868;&#x5212;&#x5206;&#xFF0F;&#x94FE;&#x8868;&#x7684;&#x73AF;/&#x94FE;&#x8868;&#x516C;&#x5171;&#x8282;&#x70B9;&#x95EE;&#x9898;/&#x94FE;&#x8868;&#x590D;&#x5236;<br><a id="more"></a></p>
+<h1 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h1><p>&#x7EBF;&#x6027;&#x8868;&#x662F;&#x6700;&#x57FA;&#x672C;&#x3001;&#x6700;&#x7B80;&#x5355;&#x3001;&#x4E5F;&#x662F;&#x6700;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;&#x7EBF;&#x6027;&#x8868;&#x4E2D;&#x6570;&#x636E;&#x5143;&#x7D20;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x662F;&#x4E00;&#x5BF9;&#x4E00;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x5373;&#x9664;&#x4E86;&#x7B2C;&#x4E00;&#x4E2A;&#x548C;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5143;&#x7D20;&#x4E4B;&#x5916;&#xFF0C;&#x5176;&#x5B83;&#x6570;&#x636E;&#x5143;&#x7D20;&#x90FD;&#x662F;&#x9996;&#x5C3E;&#x76F8;&#x63A5;&#x7684;&#x3002;</p>
+<p><strong>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x4E24;&#x79CD;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;</strong></p>
+<ul>
+<li>&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#xFF1A;&#x968F;&#x673A;&#x8BFB;&#x53D6;&#xFF0C;&#x8BBF;&#x95EE;&#x65F6;&#x662F; O(1)</li>
+<li>&#x94FE;&#x5F0F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#xFF1A;&#x63D2;&#x5165;&#x548C;&#x5220;&#x9664; O(1)&#xFF0C;&#x8BBF;&#x95EE;&#x65F6;&#x6700;&#x574F;&#x662F; O(n)</li>
+</ul>
+<p><strong>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x5206;&#x7C7B;&#xFF08;&#x6839;&#x636E;&#x6307;&#x9488;&#x57DF;&#xFF09;</strong></p>
+<ul>
+<li>&#x5355;&#x5411;&#x94FE;&#x8868;</li>
+<li>&#x53CC;&#x5411;&#x94FE;&#x8868;</li>
+<li>&#x5FAA;&#x73AF;&#x94FE;&#x8868;</li>
+</ul>
+<p>&#x8FD9;&#x4E00;&#x7BC7;&#x4E3B;&#x8981;&#x8BB2;&#x7684;&#x662F;&#x94FE;&#x8868;&#xFF08;linked list&#xFF09;&#x3002;&#x94FE;&#x8868;&#x662F;&#x4E00;&#x79CD;&#x5E38;&#x89C1;&#x7684;&#x7EBF;&#x6027;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;<strong>&#x5355;&#x5411;&#x94FE;&#x8868;(singly linked list)</strong>&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6709;&#x4E00;&#x4E2A; next &#x6307;&#x9488;&#x6307;&#x5411;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x7528;&#x4EE5;&#x5B58;&#x50A8;&#x6570;&#x503C;&#xFF1B;<strong>&#x53CC;&#x5411;&#x94FE;&#x8868;(doubly Linked List)</strong>&#xFF0C;&#x591A;&#x4E86;&#x4E00;&#x4E2A; prev &#x6307;&#x9488;&#x6307;&#x5411;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x3002;&#x4E0E;&#x6570;&#x7EC4;&#x7C7B;&#x4F3C;&#xFF0C;&#x641C;&#x7D22;&#x94FE;&#x8868;&#x9700;&#x8981;O(n)&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF0C;&#x4F46;&#x662F;&#x94FE;&#x8868;&#x4E0D;&#x80FD;&#x901A;&#x8FC7;&#x5E38;&#x6570;&#x65F6;&#x95F4; O(1) &#x8BFB;&#x53D6;&#x7B2C; k &#x4E2A;&#x6570;&#x636E;&#x3002;&#x94FE;&#x8868;&#x7684;&#x4F18;&#x52BF;&#x5728;&#x4E8E;&#x80FD;&#x591F;&#x4EE5;&#x8F83;&#x9AD8;&#x7684;&#x6548;&#x7387;&#x5728;&#x4EFB;&#x610F;&#x4F4D;&#x7F6E;&#x63D2;&#x5165;&#x6216;&#x5220;&#x9664;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x3002;</p>
+<h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p>locate: O(1)<br>insert/delete: O(N)<br>search: not sorted -&gt; linear search =&gt; O(N), sorted -&gt; binary search =&gt; O(logN)<br>iteration: O(N)</p>
+<table>
+<thead>
+<tr>
+<th>data structure</th>
+<th>locate</th>
+<th>insert/delete</th>
+<th>search</th>
+<th>iteration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>array</td>
+<td>O(1)</td>
+<td>O(N)</td>
+<td>$N^2$</td>
+<td>N</td>
+<td>$O(1)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+<tr>
+<td>selection</td>
+<td>yes</td>
+<td>$N^2$</td>
+<td>$N^2$</td>
+<td>$N^2$</td>
+<td>$O(1)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+<tr>
+<td>insertion</td>
+<td>yes</td>
+<td>$N^2$</td>
+<td>$N^2$</td>
+<td>N</td>
+<td>$O(1)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+<tr>
+<td>shell</td>
+<td>yes</td>
+<td>&#x2014;&#x2013;</td>
+<td>&#x2014;&#x2014;-</td>
+<td>N</td>
+<td>$O(1)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+<tr>
+<td>merge</td>
+<td></td>
+<td>$NlogN$</td>
+<td>$NlogN$</td>
+<td>$NlogN$</td>
+<td>$O(N)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+<tr>
+<td>quick</td>
+<td>yes</td>
+<td>$N^2$</td>
+<td>$NlogN$</td>
+<td>$NlogN$</td>
+<td>$O(logN)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+<tr>
+<td>heap</td>
+<td>yes</td>
+<td>$NlogN$</td>
+<td>$NlogN$</td>
+<td>$NlogN$</td>
+<td>$O(1)$</td>
+<td>&#x2014;&#x2014;</td>
+</tr>
+</tbody>
+</table>
+<h1 id="&#x57FA;&#x672C;&#x7B56;&#x7565;"><a href="#&#x57FA;&#x672C;&#x7B56;&#x7565;" class="headerlink" title="&#x57FA;&#x672C;&#x7B56;&#x7565;"></a>&#x57FA;&#x672C;&#x7B56;&#x7565;</h1><h2 id="&#x6D89;&#x53CA;&#x5934;&#x8282;&#x70B9;"><a href="#&#x6D89;&#x53CA;&#x5934;&#x8282;&#x70B9;" class="headerlink" title="&#x6D89;&#x53CA;&#x5934;&#x8282;&#x70B9;"></a>&#x6D89;&#x53CA;&#x5934;&#x8282;&#x70B9;</h2><p>&#x5F53;&#x6D89;&#x53CA;&#x5BF9;&#x5934;&#x8282;&#x70B9;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x8003;&#x8651;&#x521B;&#x5EFA;&#x54D1;&#x8282;&#x70B9;</p>
+<h2 id="&#x4FEE;&#x6539;&#x5355;&#x5411;&#x94FE;&#x8868;&#x7684;&#x64CD;&#x4F5C;"><a href="#&#x4FEE;&#x6539;&#x5355;&#x5411;&#x94FE;&#x8868;&#x7684;&#x64CD;&#x4F5C;" class="headerlink" title="&#x4FEE;&#x6539;&#x5355;&#x5411;&#x94FE;&#x8868;&#x7684;&#x64CD;&#x4F5C;"></a>&#x4FEE;&#x6539;&#x5355;&#x5411;&#x94FE;&#x8868;&#x7684;&#x64CD;&#x4F5C;</h2><p>&#x8003;&#x8651;&#x54EA;&#x4E2A;&#x8282;&#x70B9;&#x7684;next&#x6307;&#x9488;&#x4F1A;&#x53D7;&#x5230;&#x5F71;&#x54CD;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x4FEE;&#x6B63;&#x8BE5;&#x6307;&#x9488;&#xFF1B;</p>
+<h2 id="&#x53CD;&#x8F6C;&#x94FE;&#x8868;"><a href="#&#x53CD;&#x8F6C;&#x94FE;&#x8868;" class="headerlink" title="&#x53CD;&#x8F6C;&#x94FE;&#x8868;"></a>&#x53CD;&#x8F6C;&#x94FE;&#x8868;</h2><p>&#x8981;&#x628A;&#x53CD;&#x8F6C;&#x540E;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF08;&#x5373;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF09;&#x6307;&#x5411; null</p>
+<h2 id="&#x5220;&#x9664;&#x67D0;&#x4E2A;&#x8282;&#x70B9;"><a href="#&#x5220;&#x9664;&#x67D0;&#x4E2A;&#x8282;&#x70B9;" class="headerlink" title="&#x5220;&#x9664;&#x67D0;&#x4E2A;&#x8282;&#x70B9;"></a>&#x5220;&#x9664;&#x67D0;&#x4E2A;&#x8282;&#x70B9;</h2><ul>
+<li>&#x7531;&#x4E8E;&#x9700;&#x8981;&#x77E5;&#x9053;&#x524D;&#x7EE7;&#x8282;&#x70B9;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x800C;&#x524D;&#x7EE7;&#x8282;&#x70B9;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x8868;&#x5934;&#x4EA7;&#x751F;&#x53D8;&#x5316;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x4E00;&#x4E9B;&#x6280;&#x5DE7; Dummy Node</li>
+<li>&#x5168;&#x90E8;&#x64CD;&#x4F5C;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;&#x73AF;&#xFF1B;&#x82E5;&#x6709;&#xFF0C;&#x5219;&#x7F6E;&#x5176;&#x4E2D;&#x4E00;&#x7AEF;&#x4E3A; null</li>
+</ul>
+<h2 id="&#x5FEB;&#x6162;&#x6307;&#x9488;"><a href="#&#x5FEB;&#x6162;&#x6307;&#x9488;" class="headerlink" title="&#x5FEB;&#x6162;&#x6307;&#x9488;"></a>&#x5FEB;&#x6162;&#x6307;&#x9488;</h2><p>&#x5FEB;&#x901F;&#x627E;&#x51FA;&#x672A;&#x77E5;&#x957F;&#x5EA6;&#x5355;&#x94FE;&#x8868;&#x7684;&#x4E2D;&#x95F4;&#x8282;&#x70B9;&#xFF0F;&#x6D89;&#x53CA;&#x5728;&#x94FE;&#x8868;&#x4E2D;&#x5BFB;&#x627E;&#x7279;&#x5B9A;&#x4F4D;&#x7F6E;</p>
+<ul>
+<li>&#x8BBE;&#x7F6E;&#x4E24;&#x4E2A;&#x6307;&#x9488; *fast &#x548C; *slow &#x90FD;&#x6307;&#x5411;&#x5934;&#x8282;&#x70B9;</li>
+<li>*fast &#x79FB;&#x52A8;&#x901F;&#x5EA6;&#x662F; *slow &#x7684;&#x4E24;&#x500D;</li>
+<li>*fast &#x6307;&#x5411;&#x672B;&#x5C3E;&#x8282;&#x70B9;&#x65F6;&#xFF0C;*slow &#x6B63;&#x597D;&#x5C31;&#x5728;&#x4E2D;&#x95F4;</li>
+</ul>
+<h2 id="&#x5224;&#x65AD;&#x5355;&#x94FE;&#x8868;&#x662F;&#x5426;&#x6709;&#x73AF;"><a href="#&#x5224;&#x65AD;&#x5355;&#x94FE;&#x8868;&#x662F;&#x5426;&#x6709;&#x73AF;" class="headerlink" title="&#x5224;&#x65AD;&#x5355;&#x94FE;&#x8868;&#x662F;&#x5426;&#x6709;&#x73AF;"></a>&#x5224;&#x65AD;&#x5355;&#x94FE;&#x8868;&#x662F;&#x5426;&#x6709;&#x73AF;</h2><ul>
+<li>&#x8BBE;&#x7F6E;&#x4E24;&#x4E2A;&#x6307;&#x9488; *fast &#x548C; *slow &#x90FD;&#x6307;&#x5411;&#x5934;&#x8282;&#x70B9;</li>
+<li>*fast &#x79FB;&#x52A8;&#x901F;&#x5EA6;&#x662F; *slow &#x7684;&#x4E24;&#x500D;</li>
+<li>&#x5982;&#x679C; *fast == null &#x8BF4;&#x660E;&#x8BE5;&#x5355;&#x94FE;&#x8868;&#x4E0D;&#x662F;&#x5FAA;&#x73AF;&#x94FE;&#x8868;</li>
+<li>&#x5982;&#x679C; *fast == *slow &#x8BF4;&#x660E;&#x8BE5;&#x94FE;&#x8868;&#x662F;&#x5FAA;&#x73AF;&#x94FE;&#x8868;</li>
+</ul>
+<h2 id="&#x627E;&#x5012;&#x6570;&#x7B2C;-N-&#x4E2A;&#x8282;&#x70B9;"><a href="#&#x627E;&#x5012;&#x6570;&#x7B2C;-N-&#x4E2A;&#x8282;&#x70B9;" class="headerlink" title="&#x627E;&#x5012;&#x6570;&#x7B2C; N &#x4E2A;&#x8282;&#x70B9;"></a>&#x627E;&#x5012;&#x6570;&#x7B2C; N &#x4E2A;&#x8282;&#x70B9;</h2><ul>
+<li>&#x8BBE;&#x7F6E;&#x4E24;&#x4E2A;&#x6307;&#x9488; fast &#x548C; slow &#x90FD;&#x6307;&#x5411;&#x5934;&#x8282;&#x70B9;</li>
+<li>*fast &#x5148;&#x79FB;&#x52A8; N &#x6B65;&#xFF0C;&#x7136;&#x540E;&#x4E24;&#x4E2A;&#x6307;&#x9488;&#x4E00;&#x8D77;&#x524D;&#x8FDB;</li>
+<li>*fast &#x5230;&#x8FBE;&#x672B;&#x5C3E;&#x65F6;&#xFF0C;*slow &#x5373;&#x4E3A;&#x5012;&#x6570;&#x7B2C; N &#x4E2A;&#x8282;&#x70B9;</li>
+</ul>
+<h2 id="&#x68C0;&#x9A8C;&#x6709;&#x6548;&#x6027;"><a href="#&#x68C0;&#x9A8C;&#x6709;&#x6548;&#x6027;" class="headerlink" title="&#x68C0;&#x9A8C;&#x6709;&#x6548;&#x6027;"></a>&#x68C0;&#x9A8C;&#x6709;&#x6548;&#x6027;</h2><p>&#x8BBF;&#x95EE;&#x67D0;&#x4E2A;&#x8282;&#x70B9; cur.next &#x65F6;&#xFF0C;&#x8981;&#x68C0;&#x9A8C; cur &#x662F;&#x5426;&#x4E3A; null&#x3002;&#xFF08;&#x540C;&#x7406;&#xFF0C;&#x8BBF;&#x95EE; cur.next.next&#xFF0C;&#x68C0;&#x9A8C; cur.next&#xFF09;</p>
+<h1 id="&#x94FE;&#x8868;&#x5B9E;&#x73B0;"><a href="#&#x94FE;&#x8868;&#x5B9E;&#x73B0;" class="headerlink" title="&#x94FE;&#x8868;&#x5B9E;&#x73B0;"></a>&#x94FE;&#x8868;&#x5B9E;&#x73B0;</h1><h2 id="Singly-linked-list-Implementation"><a href="#Singly-linked-list-Implementation" class="headerlink" title="Singly-linked list Implementation"></a>Singly-linked list Implementation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"># implement a singly-linked list</div><div class="line">class Node(object):</div><div class="line"></div><div class="line">    def __init__(self, val=None, next=None):</div><div class="line">        self.val = val</div><div class="line">        self.next = next</div><div class="line"></div><div class="line"></div><div class="line">class LinkedList(object):</div><div class="line"></div><div class="line">    def __init__(self, head=None):</div><div class="line">        self.head = head</div><div class="line"></div><div class="line">    # insert in front</div><div class="line">    def insert(self, val):</div><div class="line">        node = Node(val, self.head)</div><div class="line">        self.head = node</div><div class="line">        return True</div><div class="line"></div><div class="line">    def size(self):</div><div class="line">        length = 0</div><div class="line">        cur = self.head</div><div class="line">        while cur:</div><div class="line">            cur = cur.next</div><div class="line">            length += 1</div><div class="line">        return length</div><div class="line"></div><div class="line">    def delete(self, data):</div><div class="line">        if not self.head or not data:</div><div class="line">            return False</div><div class="line">        cur = self.head</div><div class="line">        # special case for head</div><div class="line">        if data == cur:</div><div class="line">            cur = cur.next</div><div class="line">            return True</div><div class="line">        while cur.next:</div><div class="line">            if cur.next == data:</div><div class="line">                cur.next = cur.next.next</div><div class="line">                return True</div><div class="line">            cur = cur.next</div><div class="line">        return False</div><div class="line">        #raise ValueError(&quot;Data not in list&quot;)</div><div class="line"></div><div class="line">    def deleteList(self):</div><div class="line">        cur = self.head</div><div class="line">        self.head = None</div><div class="line">        return True</div><div class="line"></div><div class="line">    def search(self, data):</div><div class="line">        cur = self.head</div><div class="line">        while cur and cur.val != data:</div><div class="line">            cur = cur.next</div><div class="line">        return cur</div><div class="line"></div><div class="line">    def printAll(self):</div><div class="line">        cur = self.head</div><div class="line">        while cur:</div><div class="line">            print cur.val,</div><div class="line">            cur = cur.next</div><div class="line">        print</div></pre></td></tr></table></figure>
+<h1 id="Leetcode-&#x5B9E;&#x4F8B;"><a href="#Leetcode-&#x5B9E;&#x4F8B;" class="headerlink" title="Leetcode &#x5B9E;&#x4F8B;"></a>Leetcode &#x5B9E;&#x4F8B;</h1><h2 id="&#x79FB;&#x9664;&#x8282;&#x70B9;-19-Remove-Nth-Node-From-End-of-List"><a href="#&#x79FB;&#x9664;&#x8282;&#x70B9;-19-Remove-Nth-Node-From-End-of-List" class="headerlink" title="&#x79FB;&#x9664;&#x8282;&#x70B9;(19.Remove Nth Node From End of List)"></a>&#x79FB;&#x9664;&#x8282;&#x70B9;(19.Remove Nth Node From End of List)</h2><h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><p>Given a linked list, remove the nth node from the end of list and return its head.</p>
+<p>For example,</p>
+<p>   Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.</p>
+<p>   After removing the second node from the end, the linked list becomes 1-&gt;2-&gt;3-&gt;5.<br>Note:<br>Given n will always be valid.<br>Try to do this in one pass.</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">&apos;&apos;&apos;</div><div class="line">A singly list is a particularly poor choice for a data structure when you frequently need to find the mth-to-last element!</div><div class="line"></div><div class="line">Assumption:</div><div class="line">- m is less than the length of linked list?</div><div class="line">  if not, check first!</div><div class="line"></div><div class="line">Solution:</div><div class="line">You cannot traverse backward through a singly linked list, so may be we can store elements into another data structure so that we can look back, or for this problem, we can traverse from beginning of list.</div><div class="line"></div><div class="line">Two-pass solution:</div><div class="line">- first get the length of linked list, and then find the node before (length-n)th node, and node.next=node.next.next</div><div class="line">- use dummy node</div><div class="line"></div><div class="line">Follow-up:</div><div class="line">one-pass solution:</div><div class="line">- how to access nth node from the end?</div><div class="line">    use two pointers, fast and slow, keep the distance n between fast and slow node</div><div class="line">&apos;&apos;&apos;</div><div class="line"></div><div class="line"># Definition for singly-linked list.</div><div class="line"># class ListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.val = x</div><div class="line">#         self.next = None</div><div class="line"></div><div class="line">class Solution(object):</div><div class="line">    def removeNthFromEnd(self, head, n):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :type n: int</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head or not head.next:</div><div class="line">            return None</div><div class="line">        dummy=ListNode(0)</div><div class="line">        dummy.next=head</div><div class="line">        slow,fast=dummy,dummy</div><div class="line">        for i in range(n):</div><div class="line">            fast=fast.next</div><div class="line">        while fast.next:</div><div class="line">            fast,slow=fast.next,slow.next</div><div class="line">        slow.next=slow.next.next</div><div class="line">        return dummy.next</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    # Two pass solution</div><div class="line"></div><div class="line">    def removeNthFromEnd(self, head, n):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :type n: int</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head or not head.next:</div><div class="line">            return None</div><div class="line">        length=0</div><div class="line">        dummy=ListNode(0)</div><div class="line">        dummy.next=head</div><div class="line">        pointer1,pointer2=dummy,dummy</div><div class="line">        while pointer1.next:</div><div class="line">            length+=1</div><div class="line">            pointer1=pointer1.next</div><div class="line">        # find nth node</div><div class="line">        for i in range(length-n):</div><div class="line">            pointer2=pointer2.next</div><div class="line">        pointer2.next=pointer2.next.next</div><div class="line">        return dummy.next</div><div class="line">        &apos;&apos;&apos;</div></pre></td></tr></table></figure>
+<h2 id="&#x94FE;&#x8868;&#x76F8;&#x52A0;-2-Add-Two-Numbers"><a href="#&#x94FE;&#x8868;&#x76F8;&#x52A0;-2-Add-Two-Numbers" class="headerlink" title="&#x94FE;&#x8868;&#x76F8;&#x52A0;(2.Add Two Numbers)"></a>&#x94FE;&#x8868;&#x76F8;&#x52A0;(2.Add Two Numbers)</h2><h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem"></a>Problem</h3><p>You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.<br>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8</p>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def addTwoNumbers(self, l1, l2):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type l1: ListNode</div><div class="line">        :type l2: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        head = ListNode(0)</div><div class="line">        output = head</div><div class="line">        carry = 0</div><div class="line">        while True:</div><div class="line">            if l1 != None:</div><div class="line">                carry += l1.val</div><div class="line">                l1 = l1.next</div><div class="line">            if l2 != None:</div><div class="line">                carry += l2.val</div><div class="line">                l2 = l2.next</div><div class="line">            output.val = carry % 10</div><div class="line">            carry = carry / 10</div><div class="line">            if l1 != None or l2 != None or carry:</div><div class="line">                output.next = ListNode(0)</div><div class="line">                output = output.next</div><div class="line">            else:</div><div class="line">                break</div><div class="line">        return head</div></pre></td></tr></table></figure>
+<p>&#x6CE8;&#x610F;&#x8003;&#x8651;&#x4E24;&#x4E2A;&#x6570;&#x4F4D;&#x6570;&#x4E0D;&#x540C;&#x7684;&#x60C5;&#x51B5;&#x3002;<br>&#x56E0;&#x4E3A;&#x4E24;&#x4F4D;&#x6570;&#x76F8;&#x52A0;&#x8FDB;&#x4F4D;&#x6700;&#x591A;&#x5F71;&#x54CD;&#x540E;&#x4E00;&#x4F4D;&#xFF0C;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD; i+2 &#x4F4D;&#xFF0C;&#x6240;&#x4EE5;&#x53D1;&#x73B0;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#x4E3A;&#x7A7A;&#x540E;&#xFF0C;&#x76F4;&#x63A5;&#x7ED3;&#x675F;&#x5FAA;&#x73AF;&#xFF0C;&#x6700;&#x540E;&#x53EA;&#x7528;&#x8FDB;&#x4F4D;&#x548C;&#x8F83;&#x957F;&#x94FE;&#x8868;&#x7684;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x76F8;&#x52A0;&#xFF0C;&#x4E4B;&#x540E;&#x8F83;&#x957F;&#x94FE;&#x8868;&#x7684; i+2 &#x4F4D;&#x76F4;&#x63A5;&#x7167;&#x642C;&#x3002;<br>&#x7528;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x5927;&#x6574;&#x6570;&#x7684;&#x8BA1;&#x7B97;&#x3002;</p>
+<h2 id="&#x94FE;&#x8868;&#x7684;&#x7FFB;&#x8F6C;-206-92-Reverse-Linked-List"><a href="#&#x94FE;&#x8868;&#x7684;&#x7FFB;&#x8F6C;-206-92-Reverse-Linked-List" class="headerlink" title="&#x94FE;&#x8868;&#x7684;&#x7FFB;&#x8F6C;(206.92.Reverse Linked List)"></a>&#x94FE;&#x8868;&#x7684;&#x7FFB;&#x8F6C;(206.92.Reverse Linked List)</h2><h3 id="Problem-I"><a href="#Problem-I" class="headerlink" title="Problem(I)"></a>Problem(I)</h3><p>Reverse a singly linked list.<br>Hint:<br>A linked list can be reversed either iteratively or recursively. Could you implement both?</p>
+<h3 id="&#x521D;&#x6B65;&#x601D;&#x8003;"><a href="#&#x521D;&#x6B65;&#x601D;&#x8003;" class="headerlink" title="&#x521D;&#x6B65;&#x601D;&#x8003;"></a>&#x521D;&#x6B65;&#x601D;&#x8003;</h3><p>&#x6BCF;&#x6B21;&#x8D70;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6570;&#xFF0C;&#x628A;&#x5B83;&#x653E;&#x5230;&#x6700;&#x524D;&#x9762;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</div><div class="line">=&gt;</div><div class="line">5 -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4</div><div class="line">4 -&gt; 5 -&gt; 1 -&gt; 2 -&gt; 3</div><div class="line">...</div><div class="line">5 -&gt; 4 -&gt; 3 -&gt; 2 -&gt; 1</div></pre></td></tr></table></figure></p>
+<p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6; $O(n^2)$</p>
+<h3 id="&#x5934;&#x63D2;&#x6CD5;"><a href="#&#x5934;&#x63D2;&#x6CD5;" class="headerlink" title="&#x5934;&#x63D2;&#x6CD5;"></a>&#x5934;&#x63D2;&#x6CD5;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</div><div class="line">=&gt;</div><div class="line">2 -&gt; 1 -&gt; 3 -&gt; 4 -&gt; 5</div><div class="line">3 -&gt; 2 -&gt; 1 -&gt; 4 -&gt; 5</div><div class="line">...</div><div class="line">5 -&gt; 4 -&gt; 3 -&gt; 2 -&gt; 1</div></pre></td></tr></table></figure>
+<p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6; $O(n)$&#xFF0C;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6; $O(1)$</p>
+<p>&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x628A;&#x7FFB;&#x8F6C;&#x540E;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF08;&#x5373;&#x539F;&#x6765;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF09;&#x6307;&#x5411; Null(None)&#x3002;<br>&#x8BBF;&#x95EE;&#x67D0;&#x4E2A;&#x8282;&#x70B9; cur.next&#xFF0C;&#x8981;&#x68C0;&#x9A8C; cur &#x662F;&#x5426;&#x4E3A; None.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</div><div class="line">=&gt;</div><div class="line">1 -&gt; None -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</div><div class="line">2 -&gt; 1 -&gt; None -&gt; 3 -&gt; 4 -&gt; 5</div><div class="line">3 -&gt; 2 -&gt; 1 -&gt; None -&gt; 4 -&gt; 5</div><div class="line">...</div><div class="line">5 -&gt; 4 -&gt; 3 -&gt; 2 -&gt; 1 -&gt; None</div></pre></td></tr></table></figure>
+<h4 id="&#x8FED;&#x4EE3;&#x6CD5;"><a href="#&#x8FED;&#x4EE3;&#x6CD5;" class="headerlink" title="&#x8FED;&#x4EE3;&#x6CD5;"></a>&#x8FED;&#x4EE3;&#x6CD5;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def reverseList(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        dummy = None</div><div class="line">        while head:</div><div class="line">            curr = head</div><div class="line">            head = head.next</div><div class="line">            curr.next= dummy</div><div class="line">            dummy = curr</div><div class="line">        return dummy</div></pre></td></tr></table></figure>
+<p>&#x66F4;&#x7B80;&#x5355;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def reverseList(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        dummy = None</div><div class="line">        while head:</div><div class="line">            head.next,dummy,head=dummy,head,head.next # head.next=dummy &#x5FC5;&#x987B;&#x5728; head=head.next&#x4E4B;&#x524D;</div><div class="line">        return dummy</div></pre></td></tr></table></figure></p>
+<h4 id="&#x9012;&#x5F52;"><a href="#&#x9012;&#x5F52;" class="headerlink" title="&#x9012;&#x5F52;"></a>&#x9012;&#x5F52;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def reverseList(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        return self._reverse(head)</div><div class="line"></div><div class="line">    def _reverse(self, node, prev=None):</div><div class="line">        if not node:</div><div class="line">            return prev</div><div class="line">        n = node.next</div><div class="line">        node.next = prev</div><div class="line">        return self._reverse(n, node)</div></pre></td></tr></table></figure>
+<h3 id="Problem-II"><a href="#Problem-II" class="headerlink" title="Problem(II)"></a>Problem(II)</h3><p>Reverse a linked list from position m to n. Do it in-place and in one-pass.<br>For example:<br>Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2 and n = 4,<br>return 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL.<br>Note:<br>Given m, n satisfy the following condition:<br>1 &#x2264; m &#x2264; n &#x2264; length of list.</p>
+<p>oup, &#x6700;&#x540E;&#x8981;&#x8FD4;&#x56DE;&#x7684;&#x662F; oup.next &#x6307;&#x9488;<br>dummy &#x6307;&#x9488;&#xFF0C;&#x5728;&#x539F;&#x6765;&#x7684; m-1 &#x4F4D;&#x7F6E;<br>cur &#x6307;&#x9488;&#xFF0C;&#x5728;&#x539F;&#x6765;&#x7684; n &#x4F4D;&#x7F6E;<br>reverse&#xFF0C;&#x5728;&#x539F;&#x6765;&#x7684; m &#x4F4D;&#x7F6E;</p>
+<p>dummy &#x6307;&#x9488;&#xFF0C;&#x7A7A;&#x8F6C; m-1 &#x6B21;&#xFF0C;&#x627E;&#x5230;&#x7B2C; m-1 &#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5373;&#x5F00;&#x59CB;&#x7FFB;&#x8F6C;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x7ED3;&#x70B9;&#x7684;&#x524D;&#x4E00;&#x4E2A;&#xFF1B;<br>&#x5229;&#x7528; cur, reverse &#x6309;&#x5B8C;&#x5168;&#x7FFB;&#x8F6C;&#x7684;&#x65B9;&#x6CD5;&#x7FFB;&#x8F6C;[m,n]&#x90E8;&#x5206;<br>&#x6700;&#x540E;&#x4FEE;&#x6539;&#x4E24;&#x4E2A;&#x6307;&#x9488;&#xFF0C;dummy.next &#x6307;&#x5411; reverse&#xFF0C;dummy.next.next &#x6307;&#x5411;&#x7B2C; n+1 &#x4E2A;&#x8282;&#x70B9;&#x3002;</p>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def reverseBetween(self, head, m, n):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :type m: int</div><div class="line">        :type n: int</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if m==n:</div><div class="line">            return head</div><div class="line"></div><div class="line">        # [1,m-1] nodes</div><div class="line">        oup = ListNode(0)</div><div class="line">        oup.next = head</div><div class="line">        dummy = oup</div><div class="line"></div><div class="line">        for i in range(m-1):</div><div class="line">            dummy = dummy.next</div><div class="line"></div><div class="line">        # reverse [m,n] nodes</div><div class="line">        reverse = None</div><div class="line">        cur = dummy.next</div><div class="line">        for i in range(m,n+1):</div><div class="line">            cur.next,reverse,cur = reverse,cur,cur.next</div><div class="line"></div><div class="line">        # [n,end] nodes</div><div class="line">        dummy.next.next = cur</div><div class="line">        dummy.next = reverse</div><div class="line"></div><div class="line">        return oup.next</div></pre></td></tr></table></figure>
+<h2 id="&#x94FE;&#x8868;&#x6539;&#x5E8F;&#xFF08;143-Reorder-List&#xFF09;"><a href="#&#x94FE;&#x8868;&#x6539;&#x5E8F;&#xFF08;143-Reorder-List&#xFF09;" class="headerlink" title="&#x94FE;&#x8868;&#x6539;&#x5E8F;&#xFF08;143. Reorder List&#xFF09;"></a>&#x94FE;&#x8868;&#x6539;&#x5E8F;&#xFF08;143. Reorder List&#xFF09;</h2><h3 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem"></a>Problem</h3><p>Given a singly linked list L: L0&#x2192;L1&#x2192;&#x2026;&#x2192;Ln-1&#x2192;Ln,<br>reorder it to: L0&#x2192;Ln&#x2192;L1&#x2192;Ln-1&#x2192;L2&#x2192;Ln-2&#x2192;&#x2026;</p>
+<p>You must do this in-place without altering the nodes&#x2019; values.</p>
+<p>For example,<br>Given {1,2,3,4}, reorder it to {1,4,2,3}.</p>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">&apos;&apos;&apos;</div><div class="line">Solution:</div><div class="line">- Two-pass</div><div class="line">    store all nodes in a stack, create a dummy node, every time while i &lt; len(linked list), linked one node from linked list and one node from stack, and finally deal with odd or even number of length</div><div class="line"></div><div class="line">Followup:</div><div class="line">- One-pass and O(1)</div><div class="line">    - find middle: use fast,slow pointers</div><div class="line">    - reverse second half list: 1-&gt;2-&gt;3-&gt;4-&gt;null =&gt; null&lt;-1&lt;-2&lt;-3&lt;-4, for each node, point the next node of current to previous one, update the previous and next node, do the same thing</div><div class="line">    - merge two lists</div><div class="line">&apos;&apos;&apos;</div><div class="line"># Definition for singly-linked list.</div><div class="line"># class ListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.val = x</div><div class="line">#         self.next = None</div><div class="line">class Solution(object):</div><div class="line">    def reorderList(self,head):</div><div class="line">        if not head:</div><div class="line">            return None</div><div class="line">        # find middle</div><div class="line">        fast,slow=head,head</div><div class="line">        while fast and fast.next:</div><div class="line">            fast=fast.next.next</div><div class="line">            slow=slow.next</div><div class="line">        # reverse list</div><div class="line">        pre=None</div><div class="line">        cur=slow</div><div class="line">        while cur:</div><div class="line">            # one line solution</div><div class="line">            pre, cur.next, cur = node, pre, cur.next</div><div class="line">            next=cur.next</div><div class="line">            cur.next=pre</div><div class="line">            pre=cur</div><div class="line">            cur=next</div><div class="line"></div><div class="line">        # merge list</div><div class="line">        first,second=head,pre</div><div class="line">        while second.next:</div><div class="line">            first.next,first=second,first.next</div><div class="line">            second.next,second=first,second.next</div><div class="line">        return</div><div class="line"></div><div class="line">    &apos;&apos;&apos;</div><div class="line">    def reorderList(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: void Do not return anything, modify head in-place instead.</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head or not head.next: return</div><div class="line">        stack=[]</div><div class="line">        dummy=ListNode(0)</div><div class="line">        dummy.next=head</div><div class="line">        while dummy.next:</div><div class="line">            stack.append(dummy.next)</div><div class="line">            dummy=dummy.next</div><div class="line">        dummy=ListNode(0)</div><div class="line">        dummy.next=head</div><div class="line">        length=len(stack)</div><div class="line">        half_len=len(stack)/2</div><div class="line">        for i in range(half_len):</div><div class="line">            node,dummy=dummy.next.next,dummy.next</div><div class="line">            # dummy.next,dummy=stack.pop(),dummy.next</div><div class="line">            # this is wrong. suppose a=0,a,b=3,a =&gt; a=3,b=0</div><div class="line">            dummy.next=stack.pop()</div><div class="line">            dummy,dummy.next=dummy.next,node</div><div class="line">        if length%2==1:</div><div class="line">            dummy.next.next=None</div><div class="line">        else:</div><div class="line">            dummy.next=None</div><div class="line">            &apos;&apos;&apos;</div></pre></td></tr></table></figure>
+<h2 id="&#x6392;&#x5E8F;&#x94FE;&#x8868;&#x53BB;&#x91CD;-82-83-Remove-Duplicates-from-Sorted-List-I-amp-II"><a href="#&#x6392;&#x5E8F;&#x94FE;&#x8868;&#x53BB;&#x91CD;-82-83-Remove-Duplicates-from-Sorted-List-I-amp-II" class="headerlink" title="&#x6392;&#x5E8F;&#x94FE;&#x8868;&#x53BB;&#x91CD;(82.83. Remove Duplicates from Sorted List I&amp;II)"></a>&#x6392;&#x5E8F;&#x94FE;&#x8868;&#x53BB;&#x91CD;(82.83. Remove Duplicates from Sorted List I&amp;II)</h2><h3 id="Problem-I-1"><a href="#Problem-I-1" class="headerlink" title="Problem(I)"></a>Problem(I)</h3><p>Given a sorted linked list, delete all duplicates such that each element appear only once.<br>For example,<br>Given 1-&gt;1-&gt;2, return 1-&gt;2.<br>Given 1-&gt;1-&gt;2-&gt;3-&gt;3, return 1-&gt;2-&gt;3.</p>
+<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def deleteDuplicates(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        dummy = head</div><div class="line">        while head and head.next:</div><div class="line">            if head.val == head.next.val:</div><div class="line">                head.next = head.next.next</div><div class="line">            else:</div><div class="line">                head = head.next</div><div class="line">        return dummy</div></pre></td></tr></table></figure>
+<p>&#x6CE8;&#x610F;&#x7528;&#x5230; head.next &#x4E00;&#x5B9A;&#x8981;&#x5224;&#x65AD;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9; head &#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x540C;&#x7406;&#xFF0C;head.next.next &#x5224;&#x65AD; head.next &#x662F;&#x5426;&#x4E3A;&#x7A7A;&#x3002;</p>
+<h3 id="Problem-II-1"><a href="#Problem-II-1" class="headerlink" title="Problem(II)"></a>Problem(II)</h3><p>Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.<br>For example,<br>Given 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5, return 1-&gt;2-&gt;5.<br>Given 1-&gt;1-&gt;1-&gt;2-&gt;3, return 2-&gt;3.</p>
+<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def deleteDuplicates(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        dummy = ListNode(0)</div><div class="line">        cur = dummy</div><div class="line">        while head:</div><div class="line">            while head.next and head.val == head.next.val:</div><div class="line">                head = head.next</div><div class="line">                if not head.next or head.val != head.next.val:</div><div class="line">                    break</div><div class="line">            else:</div><div class="line">                cur.next = head</div><div class="line">                cur = head</div><div class="line">            head = head.next</div><div class="line">        cur.next = None</div><div class="line">        return dummy.next</div></pre></td></tr></table></figure>
+<p>&#x8003;&#x8651;&#x7684; bad case: [1,1],[1,1,1]&#xFF0C;&#x6240;&#x4EE5;&#x6700;&#x540E;&#x7684; cur.next = None &#x4E0D;&#x80FD;&#x5C11;&#xFF0C;&#x5426;&#x5219;&#x8FD8;&#x4F1A;&#x8FD4;&#x56DE; [1]</p>
+<h2 id="&#x94FE;&#x8868;&#x7684;&#x5408;&#x5E76;-21-Merge-Two-Sorted-Lists"><a href="#&#x94FE;&#x8868;&#x7684;&#x5408;&#x5E76;-21-Merge-Two-Sorted-Lists" class="headerlink" title="&#x94FE;&#x8868;&#x7684;&#x5408;&#x5E76;(21. Merge Two Sorted Lists)"></a>&#x94FE;&#x8868;&#x7684;&#x5408;&#x5E76;(21. Merge Two Sorted Lists)</h2><p>&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x5BF9;&#x94FE;&#x8868;&#x7ED3;&#x6784;&#x9002;&#x7528;&#xFF0C;&#x7136;&#x800C;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x6392;&#x5E8F;&#x90FD;&#x9002;&#x5408;&#x4F7F;&#x7528;&#x94FE;&#x8868;&#x5B58;&#x50A8;&#xFF0C;&#x5982;&#x5806;&#x6392;&#x5E8F;&#xFF0C;&#x4E0D;&#x65AD;&#x5BFB;&#x627E;&#x6570;&#x7EC4;&#x7684; n/2 &#x548C; n &#x4F4D;&#x7F6E;&#xFF0C;&#x7528;&#x94FE;&#x8868;&#x4E0D;&#x5927;&#x65B9;&#x4FBF;&#x3002;</p>
+<h3 id="Problem-3"><a href="#Problem-3" class="headerlink" title="Problem"></a>Problem</h3><p>Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.</p>
+<h3 id="Solution-6"><a href="#Solution-6" class="headerlink" title="Solution"></a>Solution</h3><p><strong>Recursive</strong><br>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6; O(N),&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6; O(1)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def mergeTwoLists(self, l1, l2):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type l1: ListNode</div><div class="line">        :type l2: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if l2 is None:</div><div class="line">            return l1</div><div class="line">        if l1 is None:</div><div class="line">            return l2</div><div class="line">        if l1.val &lt; l2.val:</div><div class="line">            head = l1</div><div class="line">            head.next = self.mergeTwoLists(l1.next,l2)</div><div class="line">        else:</div><div class="line">            head = l2</div><div class="line">            head.next = self.mergeTwoLists(l1,l2.next)</div><div class="line">        return head</div></pre></td></tr></table></figure></p>
+<h2 id="&#x94FE;&#x8868;&#x7684;&#x5212;&#x5206;&#xFF08;89-Partition-List&#xFF09;"><a href="#&#x94FE;&#x8868;&#x7684;&#x5212;&#x5206;&#xFF08;89-Partition-List&#xFF09;" class="headerlink" title="&#x94FE;&#x8868;&#x7684;&#x5212;&#x5206;&#xFF08;89.Partition List&#xFF09;"></a>&#x94FE;&#x8868;&#x7684;&#x5212;&#x5206;&#xFF08;89.Partition List&#xFF09;</h2><h3 id="Problem-4"><a href="#Problem-4" class="headerlink" title="Problem"></a>Problem</h3><p>Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.<br>You should preserve the original relative order of the nodes in each of the two partitions.<br>For example,<br>Given 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2 and x = 3,<br>return 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5.</p>
+<h3 id="Solution-7"><a href="#Solution-7" class="headerlink" title="Solution"></a>Solution</h3><p>&#x7528;&#x4E24;&#x4E2A;&#x6307;&#x9488; left,right&#xFF0C;&#x5C0F;&#x4E8E; x &#x7684;&#x7528; left&#xFF0C;&#x5927;&#x4E8E; x &#x7684;&#x7528; right&#xFF0C;&#x6700;&#x540E;&#x8FDE;&#x63A5; left,right<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"># Definition for singly-linked list.</div><div class="line"># class ListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.val = x</div><div class="line">#         self.next = None</div><div class="line">&apos;&apos;&apos;</div><div class="line">Solution:</div><div class="line">- create two lists less and greater, for each node in linkedlist, if it is less than x, add to less, else, add to greater, finally merge two lists. Time complexity: O(n), space complexity: O(1)</div><div class="line">&apos;&apos;&apos;</div><div class="line"></div><div class="line">class Solution(object):</div><div class="line">    def partition(self,head,x):</div><div class="line">        if not head:</div><div class="line">            return None</div><div class="line">        less,greater=ListNode(0),ListNode(0)</div><div class="line">        less_cur,greater_cur=less,greater</div><div class="line">        while head:</div><div class="line">            if head.val&lt;x:</div><div class="line">                less_cur.next=head</div><div class="line">                less_cur=less_cur.next</div><div class="line">            else:</div><div class="line">                greater_cur.next=head</div><div class="line">                greater_cur=greater_cur.next</div><div class="line">            head=head.next</div><div class="line">        less_cur.next=greater.next</div><div class="line">        greater_cur.next=None</div><div class="line">        return less.next</div></pre></td></tr></table></figure></p>
+<p>&#x8FD9;&#x91CC;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x6700;&#x540E; right &#x8981;&#x6307;&#x5411;&#x7A7A;&#xFF0C;&#x4E0D;&#x7136;&#x8003;&#x8651; case [2,1]&#xFF0C;&#x4F1A;&#x9677;&#x5165;[1,2,1,2&#x2026;]&#x7684;&#x6B7B;&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A; right_cur.next &#x6307;&#x5411;&#x4E86; head&#xFF0C;&#x5F62;&#x6210;&#x4E86;&#x73AF;&#x3002;</p>
+<h2 id="&#x94FE;&#x8868;&#x7684;&#x73AF;-141-142-Linked-List-Cycle-I-amp-II"><a href="#&#x94FE;&#x8868;&#x7684;&#x73AF;-141-142-Linked-List-Cycle-I-amp-II" class="headerlink" title="&#x94FE;&#x8868;&#x7684;&#x73AF; (141.142.Linked List Cycle I &amp; II)"></a>&#x94FE;&#x8868;&#x7684;&#x73AF; (141.142.Linked List Cycle I &amp; II)</h2><h3 id="Problem-I-2"><a href="#Problem-I-2" class="headerlink" title="Problem(I)"></a>Problem(I)</h3><p>Given a linked list, determine if it has a cycle in it.</p>
+<p>Follow up:<br>Can you solve it without using extra space?</p>
+<h3 id="Solution-8"><a href="#Solution-8" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"># Definition for singly-linked list.</div><div class="line"># class ListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.val = x</div><div class="line">#         self.next = None</div><div class="line">&apos;&apos;&apos;</div><div class="line">Solution:</div><div class="line">- For every node in linkedlist, check if it is in hashset, if not, add it, else, return True. Time complexity: O(n)</div><div class="line"></div><div class="line">Followup:</div><div class="line">- no extra space</div><div class="line">    slow and fast pointers</div><div class="line"></div><div class="line">&apos;&apos;&apos;</div><div class="line">class Solution(object):</div><div class="line">    def hasCycle(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: bool</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head:</div><div class="line">            return False</div><div class="line">        fast,slow=head,head</div><div class="line">        while fast and fast.next:</div><div class="line">            fast=fast.next.next</div><div class="line">            slow=slow.next</div><div class="line">            if fast==slow:</div><div class="line">                return True</div><div class="line">        return False</div><div class="line"></div><div class="line">    &apos;&apos;&apos;</div><div class="line">    def hasCycle(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: bool</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head:</div><div class="line">            return False</div><div class="line">        nodelist=set()</div><div class="line">        while head.next:</div><div class="line">            if head in nodelist:</div><div class="line">                return True</div><div class="line">            nodelist.add(head)</div><div class="line">            head=head.next</div><div class="line">        return False</div><div class="line">    &apos;&apos;&apos;</div></pre></td></tr></table></figure>
+<h3 id="Problem-II-2"><a href="#Problem-II-2" class="headerlink" title="Problem(II)"></a>Problem(II)</h3><p>Given a linked list, return the node where the cycle begins. If there is no cycle, return null.</p>
+<p>Note: Do not modify the linked list.</p>
+<p>Follow up:<br>Can you solve it without using extra space?</p>
+<h3 id="Solution-9"><a href="#Solution-9" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&apos;&apos;&apos;</div><div class="line">Solution:</div><div class="line">- check if there&apos;s cycle</div><div class="line">- Let&apos;s say, the cycle starts at node u, and the length of the cycle is L, Moreover, after x steps, fast catches slow, and the length between current node and u is p.</div><div class="line">    then we can get for slow pointer, x=u+aL+p,</div><div class="line">    for fast pointer, 2x=u+bL+p,</div><div class="line">    =&gt; 2x-x=(b-a)L =&gt; x=nL.</div><div class="line">    Now, think about that, at step x, if we travels u more steps, where are we?</div><div class="line">    =&gt; u+x=u+nL.</div><div class="line">    =&gt; We are at the start of the cycle, because we have covered the first u nodes once and the entire cycle n times.</div><div class="line"></div><div class="line">Followup:</div><div class="line">- find the length of cycle</div><div class="line">    let slow move foward till meet with fast again</div><div class="line">&apos;&apos;&apos;</div><div class="line"></div><div class="line"># Definition for singly-linked list.</div><div class="line"># class ListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.val = x</div><div class="line">#         self.next = None</div><div class="line"></div><div class="line">class Solution(object):</div><div class="line">    def detectCycle(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head: return None</div><div class="line">        fast,slow=head,head</div><div class="line">        while True:</div><div class="line">            if not fast or not fast.next:return None</div><div class="line">            fast=fast.next.next</div><div class="line">            slow=slow.next</div><div class="line">            if fast==slow: break</div><div class="line">        while head != fast:</div><div class="line">            head,fast=head.next,fast.next</div><div class="line">        return head</div></pre></td></tr></table></figure>
+<h2 id="&#x5355;&#x94FE;&#x516C;&#x5171;&#x8282;&#x70B9;&#x95EE;&#x9898;"><a href="#&#x5355;&#x94FE;&#x516C;&#x5171;&#x8282;&#x70B9;&#x95EE;&#x9898;" class="headerlink" title="&#x5355;&#x94FE;&#x516C;&#x5171;&#x8282;&#x70B9;&#x95EE;&#x9898;"></a>&#x5355;&#x94FE;&#x516C;&#x5171;&#x8282;&#x70B9;&#x95EE;&#x9898;</h2><h3 id="Problem-5"><a href="#Problem-5" class="headerlink" title="Problem"></a>Problem</h3><p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-04%20%E4%B8%8B%E5%8D%885.30.48.png" alt=""><br>&#x5047;&#x8BBE;&#x4E24;&#x4E2A;&#x94FE;&#x8868;&#x957F;&#x5EA6;&#x4E3A; m&#xFF0C;n&#xFF0C;&#x8BA4;&#x4E3A; m &gt; n&#xFF0C;&#x4E24;&#x94FE;&#x8868;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x516C;&#x5171;&#x8282;&#x70B9;&#x5230;&#x5C3E;&#x8282;&#x70B9;&#x4E00;&#x5B9A;&#x662F;&#x91CD;&#x5408;&#x7684;&#x3002;&#x4E8E;&#x662F;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x522B;&#x904D;&#x5386;&#x4E24;&#x4E2A;&#x94FE;&#x8868;&#x5F97;&#x5230;&#x94FE;&#x8868;&#x957F;&#x5EA6; m,n, &#x957F;&#x94FE;&#x8868;&#x7A7A;&#x8F6C; m-n &#x6B21;&#xFF0C;&#x7136;&#x540E;&#x4E24;&#x94FE;&#x8868;&#x9F50;&#x5934;&#x5E76;&#x8FDB;&#xFF0C;&#x540C;&#x6B65;&#x904D;&#x5386;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;&#x516C;&#x5171;&#x8282;&#x70B9;&#x3002;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A; $O(m+n)$</p>
+<p>&#x5982;&#x679C;&#x94FE;&#x8868;&#x5B58;&#x5728;&#x73AF;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x7528;&#x5FEB;&#x6162;&#x6307;&#x9488;&#x7684;&#x65B9;&#x5F0F;&#x8BA1;&#x7B97;&#x516C;&#x5171;&#x8282;&#x70B9;&#x3002;&#x4E24;&#x4E2A;&#x6307;&#x9488;&#xFF0C;&#x6BCF;&#x6B21;&#x5206;&#x522B;&#x79FB;&#x52A8; 1 &#x4E2A;&#xFF0F;2 &#x4E2A;&#x8282;&#x70B9;&#x3002;</p>
+<h3 id="Solution-10"><a href="#Solution-10" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"># Definition for singly-linked list.</div><div class="line"># class ListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.val = x</div><div class="line">#         self.next = None</div><div class="line"></div><div class="line">class Solution(object):</div><div class="line">    def getIntersectionNode(self, headA, headB):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head1, head1: ListNode</div><div class="line">        :rtype: ListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        curA,curB = headA,headB</div><div class="line">        lenA,lenB=0,0</div><div class="line">        while curA:</div><div class="line">            lenA += 1</div><div class="line">            curA = curA.next</div><div class="line">        while curB:</div><div class="line">            lenB += 1</div><div class="line">            curB = curB.next</div><div class="line">        curA,curB = headA,headB</div><div class="line">        if lenA &gt; lenB:</div><div class="line">            for i in range(lenA-lenB):</div><div class="line">                curA = curA.next</div><div class="line">        else:</div><div class="line">            for i in range(lenB-lenA):</div><div class="line">                curB = curB.next</div><div class="line">        while curA != curB:</div><div class="line">            curA = curA.next</div><div class="line">            curB = curB.next</div><div class="line">        return curA</div></pre></td></tr></table></figure>
+<p>&#x4E00;&#x4E2A;&#x4ECE;&#x4EE3;&#x7801;&#x5C42;&#x9762;&#x6765;&#x8BB2;&#x7684;&#x7B80;&#x6D01;&#x7248;&#x672C;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Solution:</div><div class="line">    # @param two ListNodes</div><div class="line">    # @return the intersected ListNode</div><div class="line">    def getIntersectionNode(self, headA, headB):</div><div class="line">        if headA is None or headB is None:</div><div class="line">            return None</div><div class="line"></div><div class="line">        pa = headA # 2 pointers</div><div class="line">        pb = headB</div><div class="line"></div><div class="line">        while pa is not pb:</div><div class="line">            # if either pointer hits the end, switch head and continue the second traversal,</div><div class="line">            # if not hit the end, just move on to next</div><div class="line">            pa = headB if pa is None else pa.next</div><div class="line">            pb = headA if pb is None else pb.next</div><div class="line"></div><div class="line">        return pa # only 2 ways to get out of the loop, they meet or the both hit the end=None</div><div class="line"></div><div class="line"># the idea is if you switch head, the possible difference between length would be countered.</div><div class="line"># On the second traversal, they either hit or miss.</div><div class="line"># if they meet, pa or pb would be the node we are looking for,</div><div class="line"># if they didn&apos;t meet, they will hit the end at the same iteration, pa == pb == None, return either one of them is the same,None</div></pre></td></tr></table></figure></p>
+<h2 id="&#x94FE;&#x8868;&#x590D;&#x5236;-138-Copy-List-with-Random-Pointer"><a href="#&#x94FE;&#x8868;&#x590D;&#x5236;-138-Copy-List-with-Random-Pointer" class="headerlink" title="&#x94FE;&#x8868;&#x590D;&#x5236;(138. Copy List with Random Pointer)"></a>&#x94FE;&#x8868;&#x590D;&#x5236;(138. Copy List with Random Pointer)</h2><h3 id="Problem-6"><a href="#Problem-6" class="headerlink" title="Problem"></a>Problem</h3><p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
+<p>Return a deep copy of the list.</p>
+<h3 id="Solution-11"><a href="#Solution-11" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">&apos;&apos;&apos;</div><div class="line">Solution:</div><div class="line">- two-pass: consider normal copy of linkedlist, do similar stuff. first copy nodes and next pointer, then copy random pointer</div><div class="line">            how to find new nodes in second pass? find with O(1) time =&gt; hashmap</div><div class="line">- one-pass: first copy all nodes and store them into hashmap, then connect all nodes. time complexity: O(n), space complexity: O(n)</div><div class="line"></div><div class="line">Followup:</div><div class="line">- without hashmap?</div><div class="line"></div><div class="line">&apos;&apos;&apos;</div><div class="line"></div><div class="line"># Definition for singly-linked list with a random pointer.</div><div class="line"># class RandomListNode(object):</div><div class="line">#     def __init__(self, x):</div><div class="line">#         self.label = x</div><div class="line">#         self.next = None</div><div class="line">#         self.random = None</div><div class="line"></div><div class="line">class Solution(object):</div><div class="line">    # copy nodes and next pointer</div><div class="line">    def copyRandomList(self, head):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type head: RandomListNode</div><div class="line">        :rtype: RandomListNode</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not head: return None</div><div class="line">        cur=head</div><div class="line">        hashmap={}</div><div class="line">        while cur:</div><div class="line">            # create nodes</div><div class="line">            if cur not in hashmap:</div><div class="line">                curCopy=RandomListNode(cur.label)</div><div class="line">                hashmap[cur]=curCopy</div><div class="line">            if cur.next and cur.next not in hashmap:</div><div class="line">                nextCopy=RandomListNode(cur.next.label)</div><div class="line">                hashmap[cur.next]=nextCopy</div><div class="line">            if cur.random and cur.random not in hashmap:</div><div class="line">                randomCopy=RandomListNode(cur.random.label)</div><div class="line">                hashmap[cur.random]=randomCopy</div><div class="line">            # connect nodes</div><div class="line">            if cur.next: hashmap[cur].next=hashmap[cur.next]</div><div class="line">            if cur.random: hashmap[cur].random=hashmap[cur.random]</div><div class="line">            # next round</div><div class="line">            cur=cur.next</div><div class="line">        return hashmap[head]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;&#xFF1A;<br><a href="http://wdxtub.com/2016/01/22/programmer-startline-5/" target="_blank" rel="external">&#x7F16;&#x7A0B;&#x8D77;&#x8DD1;&#x7EBF; &#x7B2C; 5 &#x8BFE; &#x94FE;&#x8868;</a><br><a href="https://www.codefellows.org/blog/implementing-a-singly-linked-list-in-python/" target="_blank" rel="external">Implementing a Singly Linked List in Python</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/链表/" rel="tag">#链表</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/05/实习总结之 sentence embedding/" rel="next" title="实习总结之 sentence embedding">
+                <i class="fa fa-chevron-left"></i> 实习总结之 sentence embedding
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/06/Search Engines笔记 - Exact-match retrieval/" rel="prev" title="Search Engines笔记 - Exact-match retrieval">
+                Search Engines笔记 - Exact-match retrieval <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#array"><span class="nav-number">1.1.</span> <span class="nav-text">array</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本策略"><span class="nav-number">2.</span> <span class="nav-text">基本策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#涉及头节点"><span class="nav-number">2.1.</span> <span class="nav-text">涉及头节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改单向链表的操作"><span class="nav-number">2.2.</span> <span class="nav-text">修改单向链表的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转链表"><span class="nav-number">2.3.</span> <span class="nav-text">反转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除某个节点"><span class="nav-number">2.4.</span> <span class="nav-text">删除某个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快慢指针"><span class="nav-number">2.5.</span> <span class="nav-text">快慢指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断单链表是否有环"><span class="nav-number">2.6.</span> <span class="nav-text">判断单链表是否有环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找倒数第-N-个节点"><span class="nav-number">2.7.</span> <span class="nav-text">找倒数第 N 个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检验有效性"><span class="nav-number">2.8.</span> <span class="nav-text">检验有效性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表实现"><span class="nav-number">3.</span> <span class="nav-text">链表实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Singly-linked-list-Implementation"><span class="nav-number">3.1.</span> <span class="nav-text">Singly-linked list Implementation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Leetcode-实例"><span class="nav-number">4.</span> <span class="nav-text">Leetcode 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#移除节点-19-Remove-Nth-Node-From-End-of-List"><span class="nav-number">4.1.</span> <span class="nav-text">移除节点(19.Remove Nth Node From End of List)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem"><span class="nav-number">4.1.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">4.1.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表相加-2-Add-Two-Numbers"><span class="nav-number">4.2.</span> <span class="nav-text">链表相加(2.Add Two Numbers)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的翻转-206-92-Reverse-Linked-List"><span class="nav-number">4.3.</span> <span class="nav-text">链表的翻转(206.92.Reverse Linked List)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-I"><span class="nav-number">4.3.1.</span> <span class="nav-text">Problem(I)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初步思考"><span class="nav-number">4.3.2.</span> <span class="nav-text">初步思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#头插法"><span class="nav-number">4.3.3.</span> <span class="nav-text">头插法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代法"><span class="nav-number">4.3.3.1.</span> <span class="nav-text">迭代法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">4.3.3.2.</span> <span class="nav-text">递归</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-II"><span class="nav-number">4.3.4.</span> <span class="nav-text">Problem(II)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-2"><span class="nav-number">4.3.5.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表改序（143-Reorder-List）"><span class="nav-number">4.4.</span> <span class="nav-text">链表改序（143. Reorder List）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-2"><span class="nav-number">4.4.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-3"><span class="nav-number">4.4.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序链表去重-82-83-Remove-Duplicates-from-Sorted-List-I-amp-II"><span class="nav-number">4.5.</span> <span class="nav-text">排序链表去重(82.83. Remove Duplicates from Sorted List I&II)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-I-1"><span class="nav-number">4.5.1.</span> <span class="nav-text">Problem(I)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-4"><span class="nav-number">4.5.2.</span> <span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-II-1"><span class="nav-number">4.5.3.</span> <span class="nav-text">Problem(II)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-5"><span class="nav-number">4.5.4.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的合并-21-Merge-Two-Sorted-Lists"><span class="nav-number">4.6.</span> <span class="nav-text">链表的合并(21. Merge Two Sorted Lists)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-3"><span class="nav-number">4.6.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-6"><span class="nav-number">4.6.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的划分（89-Partition-List）"><span class="nav-number">4.7.</span> <span class="nav-text">链表的划分（89.Partition List）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-4"><span class="nav-number">4.7.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-7"><span class="nav-number">4.7.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的环-141-142-Linked-List-Cycle-I-amp-II"><span class="nav-number">4.8.</span> <span class="nav-text">链表的环 (141.142.Linked List Cycle I & II)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-I-2"><span class="nav-number">4.8.1.</span> <span class="nav-text">Problem(I)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-8"><span class="nav-number">4.8.2.</span> <span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-II-2"><span class="nav-number">4.8.3.</span> <span class="nav-text">Problem(II)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-9"><span class="nav-number">4.8.4.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单链公共节点问题"><span class="nav-number">4.9.</span> <span class="nav-text">单链公共节点问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-5"><span class="nav-number">4.9.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-10"><span class="nav-number">4.9.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表复制-138-Copy-List-with-Random-Pointer"><span class="nav-number">4.10.</span> <span class="nav-text">链表复制(138. Copy List with Random Pointer)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-6"><span class="nav-number">4.10.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-11"><span class="nav-number">4.10.2.</span> <span class="nav-text">Solution</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/09/04/数据结构和算法 -- 链表/';
+      var disqus_title = "数据结构和算法 -- 链表";
+      var disqus_url = 'http://www.shuang0420.com/2016/09/04/数据结构和算法 -- 链表/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

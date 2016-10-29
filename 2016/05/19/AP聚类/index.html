@@ -1,0 +1,935 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="AP&amp;#x7B97;&amp;#x6CD5;&amp;#x7684;&amp;#x5177;&amp;#x4F53;&amp;#x5DE5;&amp;#x4F5C;&amp;#x8FC7;&amp;#x7A0B;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;&amp;#x5148;&amp;#x8BA1;&amp;#x7B97;N&amp;#x4E2A;&amp;#x70B9;&amp;#x4E4B;&amp;#x95F4;&amp;#x7684;&amp;#x76F8;&amp;#x4F3C;&amp;#x5EA6;&amp;#x503C;&amp;#xFF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AP聚类">
+<meta property="og:url" content="http://www.shuang0420.com/2016/05/19/AP聚类/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="AP&amp;#x7B97;&amp;#x6CD5;&amp;#x7684;&amp;#x5177;&amp;#x4F53;&amp;#x5DE5;&amp;#x4F5C;&amp;#x8FC7;&amp;#x7A0B;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;&amp;#x5148;&amp;#x8BA1;&amp;#x7B97;N&amp;#x4E2A;&amp;#x70B9;&amp;#x4E4B;&amp;#x95F4;&amp;#x7684;&amp;#x76F8;&amp;#x4F3C;&amp;#x5EA6;&amp;#x503C;&amp;#xFF">
+<meta property="og:updated_time" content="2016-07-11T13:08:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AP聚类">
+<meta name="twitter:description" content="AP&amp;#x7B97;&amp;#x6CD5;&amp;#x7684;&amp;#x5177;&amp;#x4F53;&amp;#x5DE5;&amp;#x4F5C;&amp;#x8FC7;&amp;#x7A0B;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;&amp;#x5148;&amp;#x8BA1;&amp;#x7B97;N&amp;#x4E2A;&amp;#x70B9;&amp;#x4E4B;&amp;#x95F4;&amp;#x7684;&amp;#x76F8;&amp;#x4F3C;&amp;#x5EA6;&amp;#x503C;&amp;#xFF">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/05/19/AP聚类/"/>
+
+
+  <title> AP聚类 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AP聚类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-05-19T21:42:04-04:00" content="2016-05-19">
+              2016-05-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/19/AP聚类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/19/AP聚类/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>AP&#x7B97;&#x6CD5;&#x7684;&#x5177;&#x4F53;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;&#x5148;&#x8BA1;&#x7B97;N&#x4E2A;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#xFF0C;&#x5C06;&#x503C;&#x653E;&#x5728;S&#x77E9;&#x9635;&#x4E2D;&#xFF0C;&#x518D;&#x9009;&#x53D6;P&#x503C;(&#x4E00;&#x822C;&#x53D6;S&#x7684;&#x4E2D;&#x503C;)&#x3002;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x6700;&#x5927;&#x8FED;&#x4EE3;&#x6B21;&#x6570;(&#x6587;&#x4E2D;&#x8BBE;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;1000)&#xFF0C;&#x8FED;&#x4EE3;&#x8FC7;&#x7A0B;&#x5F00;&#x59CB;&#x540E;&#xFF0C;&#x8BA1;&#x7B97;&#x6BCF;&#x4E00;&#x6B21;&#x7684;R&#x503C;&#x548C;A&#x503C;&#xFF0C;&#x6839;&#x636E;R(k,k)+A(k,k)&#x503C;&#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;(&#x6587;&#x4E2D;&#x6307;&#x5B9A;&#x5F53;(R(k,k)+A(k,k))&#xFF1E;0&#x65F6;&#x8BA4;&#x4E3A;&#x662F;&#x4E00;&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;)&#xFF0C;&#x5F53;&#x8FED;&#x4EE3;&#x6B21;&#x6570;&#x8D85;&#x8FC7;&#x6700;&#x5927;&#x503C;( &#x5373;maxits&#x503C;)&#x6216;&#x8005;&#x5F53;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x8FDE;&#x7EED;&#x591A;&#x5C11;&#x6B21;&#x8FED;&#x4EE3;&#x4E0D;&#x53D1;&#x751F;&#x6539;&#x53D8;( &#x5373;convits&#x503C;)&#x65F6;&#x7EC8;&#x6B62;&#x8BA1;&#x7B97;(&#x6587;&#x4E2D;&#x8BBE;&#x5B9A;&#x8FDE;&#x7EED;50&#x6B21;&#x8FED;&#x4EE3;&#x8FC7;&#x7A0B;&#x4E0D;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x662F;&#x7EC8;&#x6B62;&#x8BA1;&#x7B97;)&#x3002;<br><a id="more"></a></p>
+<p>Affinity Propagation (AP) &#x805A;&#x7C7B;&#x662F;&#x6700;&#x8FD1;&#x5728;Science&#x6742;&#x5FD7;&#x4E0A;&#x63D0;&#x51FA;&#x7684;&#x4E00;&#x79CD;&#x65B0;&#x7684;&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x3002;&#x5B83;&#x6839;&#x636E;N&#x4E2A;&#x6570;&#x636E;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x8FDB;&#x884C;&#x805A;&#x7C7B;,&#x8FD9;&#x4E9B;&#x76F8;&#x4F3C;&#x5EA6;&#x53EF;&#x4EE5;&#x662F;&#x5BF9;&#x79F0;&#x7684;,&#x5373;&#x4E24;&#x4E2A;&#x6570;&#x636E;&#x70B9;&#x4E92;&#x76F8;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x4E00;&#x6837;(&#x5982;&#x6B27;&#x6C0F;&#x8DDD;&#x79BB;);&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4E0D;&#x5BF9;&#x79F0;&#x7684;,&#x5373;&#x4E24;&#x4E2A;&#x6570;&#x636E;&#x70B9;&#x4E92;&#x76F8;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x4E0D;&#x7B49;&#x3002;&#x8FD9;&#x4E9B;&#x76F8;&#x4F3C;&#x5EA6;&#x7EC4;&#x6210;N&#xD7;N&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x77E9;&#x9635;S(&#x5176;&#x4E2D;N&#x4E3A;&#x6709;N&#x4E2A;&#x6570;&#x636E;&#x70B9;)&#x3002;AP&#x7B97;&#x6CD5;&#x4E0D;&#x9700;&#x8981;&#x4E8B;&#x5148;&#x6307;&#x5B9A;&#x805A;&#x7C7B;&#x6570;&#x76EE;,&#x76F8;&#x53CD;&#x5B83;&#x5C06;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x70B9;&#x90FD;&#x4F5C;&#x4E3A;&#x6F5C;&#x5728;&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;,&#x79F0;&#x4E4B;&#x4E3A;exemplar&#x3002;&#x4EE5;S&#x77E9;&#x9635;&#x7684;&#x5BF9;&#x89D2;&#x7EBF;&#x4E0A;&#x7684;&#x6570;&#x503C;s(k, k)&#x4F5C;&#x4E3A;k&#x70B9;&#x80FD;&#x5426;&#x6210;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x8BC4;&#x5224;&#x6807;&#x51C6;,&#x8FD9;&#x610F;&#x5473;&#x7740;&#x8BE5;&#x503C;&#x8D8A;&#x5927;,&#x8FD9;&#x4E2A;&#x70B9;&#x6210;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x4E5F;&#x5C31;&#x8D8A;&#x5927;,&#x8FD9;&#x4E2A;&#x503C;&#x53C8;&#x79F0;&#x4F5C;&#x53C2;&#x8003;&#x5EA6;p (preference)&#x3002;<br>&#x5728;&#x8FD9;&#x91CC;&#x4ECB;&#x7ECD;&#x51E0;&#x4E2A;&#x6587;&#x4E2D;&#x5E38;&#x51FA;&#x73B0;&#x7684;&#x540D;&#x8BCD;&#xFF1A;<br>exemplar&#xFF1A;&#x6307;&#x7684;&#x662F;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x3002;<br>similarity&#xFF1A;&#x6570;&#x636E;&#x70B9;i&#x548C;&#x70B9;j&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x8BB0;&#x4E3A;S(i&#xFF0C;j)&#x3002;&#x662F;&#x6307;&#x70B9;j&#x4F5C;&#x4E3A;&#x70B9;i&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x3002;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#x6B27;&#x6C0F;&#x8DDD;&#x79BB;&#x6765;&#x8BA1;&#x7B97;&#xFF0C;&#x5982;&#xFF0D;|| ||&#x3002;&#x6587;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x70B9;&#x4E0E;&#x70B9;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#x5168;&#x90E8;&#x53D6;&#x4E3A;&#x8D1F;&#x503C;&#x3002;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#x8D8A;&#x5927;&#x8BF4;&#x660E;&#x70B9;&#x4E0E;&#x70B9;&#x7684;&#x8DDD;&#x79BB;&#x8D8A;&#x8FD1;&#xFF0C;&#x4FBF;&#x4E8E;&#x540E;&#x9762;&#x7684;&#x6BD4;&#x8F83;&#x8BA1;&#x7B97;&#x3002;<br>preference&#xFF1A;&#x6570;&#x636E;&#x70B9;i&#x7684;&#x53C2;&#x8003;&#x5EA6;&#x79F0;&#x4E3A;P(i)&#x6216;S(i,i)&#x3002;&#x662F;&#x6307;&#x70B9;i&#x4F5C;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x53C2;&#x8003;&#x5EA6;&#x3002;&#x4E00;&#x822C;&#x53D6;S&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#x7684;&#x4E2D;&#x503C;&#x3002;<br>Responsibility:R(i,k)&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x70B9;k&#x9002;&#x5408;&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#x70B9;i&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x7A0B;&#x5EA6;&#x3002;<br>Availability:A(i,k)&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x70B9;i&#x9009;&#x62E9;&#x70B9;k&#x4F5C;&#x4E3A;&#x5176;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x9002;&#x5408;&#x7A0B;&#x5EA6;&#x3002;</p>
+<p>Script output:<br>Estimated number of clusters: 3<br>Homogeneity: 0.872<br>Completeness: 0.872<br>V-measure: 0.872<br>Adjusted Rand Index: 0.912<br>Adjusted Mutual Information: 0.871<br>Silhouette Coefficient: 0.753</p>
+<p>Python source code: plot_affinity_propagation.py<br>print(<strong>doc</strong>)</p>
+<p>from sklearn.cluster import AffinityPropagation<br>from sklearn import metrics<br>from sklearn.datasets.samples_generator import make_blobs</p>
+<p>##############################################################################</p>
+<h1 id="Generate-sample-data"><a href="#Generate-sample-data" class="headerlink" title="Generate sample data"></a>Generate sample data</h1><p>centers = [[1, 1], [-1, -1], [1, -1]]<br>X, labels_true = make_blobs(n_samples=300, centers=centers, cluster_std=0.5,<br>                            random_state=0)</p>
+<p>##############################################################################</p>
+<h1 id="Compute-Affinity-Propagation"><a href="#Compute-Affinity-Propagation" class="headerlink" title="Compute Affinity Propagation"></a>Compute Affinity Propagation</h1><p>af = AffinityPropagation(preference=-50).fit(X)<br>cluster_centers_indices = af.cluster_centers<em>indices</em><br>labels = af.labels_</p>
+<p>n<em>clusters</em> = len(cluster_centers_indices)</p>
+<p>print(&#x2018;Estimated number of clusters: %d&#x2019; % n<em>clusters</em>)<br>print(&#x201C;Homogeneity: %0.3f&#x201D; % metrics.homogeneity_score(labels_true, labels))<br>print(&#x201C;Completeness: %0.3f&#x201D; % metrics.completeness_score(labels_true, labels))<br>print(&#x201C;V-measure: %0.3f&#x201D; % metrics.v_measure_score(labels_true, labels))<br>print(&#x201C;Adjusted Rand Index: %0.3f&#x201D;<br>      % metrics.adjusted_rand_score(labels_true, labels))<br>print(&#x201C;Adjusted Mutual Information: %0.3f&#x201D;<br>      % metrics.adjusted_mutual_info_score(labels_true, labels))<br>print(&#x201C;Silhouette Coefficient: %0.3f&#x201D;<br>      % metrics.silhouette_score(X, labels, metric=&#x2019;sqeuclidean&#x2019;))</p>
+<p>##############################################################################</p>
+<h1 id="Plot-result"><a href="#Plot-result" class="headerlink" title="Plot result"></a>Plot result</h1><p>import matplotlib.pyplot as plt<br>from itertools import cycle</p>
+<p>plt.close(&#x2018;all&#x2019;)<br>plt.figure(1)<br>plt.clf()</p>
+<p>colors = cycle(&#x2018;bgrcmykbgrcmykbgrcmykbgrcmyk&#x2019;)<br>for k, col in zip(range(n<em>clusters</em>), colors):<br>    class_members = labels == k<br>    cluster_center = X[cluster_centers_indices[k]]<br>    plt.plot(X[class_members, 0], X[class_members, 1], col + &#x2018;.&#x2019;)<br>    plt.plot(cluster_center[0], cluster_center[1], &#x2018;o&#x2019;, markerfacecolor=col,<br>             markeredgecolor=&#x2019;k&#x2019;, markersize=14)<br>    for x in X[class_members]:<br>        plt.plot([cluster_center[0], x[0]], [cluster_center[1], x[1]], col)</p>
+<p>plt.title(&#x2018;Estimated number of clusters: %d&#x2019; % n<em>clusters</em>)<br>plt.show()</p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;<br><a href="http://scikit-learn.org/stable/modules/clustering.html" target="_blank" rel="external">http://scikit-learn.org/stable/modules/clustering.html</a><br><a href="http://blog.csdn.net/u010695420/article/details/42239465" target="_blank" rel="external">http://blog.csdn.net/u010695420/article/details/42239465</a></p>
+</blockquote>
+<p>&#x805A;&#x7C7B;&#x7B97;&#x6CD5;Affinity Propagation(AP)</p>
+<p>Affinity Propagation&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x7B80;&#x79F0;AP&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x5728;07&#x5E74;&#x53D1;&#x8868;&#x5728;Science&#x4E0A;&#x9762;&#x6BD4;&#x8F83;&#x65B0;&#x7684;&#x7B97;&#x6CD5;&#x3002;</p>
+<p>AP&#x7B97;&#x6CD5;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;&#x662F;&#x5C06;&#x5168;&#x90E8;&#x6837;&#x672C;&#x770B;&#x4F5C;&#x7F51;&#x7EDC;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x4E2D;&#x5404;&#x6761;&#x8FB9;&#x7684;&#x6D88;&#x606F;&#x4F20;&#x9012;&#x8BA1;&#x7B97;&#x51FA;&#x5404;&#x6837;&#x672C;&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x3002;&#x805A;&#x7C7B;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5171;&#x6709;&#x4E24;&#x79CD;&#x6D88;&#x606F;&#x5728;&#x5404;&#x8282;&#x70B9;&#x95F4;&#x4F20;&#x9012;&#xFF0C;&#x5206;&#x522B;&#x662F;&#x5438;&#x5F15;&#x5EA6;( responsibility)&#x548C;&#x5F52;&#x5C5E;&#x5EA6;(availability) &#x3002;AP&#x7B97;&#x6CD5;&#x901A;&#x8FC7;&#x8FED;&#x4EE3;&#x8FC7;&#x7A0B;&#x4E0D;&#x65AD;&#x66F4;&#x65B0;&#x6BCF;&#x4E00;&#x4E2A;&#x70B9;&#x7684;&#x5438;&#x5F15;&#x5EA6;&#x548C;&#x5F52;&#x5C5E;&#x5EA6;&#x503C;&#xFF0C;&#x76F4;&#x5230;&#x4EA7;&#x751F;m&#x4E2A;&#x9AD8;&#x8D28;&#x91CF;&#x7684;Exemplar&#xFF08;&#x7C7B;&#x4F3C;&#x4E8E;&#x8D28;&#x5FC3;&#xFF09;&#xFF0C;&#x540C;&#x65F6;&#x5C06;&#x5176;&#x4F59;&#x7684;&#x6570;&#x636E;&#x70B9;&#x5206;&#x914D;&#x5230;&#x76F8;&#x5E94;&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x3002;</p>
+<p>&#x5728;AP&#x7B97;&#x6CD5;&#x4E2D;&#x6709;&#x4E00;&#x4E9B;&#x7279;&#x6B8A;&#x540D;&#x8BCD;&#xFF1A;</p>
+<p>Exemplar&#xFF1A;&#x6307;&#x7684;&#x662F;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#xFF0C;K-Means&#x4E2D;&#x7684;&#x8D28;&#x5FC3;&#x3002;<br>Similarity&#xFF1A;&#x6570;&#x636E;&#x70B9;i&#x548C;&#x70B9;j&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x8BB0;&#x4E3A;s(i, j)&#xFF0C;&#x662F;&#x6307;&#x70B9;j&#x4F5C;&#x4E3A;&#x70B9;i&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x3002;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#x6B27;&#x6C0F;&#x8DDD;&#x79BB;&#x6765;&#x8BA1;&#x7B97;&#xFF0C;&#x4E00;&#x822C;&#x70B9;&#x4E0E;&#x70B9;&#x7684;&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#x5168;&#x90E8;&#x53D6;&#x4E3A;&#x8D1F;&#x503C;&#xFF1B;&#x56E0;&#x6B64;&#xFF0C;&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#x8D8A;&#x5927;&#x8BF4;&#x660E;&#x70B9;&#x4E0E;&#x70B9;&#x7684;&#x8DDD;&#x79BB;&#x8D8A;&#x8FD1;&#xFF0C;&#x4FBF;&#x4E8E;&#x540E;&#x9762;&#x7684;&#x6BD4;&#x8F83;&#x8BA1;&#x7B97;&#x3002;<br>Preference&#xFF1A;&#x6570;&#x636E;&#x70B9;i&#x7684;&#x53C2;&#x8003;&#x5EA6;&#x79F0;&#x4E3A;p(i)&#x6216;s(i,i)&#xFF0C;&#x662F;&#x6307;&#x70B9;i&#x4F5C;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x53C2;&#x8003;&#x5EA6;&#x3002;&#x4E00;&#x822C;&#x53D6;s&#x76F8;&#x4F3C;&#x5EA6;&#x503C;&#x7684;&#x4E2D;&#x503C;&#x3002;<br>Responsibility&#xFF1A;r(i,k)&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x70B9;k&#x9002;&#x5408;&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#x70B9;i&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x7A0B;&#x5EA6;&#x3002;<br>Availability&#xFF1A;a(i,k)&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x70B9;i&#x9009;&#x62E9;&#x70B9;k&#x4F5C;&#x4E3A;&#x5176;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x9002;&#x5408;&#x7A0B;&#x5EA6;&#x3002;<br>Damping factor(&#x963B;&#x5C3C;&#x7CFB;&#x6570;)&#xFF1A;&#x4E3B;&#x8981;&#x662F;&#x8D77;&#x6536;&#x655B;&#x4F5C;&#x7528;&#x7684;&#x3002;<br>&#x5728;&#x5B9E;&#x9645;&#x8BA1;&#x7B97;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF08;&#x4E5F;&#x662F;&#x9700;&#x8981;&#x624B;&#x52A8;&#x6307;&#x5B9A;&#xFF09;&#x662F;Preference&#x548C;Damping factor&#x3002;&#x524D;&#x8005;&#x5B9A;&#x4E86;&#x805A;&#x7C7B;&#x6570;&#x91CF;&#x7684;&#x591A;&#x5C11;&#xFF0C;&#x503C;&#x8D8A;&#x5927;&#x805A;&#x7C7B;&#x6570;&#x91CF;&#x8D8A;&#x591A;&#xFF1B;&#x540E;&#x8005;&#x63A7;&#x5236;&#x7B97;&#x6CD5;&#x6536;&#x655B;&#x6548;&#x679C;&#x3002;</p>
+<p>AP&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x4E0E;&#x7ECF;&#x5178;&#x7684;K-Means&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x76F8;&#x6BD4;&#xFF0C;&#x5177;&#x6709;&#x5F88;&#x591A;&#x72EC;&#x7279;&#x4E4B;&#x5904;&#xFF1A;</p>
+<p>&#x65E0;&#x9700;&#x6307;&#x5B9A;&#x805A;&#x7C7B;&#x201C;&#x6570;&#x91CF;&#x201D;&#x53C2;&#x6570;&#x3002;AP&#x805A;&#x7C7B;&#x4E0D;&#x9700;&#x8981;&#x6307;&#x5B9A;K&#xFF08;&#x7ECF;&#x5178;&#x7684;K-Means&#xFF09;&#x6216;&#x8005;&#x662F;&#x5176;&#x4ED6;&#x63CF;&#x8FF0;&#x805A;&#x7C7B;&#x4E2A;&#x6570;&#xFF08;SOM&#x4E2D;&#x7684;&#x7F51;&#x7EDC;&#x7ED3;&#x6784;&#x548C;&#x89C4;&#x6A21;&#xFF09;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x4F7F;&#x5F97;&#x5148;&#x9A8C;&#x7ECF;&#x9A8C;&#x6210;&#x4E3A;&#x5E94;&#x7528;&#x7684;&#x975E;&#x5FC5;&#x9700;&#x6761;&#x4EF6;&#xFF0C;&#x4EBA;&#x7FA4;&#x5E94;&#x7528;&#x8303;&#x56F4;&#x589E;&#x52A0;&#x3002;<br>&#x660E;&#x786E;&#x7684;&#x8D28;&#x5FC3;&#xFF08;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x70B9;&#xFF09;&#x3002;&#x6837;&#x672C;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x70B9;&#x90FD;&#x53EF;&#x80FD;&#x6210;&#x4E3A;AP&#x7B97;&#x6CD5;&#x4E2D;&#x7684;&#x8D28;&#x5FC3;&#xFF0C;&#x53EB;&#x505A;Examplar&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7531;&#x591A;&#x4E2A;&#x6570;&#x636E;&#x70B9;&#x6C42;&#x5E73;&#x5747;&#x800C;&#x5F97;&#x5230;&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#xFF08;&#x5982;K-Means&#xFF09;&#x3002;<br>&#x5BF9;&#x8DDD;&#x79BB;&#x77E9;&#x9635;&#x7684;&#x5BF9;&#x79F0;&#x6027;&#x6CA1;&#x8981;&#x6C42;&#x3002;AP&#x901A;&#x8FC7;&#x8F93;&#x5165;&#x76F8;&#x4F3C;&#x5EA6;&#x77E9;&#x9635;&#x6765;&#x542F;&#x52A8;&#x7B97;&#x6CD5;&#xFF0C;&#x56E0;&#x6B64;&#x5141;&#x8BB8;&#x6570;&#x636E;&#x5448;&#x975E;&#x5BF9;&#x79F0;&#xFF0C;&#x6570;&#x636E;&#x9002;&#x7528;&#x8303;&#x56F4;&#x975E;&#x5E38;&#x5927;&#x3002;<br>&#x521D;&#x59CB;&#x503C;&#x4E0D;&#x654F;&#x611F;&#x3002;&#x591A;&#x6B21;&#x6267;&#x884C;AP&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#xFF0C;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x5B8C;&#x5168;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x5373;&#x4E0D;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x968F;&#x673A;&#x9009;&#x53D6;&#x521D;&#x503C;&#x6B65;&#x9AA4;&#xFF08;&#x8FD8;&#x662F;&#x5BF9;&#x6BD4;K-Means&#x7684;&#x968F;&#x673A;&#x521D;&#x59CB;&#x503C;&#xFF09;&#x3002;<br>&#x7B97;&#x6CD5;&#x590D;&#x6742;&#x5EA6;&#x8F83;&#x9AD8;&#xFF0C;&#x4E3A;O(N<em>N</em>logN)&#xFF0C;&#x800C;K-Means&#x53EA;&#x662F;O(N*K)&#x7684;&#x590D;&#x6742;&#x5EA6;&#x3002;&#x56E0;&#x6B64;&#x5F53;N&#x6BD4;&#x8F83;&#x5927;&#x65F6;(N&gt;3000)&#xFF0C;AP&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x5F80;&#x5F80;&#x9700;&#x8981;&#x7B97;&#x5F88;&#x4E45;&#x3002;<br>&#x82E5;&#x4EE5;&#x8BEF;&#x5DEE;&#x5E73;&#x65B9;&#x548C;&#x6765;&#x8861;&#x91CF;&#x7B97;&#x6CD5;&#x95F4;&#x7684;&#x4F18;&#x52A3;&#xFF0C;AP&#x805A;&#x7C7B;&#x6BD4;&#x5176;&#x4ED6;&#x65B9;&#x6CD5;&#x7684;&#x8BEF;&#x5DEE;&#x5E73;&#x65B9;&#x548C;&#x90FD;&#x8981;&#x4F4E;&#x3002;&#xFF08;&#x65E0;&#x8BBA;k-center clustering&#x91CD;&#x590D;&#x591A;&#x5C11;&#x6B21;&#xFF0C;&#x90FD;&#x8FBE;&#x4E0D;&#x5230;AP&#x90A3;&#x4E48;&#x4F4E;&#x7684;&#x8BEF;&#x5DEE;&#x5E73;&#x65B9;&#x548C;&#xFF09;<br>AP&#x7B97;&#x6CD5;&#x76F8;&#x5BF9;K-Means&#x9C81;&#x68D2;&#x6027;&#x5F3A;&#x4E14;&#x51C6;&#x786E;&#x5EA6;&#x8F83;&#x9AD8;&#xFF0C;&#x4F46;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x7B97;&#x6CD5;&#x662F;&#x5B8C;&#x7F8E;&#x7684;&#xFF0C;AP&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x4E5F;&#x4E0D;&#x4F8B;&#x5916;&#xFF1A;</p>
+<p>AP&#x805A;&#x7C7B;&#x5E94;&#x7528;&#x4E2D;&#x9700;&#x8981;&#x624B;&#x52A8;&#x6307;&#x5B9A;Preference&#x548C;Damping factor&#xFF0C;&#x8FD9;&#x5176;&#x5B9E;&#x662F;&#x539F;&#x6709;&#x7684;&#x805A;&#x7C7B;&#x201C;&#x6570;&#x91CF;&#x201D;&#x63A7;&#x5236;&#x7684;&#x53D8;&#x4F53;&#x3002;<br>&#x7B97;&#x6CD5;&#x8F83;&#x6162;&#x3002;&#x7531;&#x4E8E;AP&#x7B97;&#x6CD5;&#x590D;&#x6742;&#x5EA6;&#x8F83;&#x9AD8;&#xFF0C;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x76F8;&#x5BF9;K-Means&#x957F;&#xFF0C;&#x8FD9;&#x4F1A;&#x4F7F;&#x5F97;&#x5C24;&#x5176;&#x5728;&#x6D77;&#x91CF;&#x6570;&#x636E;&#x4E0B;&#x8FD0;&#x884C;&#x65F6;&#x8017;&#x8D39;&#x7684;&#x65F6;&#x95F4;&#x5F88;&#x591A;&#x3002;<br>&#x4EE5;&#x4E0B;&#x4F7F;&#x7528;Python&#x7684;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x5E93;SKlearn&#x5E94;&#x7528;AP&#xFF08;AffinityPropagation&#xFF09;&#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x6848;&#x4F8B;&#x6F14;&#x793A;&#x3002;</p>
+<p>&#x6848;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x5148;&#x5BF9;AP&#x7B97;&#x6CD5;&#x548C;K-Means&#x805A;&#x7C7B;&#x7B97;&#x6CD5;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x505A;&#x4E0B;&#x5BF9;&#x6BD4;&#xFF0C;&#x5206;&#x522B;&#x9009;&#x53D6;100,500,1000&#x6837;&#x672C;&#x91CF;&#x4E0B;&#x8FDB;&#x884C;&#x4E24;&#x79CD;&#x7B97;&#x6CD5;&#x7684;&#x805A;&#x7C7B;&#x65F6;&#x95F4;&#x5BF9;&#x6BD4;&#xFF1B;&#x7136;&#x540E;&#xFF0C;&#x4F7F;&#x7528;AP&#x7B97;&#x6CD5;&#x505A;&#x805A;&#x7C7B;&#x5206;&#x6790;&#x3002;</p>
+<p>AP&#x548C;K-Means&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x5BF9;&#x6BD4;</p>
+<p>#coding:utf-8   </p>
+<p>import numpy as np<br>import matplotlib.pyplot as plt<br>import time<br>from sklearn.cluster import KMeans,AffinityPropagation<br>from sklearn.datasets.samples_generator import make_blobs   </p>
+<h1 id="&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;"><a href="#&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;" class="headerlink" title="&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;"></a>&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;</h1><p>np.random.seed(0)<br>centers = [[1, 1], [-1, -1], [1, -1]]<br>kmeans_time = []<br>ap_time = []<br>for n in [100,500,1000]:<br>    X, labels_true = make_blobs(n_samples=n, centers=centers, cluster_std=0.7)   </p>
+<pre><code># &#x8BA1;&#x7B97;K-Means&#x7B97;&#x6CD5;&#x65F6;&#x95F4;   
+k_means = KMeans(init=&apos;k-means++&apos;, n_clusters=3, n_init=10)   
+t0 = time.time()   
+k_means.fit(X)   
+kmeans_time.append([n,(time.time() - t0)])   
+
+# &#x8BA1;&#x7B97;AP&#x7B97;&#x6CD5;&#x65F6;&#x95F4;   
+ap = AffinityPropagation()   
+t0 = time.time()   
+ap.fit(X)   
+ap_time.append([n,(time.time() - t0)])   
+</code></pre><p>print (&#x2018;K-Means time&#x2019;,kmeans_time[:10])<br>print (&#x2018;AP time&#x2019;,ap_time[:10])   </p>
+<h1 id="&#x56FE;&#x5F62;&#x5C55;&#x793A;"><a href="#&#x56FE;&#x5F62;&#x5C55;&#x793A;" class="headerlink" title="&#x56FE;&#x5F62;&#x5C55;&#x793A;"></a>&#x56FE;&#x5F62;&#x5C55;&#x793A;</h1><p>km_mat = np.array(kmeans_time)<br>ap_mat = np.array(ap_time)<br>plt.figure()<br>plt.bar(np.arange(3), km_mat[:,1], width = 0.3, color = &#x2018;b&#x2019;, label = &#x2018;K-Means&#x2019;, log = &#x2018;True&#x2019;)<br>plt.bar(np.arange(3)+0.3, ap_mat[:,1], width = 0.3, color = &#x2018;g&#x2019;, label = &#x2018;AffinityPropagation&#x2019;, log = &#x2018;True&#x2019;)<br>plt.xlabel(&#x2018;Sample Number&#x2019;)<br>plt.ylabel(&#x2018;Computing time&#x2019;)<br>plt.title(&#x2018;K-Means and AffinityPropagation computing time &#x2018;)<br>plt.legend(loc=&#x2019;upper center&#x2019;)<br>plt.show()   </p>
+<p>&#x8FD0;&#x7B97;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;<br>bars11</p>
+<p>(&#x2018;K-Means time&#x2019;, [[100, 0.029999971389770508], [500, 0.029999971389770508], [1000, 0.0410001277923584]])<br>(&#x2018;AP time&#x2019;, [[100, 0.03000020980834961], [500, 1.8999998569488525], [1000, 16.31499981880188]])  </p>
+<p>&#x56FE;&#x4E2D;&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x5C55;&#x793A;&#x6570;&#x636E;&#x5BF9;&#x6BD4;&#xFF0C;&#x5DF2;&#x7ECF;&#x5BF9;&#x65F6;&#x95F4;&#x8FDB;&#x884C;log&#x5904;&#x7406;&#xFF0C;&#x4F46;&#x53EF;&#x4EE5;&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x76F4;&#x63A5;&#x8BFB;&#x53D6;&#x771F;&#x5B9E;&#x6570;&#x636E;&#x8FD0;&#x7B97;&#x65F6;&#x95F4;&#x3002;&#x7531;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF1A;&#x5F53;&#x6837;&#x672C;&#x91CF;&#x4E3A;100&#x65F6;&#xFF0C;AP&#x7684;&#x901F;&#x5EA6;&#x8981;&#x5927;&#x4E8E;K_Means&#xFF1B;&#x5F53;&#x6570;&#x636E;&#x589E;&#x52A0;&#x5230;500&#x751A;&#x81F3;1000&#x65F6;&#xFF0C;AP&#x7B97;&#x6CD5;&#x7684;&#x8FD0;&#x7B97;&#x65F6;&#x95F4;&#x8981;&#x5927;&#x5927;&#x8D85;&#x8FC7;K-Means&#x7B97;&#x6CD5;&#xFF1B;&#x751A;&#x81F3;&#x5F53;&#x6211;&#x8BD5;&#x56FE;&#x8FD0;&#x7B97;&#x66F4;&#x5927;&#x7684;&#x6570;&#x636E;&#x91CF;&#xFF08;100000&#xFF09;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x5185;&#x5B58;&#x9519;&#x8BEF;&#x800C;&#x88AB;&#x8FEB;&#x4E2D;&#x6B62;&#x3002;</p>
+<p>AP&#x805A;&#x7C7B;&#x793A;&#x4F8B;</p>
+<p>#coding:utf-8   </p>
+<p>from sklearn.cluster import AffinityPropagation<br>from sklearn import metrics<br>from sklearn.datasets.samples_generator import make_blobs<br>import numpy as np   </p>
+<h1 id="&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;-1"><a href="#&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;-1" class="headerlink" title="&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;"></a>&#x751F;&#x6210;&#x6D4B;&#x8BD5;&#x6570;&#x636E;</h1><p>centers = [[1, 1], [-1, -1], [1, -1]]<br>X, labels_true = make_blobs(n_samples=300, centers=centers, cluster_std=0.5, random_state=0)   </p>
+<h1 id="AP&#x6A21;&#x578B;&#x62DF;&#x5408;"><a href="#AP&#x6A21;&#x578B;&#x62DF;&#x5408;" class="headerlink" title="AP&#x6A21;&#x578B;&#x62DF;&#x5408;"></a>AP&#x6A21;&#x578B;&#x62DF;&#x5408;</h1><p>af = AffinityPropagation(preference=-50).fit(X)<br>cluster_centers_indices = af.cluster_centers<em>indices</em><br>labels = af.labels_<br>new_X = np.column_stack((X, labels))   </p>
+<p>n<em>clusters</em> = len(cluster_centers_indices)   </p>
+<p>print(&#x2018;Estimated number of clusters: %d&#x2019; % n<em>clusters</em>)<br>print(&#x201C;Homogeneity: %0.3f&#x201D; % metrics.homogeneity_score(labels_true, labels))<br>print(&#x201C;Completeness: %0.3f&#x201D; % metrics.completeness_score(labels_true, labels))<br>print(&#x201C;V-measure: %0.3f&#x201D; % metrics.v_measure_score(labels_true, labels))<br>print(&#x201C;Adjusted Rand Index: %0.3f&#x201D;<br>      % metrics.adjusted_rand_score(labels_true, labels))<br>print(&#x201C;Adjusted Mutual Information: %0.3f&#x201D;<br>      % metrics.adjusted_mutual_info_score(labels_true, labels))<br>print(&#x201C;Silhouette Coefficient: %0.3f&#x201D;<br>      % metrics.silhouette_score(X, labels, metric=&#x2019;sqeuclidean&#x2019;))<br>print(&#x2018;Top 10 sapmles:&#x2019;,new_X[:10])   </p>
+<h1 id="&#x56FE;&#x5F62;&#x5C55;&#x793A;-1"><a href="#&#x56FE;&#x5F62;&#x5C55;&#x793A;-1" class="headerlink" title="&#x56FE;&#x5F62;&#x5C55;&#x793A;"></a>&#x56FE;&#x5F62;&#x5C55;&#x793A;</h1><p>import matplotlib.pyplot as plt<br>from itertools import cycle   </p>
+<p>plt.close(&#x2018;all&#x2019;)<br>plt.figure(1)<br>plt.clf()   </p>
+<p>colors = cycle(&#x2018;bgrcmykbgrcmykbgrcmykbgrcmyk&#x2019;)<br>for k, col in zip(range(n<em>clusters</em>), colors):<br>    class_members = labels == k<br>    cluster_center = X[cluster_centers_indices[k]]<br>    plt.plot(X[class_members, 0], X[class_members, 1], col + &#x2018;.&#x2019;)<br>    plt.plot(cluster_center[0], cluster_center[1], &#x2018;o&#x2019;, markerfacecolor=col,<br>             markeredgecolor=&#x2019;k&#x2019;, markersize=14)<br>    for x in X[class_members]:<br>        plt.plot([cluster_center[0], x[0]], [cluster_center[1], x[1]], col)   </p>
+<p>plt.title(&#x2018;Estimated number of clusters: %d&#x2019; % n<em>clusters</em>)<br>plt.show()   </p>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;<br>ap_clustering1111</p>
+<p>Estimated number of clusters: 3<br>Homogeneity: 0.872<br>Completeness: 0.872<br>V-measure: 0.872<br>Adjusted Rand Index: 0.912<br>Adjusted Mutual Information: 0.871<br>Silhouette Coefficient: 0.753<br>(&#x2018;Top 10 sapmles:&#x2019;, array([[ 1.47504421,  0.9243214 ,  0.        ],<br>       [-0.02204385, -0.80495334,  1.        ],<br>       [-1.17671587, -1.80823709,  2.        ],<br>       [ 0.77223375,  1.00873958,  0.        ],<br>       [ 1.23283122,  0.23187816,  0.        ],<br>       [-0.92174673, -0.88390948,  2.        ],<br>       [ 1.65956844, -1.44120941,  1.        ],<br>       [ 0.33389417, -1.98431234,  1.        ],<br>       [-1.27143074, -0.79197498,  2.        ],<br>       [ 1.33614738,  1.20373092,  0.        ]]))  </p>
+<p>AffinityPropagation&#x53EF;&#x914D;&#x7F6E;&#x7684;&#x53C2;&#x6570;&#x5305;&#x62EC;&#xFF1A;&#xFF08;&#x91CD;&#x70B9;&#x662F;damping&#x548C;preference&#xFF09;</p>
+<p>class sklearn.cluster.AffinityPropagation(damping=0.5, max_iter=200, convergence_iter=15, copy=True, preference=None, affinity=&#x2019;euclidean&#x2019;, verbose=False)  </p>
+<p>AP&#x7B97;&#x6CD5;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;</p>
+<p>&#x56FE;&#x50CF;&#x3001;&#x6587;&#x672C;&#x3001;&#x751F;&#x7269;&#x4FE1;&#x606F;&#x5B66;&#x3001;&#x4EBA;&#x8138;&#x8BC6;&#x522B;&#x3001;&#x57FA;&#x56E0;&#x53D1;&#x73B0;&#x3001;&#x641C;&#x7D22;&#x6700;&#x4F18;&#x822A;&#x7EBF;&#x3001; &#x7801;&#x4E66;&#x8BBE;&#x8BA1;&#x4EE5;&#x53CA;&#x5B9E;&#x7269;&#x56FE;&#x50CF;&#x8BC6;&#x522B;&#x7B49;&#x9886;&#x57DF;&#x3002;</p>
+<p>&#x5C3E;&#x5DF4;</p>
+<p>&#x7EFC;&#x5408;&#x6765;&#x770B;&#xFF0C;&#x7531;&#x4E8E;AP&#x7B97;&#x6CD5;&#x4E0D;&#x9002;&#x7528;&#x5747;&#x503C;&#x505A;&#x8D28;&#x5FC3;&#x8BA1;&#x7B97;&#x89C4;&#x5219;&#xFF0C;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x79BB;&#x7FA4;&#x70B9;&#x548C;&#x5F02;&#x5E38;&#x503C;&#x4E0D;&#x654F;&#x611F;&#xFF1B;&#x540C;&#x65F6;&#x5176;&#x521D;&#x59CB;&#x503C;&#x4E0D;&#x654F;&#x611F;&#x7684;&#x7279;&#x6027;&#x4E5F;&#x80FD;&#x4FDD;&#x6301;&#x6A21;&#x578B;&#x7684;&#x8F83;&#x597D;&#x9C81;&#x68D2;&#x6027;&#x3002;&#x8FD9;&#x4E24;&#x4E2A;&#x7A81;&#x51FA;&#x7279;&#x5F81;&#x4F7F;&#x5F97;&#x5B83;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;K-Means&#x7B97;&#x6CD5;&#x7684;&#x4E00;&#x4E2A;&#x6709;&#x6548;&#x8865;&#x5145;&#xFF0C;&#x4F46;&#x5728;&#x5927;&#x6570;&#x636E;&#x91CF;&#x4E0B;&#x7684;&#x8017;&#x65F6;&#x8FC7;&#x957F;&#xFF0C;&#x8FD9;&#x5BFC;&#x81F4;&#x5B83;&#x7684;&#x9002;&#x7528;&#x8303;&#x56F4;&#x53EA;&#x80FD;&#x662F;&#x5C11;&#x91CF;&#x6570;&#x636E;&#xFF1B;&#x867D;&#x7136;&#x901A;&#x8FC7;&#x8C03;&#x6574;damping&#xFF08;&#x6536;&#x655B;&#x89C4;&#x5219;&#xFF09;&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x63D0;&#x5347;&#x8FD0;&#x884C;&#x901F;&#x5EA6;&#xFF08;damping&#x503C;&#x8C03;&#x5C0F;&#xFF09;&#xFF0C;&#x4F46;&#x7531;&#x4E8E;&#x7B97;&#x6CD5;&#x672C;&#x8EAB;&#x7684;&#x5C40;&#x9650;&#x6027;&#x51B3;&#x5B9A;&#x4E86;&#x8FD9;&#x4E5F;&#x53EA;&#x662F;&#x676F;&#x6C34;&#x8F66;&#x85AA;&#x3002;<br><a href="http://www.dataivy.cn/blog/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95affinity-propagation_ap/" target="_blank" rel="external">&#x805A;&#x7C7B;&#x7B97;&#x6CD5;Affinity Propagation(AP)</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/18/Gensim-and-LDA-Training-and-Prediction/" rel="next" title="Gensim and LDA--Training and Prediction">
+                <i class="fa fa-chevron-left"></i> Gensim and LDA--Training and Prediction
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/22/在c里调用python/" rel="prev" title="在c里调用python">
+                在c里调用python <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Generate-sample-data"><span class="nav-number">1.</span> <span class="nav-text">Generate sample data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compute-Affinity-Propagation"><span class="nav-number">2.</span> <span class="nav-text">Compute Affinity Propagation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Plot-result"><span class="nav-number">3.</span> <span class="nav-text">Plot result</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成测试数据"><span class="nav-number">4.</span> <span class="nav-text">生成测试数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图形展示"><span class="nav-number">5.</span> <span class="nav-text">图形展示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成测试数据-1"><span class="nav-number">6.</span> <span class="nav-text">生成测试数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AP模型拟合"><span class="nav-number">7.</span> <span class="nav-text">AP模型拟合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图形展示-1"><span class="nav-number">8.</span> <span class="nav-text">图形展示</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/05/19/AP聚类/';
+      var disqus_title = "AP聚类";
+      var disqus_url = 'http://www.shuang0420.com/2016/05/19/AP聚类/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

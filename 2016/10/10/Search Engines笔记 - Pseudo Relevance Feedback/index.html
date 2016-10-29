@@ -1,0 +1,947 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NLP,Search Engines," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x600E;&amp;#x6837;&amp;#x4EA7;&amp;#x751F;&amp;#x66F4;&amp;#x597D;&amp;#x7684; query &amp;#x6765;&amp;#x5F97;&amp;#x5230;&amp;#x66F4;&amp;#x591A;&amp;#x7684;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x6863;&amp;#xFF1F;&amp;#x4ECE;&amp;#x7528;&amp;#x6237;&amp;#x89D2;&amp;#x5EA6;&amp;#x770B;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Search Engines笔记 - Pseudo Relevance Feedback">
+<meta property="og:url" content="http://www.shuang0420.com/2016/10/10/Search Engines笔记 - Pseudo Relevance Feedback/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x600E;&amp;#x6837;&amp;#x4EA7;&amp;#x751F;&amp;#x66F4;&amp;#x597D;&amp;#x7684; query &amp;#x6765;&amp;#x5F97;&amp;#x5230;&amp;#x66F4;&amp;#x591A;&amp;#x7684;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x6863;&amp;#xFF1F;&amp;#x4ECE;&amp;#x7528;&amp;#x6237;&amp;#x89D2;&amp;#x5EA6;&amp;#x770B;&amp;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/bm25_expan.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/Indri_expand_1.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/Indri_expand_2.png">
+<meta property="og:updated_time" content="2016-10-18T01:27:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Search Engines笔记 - Pseudo Relevance Feedback">
+<meta name="twitter:description" content="&amp;#x600E;&amp;#x6837;&amp;#x4EA7;&amp;#x751F;&amp;#x66F4;&amp;#x597D;&amp;#x7684; query &amp;#x6765;&amp;#x5F97;&amp;#x5230;&amp;#x66F4;&amp;#x591A;&amp;#x7684;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x6863;&amp;#xFF1F;&amp;#x4ECE;&amp;#x7528;&amp;#x6237;&amp;#x89D2;&amp;#x5EA6;&amp;#x770B;&amp;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/bm25_expan.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/10/10/Search Engines笔记 - Pseudo Relevance Feedback/"/>
+
+
+  <title> Search Engines笔记 - Pseudo Relevance Feedback | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Search Engines笔记 - Pseudo Relevance Feedback
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T21:59:21-04:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Search-Engines/" itemprop="url" rel="index">
+                    <span itemprop="name">Search Engines</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/10/Search Engines笔记 - Pseudo Relevance Feedback/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/10/Search Engines笔记 - Pseudo Relevance Feedback/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x600E;&#x6837;&#x4EA7;&#x751F;&#x66F4;&#x597D;&#x7684; query &#x6765;&#x5F97;&#x5230;&#x66F4;&#x591A;&#x7684;&#x76F8;&#x5173;&#x6587;&#x6863;&#xFF1F;&#x4ECE;&#x7528;&#x6237;&#x89D2;&#x5EA6;&#x770B;&#xFF0C;&#x7528;&#x6237;&#x4E00;&#x5F00;&#x59CB;&#x4F1A;&#x7528; short query &#x6765;&#x8FDB;&#x884C;&#x68C0;&#x7D22;&#xFF0C;&#x5728;&#x770B;&#x5230;&#x7ED3;&#x679C;&#x6587;&#x6863;&#x540E;&#x901A;&#x8FC7;&#x589E;&#x52A0;&#x6216;&#x51CF;&#x5C11; term &#x4EE5;&#x53CA;&#x8C03;&#x6574; term weight &#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316; query&#x3002;&#x800C;&#x5BF9;&#x7CFB;&#x7EDF;&#x800C;&#x8A00;&#xFF0C;&#x80FD;&#x81EA;&#x52A8;&#x4EA7;&#x751F; better query &#x7684;&#x65B9;&#x5F0F;&#x83AB;&#x8FC7;&#x4E8E; machine learning&#x3002; <a id="more"></a></p>
+<p>relevance feedback &#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A; machine learning(supervised) &#x7684;&#x95EE;&#x9898;&#xFF0C;&#x7406;&#x60F3;&#x4E2D;&#x6211;&#x4EEC;&#x8981;&#x5B66;&#x4E60;&#x7684;&#x662F; f(document)&#x2013;&gt;{relevant, not relevant}&#xFF0C;&#x7136;&#x800C;&#x4E00;&#x822C;&#x6211;&#x4EEC;&#x5B66;&#x4E60;&#x7684;&#x662F; f(document)&#x2013;&gt;score&#x3002;&#x8BAD;&#x7EC3;&#x96C6;&#x7684;&#x5927;&#x5C0F;&#x4E00;&#x822C;&#x6765;&#x8BF4; 10-20 &#x9875;&#x662F; good, 100-200 &#x9875;&#x5C31; great &#x4E86;&#x3002;</p>
+<p>&#x7136;&#x800C; relevance feedback &#x5E76;&#x4E0D;&#x7ECF;&#x5E38;&#x88AB;&#x4F7F;&#x7528;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x56E0;&#x4E3A; users &#x4E0D;&#x559C;&#x6B22;&#x7ED9;&#x8BC4;&#x4EF7;(&#x56E0;&#x6B64; training data &#x4F1A;&#x5F88;&#x5C11;&#xFF0C;&#x51C6;&#x786E;&#x5EA6;&#x4E5F;&#x4E0D;&#x4E00;&#x5B9A;&#x9AD8;)&#xFF0C;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x8FD9;&#x79CD;&#x8BC4;&#x4EF7;&#x6709;&#x98CE;&#x9669;&#xFF0C;&#x5982;&#x679C;&#x8BC4;&#x4F30;&#x7684;&#x6587;&#x6863;&#x5F88;&#x5C11;&#xFF0C;&#x7ED3;&#x679C;&#x662F; highly variable &#x7684;&#xFF0C;stability &#x548C; consistency &#x53EF;&#x80FD;&#x4F1A;&#x53D7;&#x5230;&#x635F;&#x4F24;&#x3002;&#x6240;&#x4EE5;&#x4E00;&#x822C;&#x6211;&#x4EEC;&#x7528;&#x7684;&#x662F; Pseudo-relevance feedback&#xFF0C;&#x4E00;&#x79CD; unsupervised(or self-supervised) &#x65B9;&#x6CD5;&#x3002;</p>
+<h1 id="Pseudo-relevance-feedback"><a href="#Pseudo-relevance-feedback" class="headerlink" title="Pseudo-relevance feedback"></a>Pseudo-relevance feedback</h1><p>&#x57FA;&#x672C;&#x903B;&#x8F91;&#x662F;&#x628A; initial query &#x5F53;&#x505A; classifier&#xFF0C;&#x7528;&#x5B83;&#x6765; label &#x90E8;&#x5206; data&#xFF0C;&#x5F97;&#x5230; top-ranked documents&#xFF0C;&#x7136;&#x540E;&#x7528; labeled data &#x6765;&#x4EA7;&#x751F;&#x66F4;&#x4F18;&#x7684; classifier&#x3002;&#x57FA;&#x672C;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x7528;&#x539F;&#x59CB; query &#x68C0;&#x7D22;&#x6587;&#x6863;</li>
+<li>&#x53D6;&#x7ED3;&#x679C;&#x7684;&#x524D; N &#x7BC7;&#x6587;&#x6863;&#x4F5C;&#x4E3A;&#x8BAD;&#x7EC3;&#x96C6;&#xFF0C;&#x8FD9;&#x4E9B;&#x6587;&#x6863;&#x76F8;&#x5173;&#x5EA6;&#x53EF;&#x80FD;&#x4E0D;&#x9AD8;&#xFF0C;&#x7136;&#x800C;&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x7684;&#x662F;&#x5B66;&#x4E60; vocabulary pattern&#x3002;</li>
+<li>&#x5E94;&#x7528; relevance feedback algorithm &#x9009;&#x53D6; term &#x548C; term weight</li>
+<li>&#x7EC4;&#x6210;&#x65B0;&#x7684; query &#x6765;&#x68C0;&#x7D22;&#x6587;&#x6863;</li>
+</ol>
+<h2 id="Okapi-BM25"><a href="#Okapi-BM25" class="headerlink" title="Okapi BM25"></a>Okapi BM25</h2><p>&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x7528;&#x539F;&#x59CB; query &#x68C0;&#x7D22;&#x6587;&#x6863;</li>
+<li>&#x53D6;&#x524D; N &#x7BC7;&#x6587;&#x6863;&#x7684; term &#x4F5C;&#x4E3A; potential expansion terms</li>
+<li>&#x4E3A;&#x6BCF;&#x4E2A; potential expansion term &#x8BA1;&#x7B97;&#x5206;&#x6570;</li>
+<li>&#x7528;&#x524D; m &#x4E2A; term &#x521B;&#x5EFA;&#x65B0;&#x7684; $query_{learned}$</li>
+<li>&#x7528;&#x65B0;&#x7684; query &#x68C0;&#x7D22;&#x6587;&#x6863;</li>
+</ol>
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/bm25_expan.png" alt=""></p>
+<h2 id="Inference-networks-Indri"><a href="#Inference-networks-Indri" class="headerlink" title="Inference networks (Indri)"></a>Inference networks (Indri)</h2><p>&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x7528;&#x539F;&#x59CB; query &#x68C0;&#x7D22;&#x6587;&#x6863;</li>
+<li>&#x53D6;&#x524D; N &#x7BC7;&#x6587;&#x6863;&#x7684; term &#x4F5C;&#x4E3A; potential expansion terms</li>
+<li>&#x4E3A;&#x6BCF;&#x4E2A; potential expansion term &#x8BA1;&#x7B97;&#x5206;&#x6570;</li>
+<li>&#x7528;&#x524D; m &#x4E2A; term &#x521B;&#x5EFA;&#x65B0;&#x7684; $Q_{learned}$</li>
+<li>&#x5408;&#x5E76; $Q_{original}$ &#x548C; $Q_{learned}$ &#x521B;&#x5EFA; $Q_{expanded}$</li>
+<li>&#x7528;&#x65B0;&#x7684; query &#x68C0;&#x7D22;&#x6587;&#x6863;</li>
+</ol>
+<p>&#x5BF9;&#x6BCF;&#x4E2A; expansion term&#xFF0C;&#x8BA1;&#x7B97; p(t|I)<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/Indri_expand_1.png" alt=""></p>
+<p>&#x5E76;&#x6CA1;&#x6709;&#x5BF9; frequent terms in corpus &#x505A;&#x51FA;&#x60E9;&#x7F5A;&#xFF0C;&#x6240;&#x4EE5;&#x52A0;&#x4E0A;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C; idf &#x5BF9; weight<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/Indri_expand_2.png" alt=""></p>
+<p>&#x6700;&#x540E;&#x7684; expanded query &#x662F;<br>$$Q_{expanded} &#xFF1D; \#wand(wQ_{original}, (1-w)Q_{learned})$$</p>
+<p>&#x9700;&#x8981;&#x7684;&#x53C2;&#x6570;:</p>
+<ul>
+<li>fbdocs: number of judged documents</li>
+<li>fbterms: number of terms to add to the query, indri&#x2019;s default is 10</li>
+<li>$\mu$: smoothing weight to use for new terms, indri&#x2019;s default is 0</li>
+<li>$w$: weight of the original query, indri&#x2019;s default is 0.5</li>
+</ul>
+<p><strong>How many terms is enough</strong><br>&#x6807;&#x51C6;&#x7B54;&#x6848;&#x6765;&#x4E86;: It depends! &#x56E0; query &#x800C;&#x5F02;&#x3002;</p>
+<p><strong>Corpus</strong><br>&#x5176;&#x5B9E; initial query &#x548C; final query &#x53EF;&#x4EE5;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x8BED;&#x6599;&#x4E0A;&#x8DD1;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4; initial query &#x5728; wikipedia &#x4E0A;&#x8DD1;&#xFF0C;&#x4EA7;&#x751F;&#x9AD8;&#x8D28;&#x91CF;&#x7684; expansion term&#xFF0C;&#x7136;&#x540E;&#x7528;&#x6269;&#x5145;&#x7684; query &#x5728; web &#x4E0A;&#x8DD1;&#xFF0C;&#x8FD9;&#x80FD;&#x591F;&#x663E;&#x8457;&#x63D0;&#x9AD8; MAP &#x548C; P@10&#x3002;</p>
+<p>&#x76F4;&#x63A5;&#x4E0A;&#x4EE3;&#x7801;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * @param score_list</div><div class="line"> * @return</div><div class="line"> * @throws IOException</div><div class="line"> */</div><div class="line">private static String expandQuery(ScoreList score_list) throws IOException {</div><div class="line">	double fbMu = Double.parseDouble(parameters.get(&quot;fbMu&quot;));</div><div class="line">	int fbDocs = Integer.parseInt(parameters.get(&quot;fbDocs&quot;));</div><div class="line">	int fbTerms = Integer.parseInt(parameters.get(&quot;fbTerms&quot;));</div><div class="line">	int docNum = Math.min(fbDocs, score_list.size());</div><div class="line">	Map&lt;String, ArrayList&lt;Integer&gt;&gt; invertedList = new HashMap();</div><div class="line">	// map&lt;term, score&gt;</div><div class="line">	Map&lt;String, Double&gt; termScore = new HashMap();</div><div class="line">	// get expanded term</div><div class="line">	for (int i = 0; i &lt; docNum; i++) {</div><div class="line">		int doc_id = score_list.getDocid(i);</div><div class="line">		TermVector vec = new TermVector(doc_id, &quot;body&quot;);</div><div class="line">		// termVecMap.put(doc_id, vec);</div><div class="line">		double docScore = score_list.getDocidScore(i);</div><div class="line">		double docLen = Idx.getFieldLength(&quot;body&quot;, doc_id);</div><div class="line">		// for each term</div><div class="line">		for (int j = 1; j &lt; vec.stemsLength(); j++) {</div><div class="line"></div><div class="line">			String term = vec.stemString(j);</div><div class="line">			// ignore any candidate expansion term that contains a period</div><div class="line">			// (&apos;.&apos;) or a comma (&apos;,&apos;)</div><div class="line">			if (term.contains(&quot;.&quot;) || term.contains(&quot;,&quot;)) {</div><div class="line">				continue;</div><div class="line">			}</div><div class="line">			// update inverted list for current term</div><div class="line">			if (invertedList.containsKey(term)) {</div><div class="line">				ArrayList&lt;Integer&gt; cur_inverted_list = invertedList.get(term);</div><div class="line">				cur_inverted_list.add(doc_id);</div><div class="line">				invertedList.put(term, cur_inverted_list);</div><div class="line">			} else {</div><div class="line">				ArrayList&lt;Integer&gt; cur_inverted_list = new ArrayList();</div><div class="line">				cur_inverted_list.add(doc_id);</div><div class="line">				invertedList.put(term, cur_inverted_list);</div><div class="line">			}</div><div class="line">			// score potential expansion term for current doc</div><div class="line">			long tf = vec.stemFreq(j);</div><div class="line">			long ctf = vec.totalStemFreq(j);</div><div class="line">			double mle = ctf / (double) Idx.getSumOfFieldLengths(&quot;body&quot;);</div><div class="line">			double Ptd = (tf + fbMu * mle) / (docLen + fbMu);</div><div class="line">			double idf = Math.log(1 / mle);</div><div class="line">			double cur_doc_score = Ptd * docScore * idf;</div><div class="line">			if (termScore.containsKey(term)) {</div><div class="line">				termScore.put(term, termScore.get(term) + cur_doc_score);</div><div class="line">			} else {</div><div class="line">				termScore.put(term, cur_doc_score);</div><div class="line">			}</div><div class="line"></div><div class="line">		}</div><div class="line">	}</div><div class="line"></div><div class="line">	// get top k terms</div><div class="line">	PriorityQueue&lt;Map.Entry&lt;String, Double&gt;&gt; termScorePq = new PriorityQueue&lt;Map.Entry&lt;String, Double&gt;&gt;(</div><div class="line">			termScore.size(), new Comparator&lt;Map.Entry&lt;String, Double&gt;&gt;() {</div><div class="line">				@Override</div><div class="line">				public int compare(Map.Entry&lt;String, Double&gt; m1, Map.Entry&lt;String, Double&gt; m2) {</div><div class="line">					return m2.getValue().compareTo(m1.getValue());</div><div class="line">				}</div><div class="line">			});</div><div class="line">	termScorePq.addAll(termScore.entrySet());</div><div class="line"></div><div class="line">	// get new query</div><div class="line">	String learnedQuery = &quot;#wand ( &quot;;</div><div class="line">	for (int i = 0; i &lt; fbTerms; i++) {</div><div class="line">		String score = String.format(&quot;%.4f&quot;, termScorePq.peek().getValue());</div><div class="line">		String term = termScorePq.peek().getKey();</div><div class="line">		learnedQuery = learnedQuery + &quot; &quot; + score + &quot; &quot; + term;</div><div class="line">		termScorePq.poll();</div><div class="line">	}</div><div class="line">	learnedQuery += &quot; )&quot;;</div><div class="line">	System.out.println(&quot;learnedQuery &quot; + learnedQuery);</div><div class="line">	return learnedQuery;</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x5904;&#x7406; query file&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Process the query file.</div><div class="line"> *</div><div class="line"> * @param queryFilePath</div><div class="line"> * @param model</div><div class="line"> * @throws Exception</div><div class="line"> */</div><div class="line">static void processQueryFile(String queryFilePath, String trecEvalOutputPath, RetrievalModel model)</div><div class="line">    throws Exception {</div><div class="line"></div><div class="line">  BufferedReader input = null;</div><div class="line">  BufferedWriter output = null;</div><div class="line">  BufferedWriter bw = null;</div><div class="line"></div><div class="line">  try {</div><div class="line">    String qLine = null;</div><div class="line"></div><div class="line">    input = new BufferedReader(new FileReader(queryFilePath));</div><div class="line">    output = new BufferedWriter(new FileWriter(trecEvalOutputPath));</div><div class="line">    bw = new BufferedWriter(new FileWriter(parameters.get(&quot;fbExpansionQueryFile&quot;)));</div><div class="line"></div><div class="line">    // Each pass of the loop processes one query.</div><div class="line"></div><div class="line">    while ((qLine = input.readLine()) != null) {</div><div class="line">      int d = qLine.indexOf(&apos;:&apos;);</div><div class="line"></div><div class="line">      if (d &lt; 0) {</div><div class="line">        throw new IllegalArgumentException(&quot;Syntax error:  Missing &apos;:&apos; in query line.&quot;);</div><div class="line">      }</div><div class="line"></div><div class="line">      printMemoryUsage(false);</div><div class="line"></div><div class="line">      String qid = qLine.substring(0, d);</div><div class="line">      String query = qLine.substring(d + 1);</div><div class="line"></div><div class="line">      System.out.println(&quot;Query &quot; + qLine);</div><div class="line"></div><div class="line">      ScoreList r = null;</div><div class="line"></div><div class="line">      String defaultOp = model.defaultQrySopName();</div><div class="line">      query = defaultOp + &quot;(&quot; + query + &quot;)&quot;;</div><div class="line">      // if not expand query</div><div class="line">      if (!(parameters.containsKey(&quot;fb&quot;) &amp;&amp; parameters.get(&quot;fb&quot;).equals(&quot;true&quot;))) {</div><div class="line">        r = processQuery(query, model);</div><div class="line">      } else { // if expand query</div><div class="line">        // check parameters</div><div class="line">        if (!(parameters.containsKey(&quot;fbTerms&quot;) &amp;&amp; parameters.containsKey(&quot;fbMu&quot;)</div><div class="line">            &amp;&amp; parameters.containsKey(&quot;fbOrigWeight&quot;)</div><div class="line">            &amp;&amp; parameters.containsKey(&quot;fbExpansionQueryFile&quot;))) {</div><div class="line">          throw new IllegalArgumentException(&quot;Required parameters were missing from the parameter file.&quot;);</div><div class="line">        }</div><div class="line">        // check if there&apos;s ranking file</div><div class="line">        if (!parameters.containsKey(&quot;fbInitialRankingFile&quot;)) {</div><div class="line">          r = processQuery(query, model);</div><div class="line">          r.sort();</div><div class="line">        } else {</div><div class="line">          Map&lt;Integer, ScoreList&gt; score_list_map = readRankingFile(</div><div class="line">              parameters.get(&quot;fbInitialRankingFile&quot;));</div><div class="line">          if (!score_list_map.containsKey(Integer.parseInt(qid))) {</div><div class="line">            throw new Exception(&quot;No query &quot; + qid + &quot; in ranking file!&quot;);</div><div class="line">          }</div><div class="line">          r = score_list_map.get(Integer.parseInt(qid));</div><div class="line">        }</div><div class="line">//					r.sort();</div><div class="line">        String expandedQuery = expandQuery(r);</div><div class="line">        printExpandedQuery(bw, qid, expandedQuery);</div><div class="line">        double fbOrigWeight = Double.parseDouble(parameters.get(&quot;fbOrigWeight&quot;));</div><div class="line">        String newQuery = &quot;#wand (&quot; + String.valueOf(fbOrigWeight) + &quot; &quot; + query + &quot; &quot;</div><div class="line">            + String.valueOf(1 - fbOrigWeight) + &quot; &quot; + expandedQuery + &quot; )&quot;;</div><div class="line">        // System.out.println(&quot; new Query &quot; + newQuery);</div><div class="line">        r = processQuery(newQuery, model);</div><div class="line">      }</div><div class="line"></div><div class="line">      if (r != null) {</div><div class="line">        printResults(qid, r, output);</div><div class="line">      }</div><div class="line">    }</div><div class="line">  } catch (IOException ex) {</div><div class="line">    ex.printStackTrace();</div><div class="line">  } finally {</div><div class="line">    input.close();</div><div class="line">    output.close();</div><div class="line">    bw.close();</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x5982;&#x679C;&#x6709; initial ranking file&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *</div><div class="line"> * @param fbInitialRankingFile</div><div class="line"> * @return</div><div class="line"> */</div><div class="line">private static Map&lt;Integer, ScoreList&gt; readRankingFile(String fbInitialRankingFile) {</div><div class="line">  // System.out.println(&quot;filename &quot;+fbInitialRankingFile);</div><div class="line">  Map&lt;Integer, ScoreList&gt; scoreList_map = new HashMap&lt;&gt;();</div><div class="line">  try (BufferedReader br = new BufferedReader(new FileReader(fbInitialRankingFile))) {</div><div class="line">    String str;</div><div class="line">    int last_qry = -1;</div><div class="line">    ScoreList score_list = new ScoreList();</div><div class="line">    while ((str = br.readLine()) != null) {</div><div class="line">      String[] data = str.split(&quot; &quot;);</div><div class="line">      int cur_qry = Integer.parseInt(data[0].trim());</div><div class="line">      if (last_qry == -1) {</div><div class="line">        last_qry = cur_qry;</div><div class="line">      }</div><div class="line">      if (cur_qry != last_qry) {</div><div class="line">        scoreList_map.put(last_qry, score_list);</div><div class="line">        last_qry = cur_qry;</div><div class="line">        score_list = new ScoreList();</div><div class="line">      }</div><div class="line">      score_list.add(Idx.getInternalDocid(data[2].trim()), Double.parseDouble(data[4].trim()));</div><div class="line">    }</div><div class="line">    // add the last query and scorelist</div><div class="line">    scoreList_map.put(last_qry, score_list);</div><div class="line">  } catch (Exception e) {</div><div class="line">    // TODO Auto-generated catch block</div><div class="line">    e.printStackTrace();</div><div class="line">  }</div><div class="line">  return scoreList_map;</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<h2 id="Effectiveness"><a href="#Effectiveness" class="headerlink" title="Effectiveness"></a>Effectiveness</h2><ul>
+<li>Query expansion improves MAP by about 20% on average</li>
+<li>But, you may really annoy 1/3 of your users.</li>
+</ul>
+<p>&#x6240;&#x4EE5;&#x901A;&#x5E38;&#x6765;&#x8BF4;&#xFF0C;query expansion &#x4F1A;&#x7528;&#x5728; recall &#x5F88;&#x91CD;&#x8981;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x6216;&#x8005; average performance &#x5F88;&#x91CD;&#x8981;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x6BD4;&#x5982; legal retrieval, TREC, research paper &#x7B49;&#x3002;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag">#NLP</a>
+          
+            <a href="/tags/Search-Engines/" rel="tag">#Search Engines</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/07/Hexo local search错误解决/" rel="next" title="Hexo local search 错误解决">
+                <i class="fa fa-chevron-left"></i> Hexo local search 错误解决
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/14/Search Engines笔记 - Index/" rel="prev" title="Search Engines笔记 - Index Construction">
+                Search Engines笔记 - Index Construction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pseudo-relevance-feedback"><span class="nav-number">1.</span> <span class="nav-text">Pseudo-relevance feedback</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Okapi-BM25"><span class="nav-number">1.1.</span> <span class="nav-text">Okapi BM25</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inference-networks-Indri"><span class="nav-number">1.2.</span> <span class="nav-text">Inference networks (Indri)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Effectiveness"><span class="nav-number">1.3.</span> <span class="nav-text">Effectiveness</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/10/10/Search Engines笔记 - Pseudo Relevance Feedback/';
+      var disqus_title = "Search Engines笔记 - Pseudo Relevance Feedback";
+      var disqus_url = 'http://www.shuang0420.com/2016/10/10/Search Engines笔记 - Pseudo Relevance Feedback/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

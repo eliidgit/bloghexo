@@ -1,0 +1,1074 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Crawler," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x8865;&amp;#x5145;&amp;#x524D;&amp;#x9762;&amp;#x6CA1;&amp;#x6709;&amp;#x63D0;&amp;#x5230;&amp;#x7684;&amp;#x4E00;&amp;#x4E9B;&amp;#x6280;&amp;#x5DE7;&amp;#x3002;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫总结(五)-- 其他技巧">
+<meta property="og:url" content="http://www.shuang0420.com/2016/06/20/爬虫总结-五-其他技巧/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x8865;&amp;#x5145;&amp;#x524D;&amp;#x9762;&amp;#x6CA1;&amp;#x6709;&amp;#x63D0;&amp;#x5230;&amp;#x7684;&amp;#x4E00;&amp;#x4E9B;&amp;#x6280;&amp;#x5DE7;&amp;#x3002;">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-05%20%E4%B8%8B%E5%8D%884.19.03.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-04%20%E4%B8%8B%E5%8D%883.37.07.png">
+<meta property="og:updated_time" content="2016-08-01T15:06:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫总结(五)-- 其他技巧">
+<meta name="twitter:description" content="&amp;#x8865;&amp;#x5145;&amp;#x524D;&amp;#x9762;&amp;#x6CA1;&amp;#x6709;&amp;#x63D0;&amp;#x5230;&amp;#x7684;&amp;#x4E00;&amp;#x4E9B;&amp;#x6280;&amp;#x5DE7;&amp;#x3002;">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-05%20%E4%B8%8B%E5%8D%884.19.03.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/06/20/爬虫总结-五-其他技巧/"/>
+
+
+  <title> 爬虫总结(五)-- 其他技巧 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                爬虫总结(五)-- 其他技巧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-20T10:45:12-04:00" content="2016-06-20">
+              2016-06-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/20/爬虫总结-五-其他技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/20/爬虫总结-五-其他技巧/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x8865;&#x5145;&#x524D;&#x9762;&#x6CA1;&#x6709;&#x63D0;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;&#x3002;<br><a id="more"></a></p>
+<h2 id="&#x6A21;&#x62DF;&#x767B;&#x5F55;"><a href="#&#x6A21;&#x62DF;&#x767B;&#x5F55;" class="headerlink" title="&#x6A21;&#x62DF;&#x767B;&#x5F55;"></a>&#x6A21;&#x62DF;&#x767B;&#x5F55;</h2><h3 id="&#x7814;&#x7A76;&#x6E90;&#x7801;"><a href="#&#x7814;&#x7A76;&#x6E90;&#x7801;" class="headerlink" title="&#x7814;&#x7A76;&#x6E90;&#x7801;"></a>&#x7814;&#x7A76;&#x6E90;&#x7801;</h3><p>&#x4EE5; github &#x767B;&#x5F55;&#xFF08;<a href="https://github.com/login&#xFF09;" target="_blank" rel="external">https://github.com/login&#xFF09;</a> &#x4E3A;&#x4F8B;&#xFF0C;&#x67E5;&#x770B;html&#x6E90;&#x7801;&#x4F1A;&#x53D1;&#x73B0;&#x8868;&#x5355;&#x91CC;&#x9762;&#x6709;&#x4E2A;&#x9690;&#x85CF;&#x7684;authenticity_token&#x503C;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x9700;&#x8981;&#x5148;&#x83B7;&#x53D6;&#x7136;&#x540E;&#x8DDF;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#x4E00;&#x8D77;&#x63D0;&#x4EA4;&#x7684;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;auth-form p-3&quot; id=&quot;login&quot;&gt;</div><div class="line"></div><div class="line">    &lt;!-- &lt;/textarea&gt; --&gt;&lt;!-- &apos;&quot;` --&gt;&lt;form accept-charset=&quot;UTF-8&quot; action=&quot;/session&quot; data-form-nonce=&quot;b2e0b5f779ddbb5dbf93b903a82e5fc5204da96b&quot; method=&quot;post&quot;&gt;&lt;div style=&quot;margin:0;padding:0;display:inline&quot;&gt;&lt;input name=&quot;utf8&quot; type=&quot;hidden&quot; value=&quot;&amp;#x2713;&quot; /&gt;&lt;input name=&quot;authenticity_token&quot; type=&quot;hidden&quot; value=&quot;MDOLdxNeNMPn2sjrj51G+v/yMYpikLru8QWiLI170WRME4UBfvGItiAhzZWFujZVUSoT7SFygFcjE8pMfRcMHQ==&quot; /&gt;&lt;/div&gt;      &lt;div class=&quot;auth-form-header&quot;&gt;</div><div class="line">        &lt;h1&gt;Sign in to GitHub&lt;/h1&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line"></div><div class="line"></div><div class="line">      &lt;div id=&quot;js-flash-container&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line"></div><div class="line">      &lt;div class=&quot;auth-form-body mt-4&quot;&gt;</div><div class="line"></div><div class="line">        &lt;label for=&quot;login_field&quot;&gt;</div><div class="line">          Username or email address</div><div class="line">        &lt;/label&gt;</div><div class="line">        &lt;input autocapitalize=&quot;off&quot; autocorrect=&quot;off&quot; autofocus=&quot;autofocus&quot; class=&quot;form-control input-block&quot; id=&quot;login_field&quot; name=&quot;login&quot; tabindex=&quot;1&quot; type=&quot;text&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;label for=&quot;password&quot;&gt;</div><div class="line">          Password &lt;a href=&quot;/password_reset&quot; class=&quot;label-link&quot;&gt;Forgot password?&lt;/a&gt;</div><div class="line">        &lt;/label&gt;</div><div class="line">        &lt;input class=&quot;form-control form-control input-block&quot; id=&quot;password&quot; name=&quot;password&quot; tabindex=&quot;2&quot; type=&quot;password&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;input class=&quot;btn btn-primary btn-block&quot; data-disable-with=&quot;Signing in&#x2026;&quot; name=&quot;commit&quot; tabindex=&quot;3&quot; type=&quot;submit&quot; value=&quot;Sign in&quot; /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="&#x91CD;&#x5199;start-requests&#x65B9;&#x6CD5;"><a href="#&#x91CD;&#x5199;start-requests&#x65B9;&#x6CD5;" class="headerlink" title="&#x91CD;&#x5199;start_requests&#x65B9;&#x6CD5;"></a>&#x91CD;&#x5199;start_requests&#x65B9;&#x6CD5;</h3><p>&#x9996;&#x5148;&#x786E;&#x4FDD; cookie &#x6253;&#x5F00;</p>
+<pre>COOKIES_ENABLES = True
+</pre>
+
+<p>&#x91CD;&#x5199;start_requests&#x65B9;&#x6CD5;</p>
+<pre>
+# &#x91CD;&#x5199;&#x4E86;&#x722C;&#x866B;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;, &#x5B9E;&#x73B0;&#x4E86;&#x81EA;&#x5B9A;&#x4E49;&#x8BF7;&#x6C42;, &#x8FD0;&#x884C;&#x6210;&#x529F;&#x540E;&#x4F1A;&#x8C03;&#x7528;callback&#x56DE;&#x8C03;&#x51FD;&#x6570;
+def start_requests(self):
+    return [Request(&quot;https://github.com/login&quot;,
+                    meta={&apos;cookiejar&apos;: 1}, callback=self.post_login)]
+
+# FormRequeset
+def post_login(self, response):
+    # &#x5148;&#x53BB;&#x62FF;&#x9690;&#x85CF;&#x7684;&#x8868;&#x5355;&#x53C2;&#x6570;authenticity_token
+    authenticity_token = response.xpath(
+        &apos;//input[@name=&quot;authenticity_token&quot;]/@value&apos;).extract_first()
+    logging.info(&apos;authenticity_token=&apos; + authenticity_token)
+    pass
+</pre>
+
+<p>start_requests&#x65B9;&#x6CD5;&#x6307;&#x5B9A;&#x4E86;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x6765;&#x83B7;&#x53D6;&#x9690;&#x85CF;&#x8868;&#x5355;&#x503C;authenticity_token&#xFF0C;&#x540C;&#x65F6;&#x6211;&#x4EEC;&#x8FD8;&#x7ED9;Request&#x6307;&#x5B9A;&#x4E86;cookiejar&#x7684;&#x5143;&#x6570;&#x636E;&#xFF0C;&#x7528;&#x6765;&#x5F80;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4F20;&#x9012;cookie&#x6807;&#x8BC6;&#x3002;</p>
+<h3 id="&#x4F7F;&#x7528;FormRequest"><a href="#&#x4F7F;&#x7528;FormRequest" class="headerlink" title="&#x4F7F;&#x7528;FormRequest"></a>&#x4F7F;&#x7528;FormRequest</h3><p>Scrapy&#x4E3A;&#x6211;&#x4EEC;&#x51C6;&#x5907;&#x4E86;FormRequest&#x7C7B;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x8FDB;&#x884C;Form&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x7684;&#x3002;</p>
+<pre>
+# FormRequeset
+def post_login(self, response):
+    # &#x5148;&#x53BB;&#x62FF;&#x9690;&#x85CF;&#x7684;&#x8868;&#x5355;&#x53C2;&#x6570;authenticity_token
+    authenticity_token = response.xpath(
+        &apos;//input[@name=&quot;authenticity_token&quot;]/@value&apos;).extract_first()
+    logging.info(&apos;authenticity_token=&apos; + authenticity_token)
+    # FormRequeset.from_response&#x662F;Scrapy&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x51FD;&#x6570;, &#x7528;&#x4E8E;post&#x8868;&#x5355;
+    # &#x767B;&#x9646;&#x6210;&#x529F;&#x540E;, &#x4F1A;&#x8C03;&#x7528;after_login&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5982;&#x679C;url&#x8DDF;Request&#x9875;&#x9762;&#x7684;&#x4E00;&#x6837;&#x5C31;&#x7701;&#x7565;&#x6389;
+    return [FormRequest.from_response(response,
+                                      url=&apos;https://github.com/session&apos;,
+                                      meta={&apos;cookiejar&apos;: response.meta[&apos;cookiejar&apos;]},
+                                      #headers=self.post_headers,  
+                                      formdata={
+                                          &apos;login&apos;: &apos;shuang0420&apos;,
+                                          &apos;password&apos;: &apos;XXXXXXXXXXXXXXXXX&apos;,
+                                          &apos;authenticity_token&apos;: authenticity_token
+                                      },
+                                      callback=self.after_login,
+                                      dont_filter=True
+                                      )]
+</pre>
+
+<p>FormRequest.from_response()&#x65B9;&#x6CD5;&#x8BA9;&#x4F60;&#x6307;&#x5B9A;&#x63D0;&#x4EA4;&#x7684;url&#xFF0C;&#x8BF7;&#x6C42;&#x5934;&#x8FD8;&#x6709;form&#x8868;&#x5355;&#x503C;&#xFF0C;&#x6CE8;&#x610F;&#x6211;&#x4EEC;&#x8FD8;&#x901A;&#x8FC7;meta&#x4F20;&#x9012;&#x4E86;cookie&#x6807;&#x8BC6;&#x3002;&#x5B83;&#x540C;&#x6837;&#x6709;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x767B;&#x5F55;&#x6210;&#x529F;&#x540E;&#x8C03;&#x7528;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x5B9E;&#x73B0;&#x5B83;&#x3002;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x6211;&#x7EE7;&#x7EED;&#x4F20;&#x9012;cookiejar&#xFF0C;&#x8BBF;&#x95EE;&#x521D;&#x59CB;&#x9875;&#x9762;&#x65F6;&#x5E26;&#x4E0A;cookie&#x4FE1;&#x606F;&#x3002;</p>
+<pre>
+def after_login(self, response):
+    # &#x767B;&#x5F55;&#x4E4B;&#x540E;&#xFF0C;&#x5F00;&#x59CB;&#x8FDB;&#x5165;&#x6211;&#x8981;&#x722C;&#x53D6;&#x7684;&#x79C1;&#x4FE1;&#x9875;&#x9762;
+    for url in self.start_urls:
+        logging.info(&apos;letter url=&apos; + url)
+        yield Request(url, meta={&apos;cookiejar&apos;: response.meta[&apos;cookiejar&apos;]},callback=self.parse_page)
+</pre>
+
+<h3 id="&#x9875;&#x9762;&#x5904;&#x7406;"><a href="#&#x9875;&#x9762;&#x5904;&#x7406;" class="headerlink" title="&#x9875;&#x9762;&#x5904;&#x7406;"></a>&#x9875;&#x9762;&#x5904;&#x7406;</h3><p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x7684;&#x4E3B;&#x8981;&#x4EFB;&#x52A1;&#x662F;&#x6A21;&#x62DF;&#x767B;&#x5F55;&#xFF0C;&#x5728;&#x767B;&#x5F55; github &#x540E;&#x722C;&#x53D6;&#x4E3B;&#x9875;&#x7684; comments &#x5185;&#x5BB9;&#x3002;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-05%20%E4%B8%8B%E5%8D%884.19.03.png" alt=""></p>
+<p>&#x4EE3;&#x7801;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">def parse_page(self, response):</div><div class="line">    &quot;&quot;&quot;comments &#x5185;&#x5BB9;&quot;&quot;&quot;</div><div class="line">    logging.info(u&apos;--------------&#x6D88;&#x606F;&#x5206;&#x5272;&#x7EBF;-----------------&apos;)</div><div class="line">    logging.info(response.url)</div><div class="line">    replaceTags = re.compile(&apos;&lt;.*?&gt;&apos;)</div><div class="line">    replaceLine = re.compile(&apos;\r|\n|\t&apos;)</div><div class="line">    message = response.xpath(</div><div class="line">        &apos;//div[@class=&quot;details&quot;]/div[@class=&quot;message markdown-body&quot;]|div[@class=&quot;message markdown-body&quot;]/blockquote&apos;).extract()</div><div class="line">    for m in message:</div><div class="line">        m = replaceTags.sub(&quot;&quot;, m)</div><div class="line">        m = replaceLine.sub(&quot;&quot;, m)</div><div class="line">        print m</div></pre></td></tr></table></figure></p>
+<p>&#x722C;&#x53D6;&#x7ED3;&#x679C;</p>
+<pre>
+I like topn (or perhaps top_n) a little better, because it&apos;s not dependent on what the features represent (words, phrases, entities, characters...). &#x2026;      
+Note: as of now, the classes and methods are not well arranged, and there are a few mock classes (which will be removed) to help me with testing. O&#x2026;      
+Hello @gojomo thank you for replying fast.I have used save() to save the model and load_word2vec_format() to load the model. Thats where the probl&#x2026;      
+The unicode_errors=&apos;ignore&apos; option should make it impossible for the exact same error to occur; perhaps you&apos;re getting some other very-similar error?       
+(Nevermind, #758 added annoy.)      
+It looks like the tests don&apos;t run on Travis, since Annoy is not installed there. Not sure how to fix the test failure in Python 2.6 either.      
+Hello,Sorry for posting after even you have created the FAQ.I trained a model with tweets which had some undecodable unicode characters. When i t&#x2026;      
+dtto      
+Misleading comment: there is no &quot;training&quot;, the model is transferred from Mallet. These parameters only affect inference, model is unchanged.      
+PEP8: Hanging indent of 4 spaces.      
+@piskvorky I&apos;ve addressed the comments. Could you please check?      
+Thanks, that was quick :)      
+@piskvorky , @tmylk , could you review?      
+Added comment, made change in changelog.       
+No, this was after that in 0.13.2. I noticed it because when I was testing the #768 solution, print_topics was failing.      
+@tmylk how do you review these PRs before merging? There are too many errors, we cannot merge code so carelessly.      
+Looks good to me... except still needs a comment explaining why the alias is there. And maybe a mention in the changelog, so we can deprecate the o&#x2026;      
+Yes, assign self.wordtopics = self.word_topics, with a big fat comment explaining why this alias is there.      
+I don&apos;t understand how this version with storing unicode to binary files even worked. It means our unit tests must be faulty / incomplete.     
+</pre>
+
+<p><a href="">&#x4EE3;&#x7801;</a></p>
+<h2 id="&#x8BC6;&#x522B;&#x9A8C;&#x8BC1;&#x7801;"><a href="#&#x8BC6;&#x522B;&#x9A8C;&#x8BC1;&#x7801;" class="headerlink" title="&#x8BC6;&#x522B;&#x9A8C;&#x8BC1;&#x7801;"></a>&#x8BC6;&#x522B;&#x9A8C;&#x8BC1;&#x7801;</h2><p>&#x9A8C;&#x8BC1;&#x7801;&#x662F;&#x4E00;&#x79CD;&#x975E;&#x5E38;&#x6709;&#x6548;&#x7684;&#x53CD;&#x722C;&#x866B;&#x673A;&#x5236;&#xFF0C;&#x5B83;&#x80FD;&#x963B;&#x6B62;&#x5927;&#x90E8;&#x5206;&#x7684;&#x66B4;&#x529B;&#x6293;&#x53D6;&#xFF0C;&#x5728;&#x7535;&#x5546;&#x7C7B;&#x3001;&#x6295;&#x7968;&#x7C7B;&#x4EE5;&#x53CA;&#x793E;&#x4EA4;&#x7C7B;&#x7B49;&#x7F51;&#x7AD9;&#x4E0A;&#x5E94;&#x7528;&#x5E7F;&#x6CDB;&#x3002;&#x5982;&#x679C;&#x7834;&#x89E3;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x6210;&#x4E3A;&#x4E86;&#x6570;&#x636E;&#x6293;&#x53D6;&#x5DE5;&#x4F5C;&#x8005;&#x5FC5;&#x987B;&#x8981;&#x9762;&#x5BF9;&#x7684;&#x95EE;&#x9898;&#x3002;&#x4E0B;&#x9762;&#x4ECB;&#x7ECD;3&#x79CD;&#x5E38;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="&#x66F4;&#x6362;ip&#x5730;&#x5740;"><a href="#&#x66F4;&#x6362;ip&#x5730;&#x5740;" class="headerlink" title="&#x66F4;&#x6362;ip&#x5730;&#x5740;"></a>&#x66F4;&#x6362;ip&#x5730;&#x5740;</h3><p>&#x5728;&#x8BBF;&#x95EE;&#x67D0;&#x4E9B;&#x7F51;&#x7AD9;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x6700;&#x521D;&#x53EA;&#x662F;&#x9700;&#x8981;&#x63D0;&#x4F9B;&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#x5C31;&#x53EF;&#x4EE5;&#x767B;&#x9646;&#x7684;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x8C46;&#x74E3;&#x7F51;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x8981;&#x662F;&#x9891;&#x7E41;&#x767B;&#x9646;&#x8BBF;&#x95EE;&#xFF0C;&#x53EF;&#x80FD;&#x8FD9;&#x65F6;&#x7F51;&#x7AD9;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x4E2A;&#x9A8C;&#x8BC1;&#x7801;&#x56FE;&#x7247;&#xFF0C;&#x8981;&#x6C42;&#x6211;&#x4EEC;&#x8F93;&#x5165;&#x9A8C;&#x8BC1;&#x7801;&#x624D;&#x80FD;&#x767B;&#x9646;&#xFF0C;&#x8FD9;&#x6837;&#x5728;&#x4FDD;&#x8BC1;&#x7528;&#x6237;&#x65B9;&#x4FBF;&#x8BBF;&#x95EE;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x53C8;&#x9632;&#x6B62;&#x4E86;&#x673A;&#x5668;&#x7684;&#x6076;&#x610F;&#x9891;&#x7E41;&#x8BBF;&#x95EE;&#x3002;&#x5BF9;&#x4E8E;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x8BBF;&#x95EE;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6362;&#x4E2A;ip&#x5730;&#x5740;&#x518D;&#x6B21;&#x8BBF;&#x95EE;&#xFF0C;&#x9A8C;&#x8BC1;&#x7801;&#x5C31;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x4E86;&#xFF0C;&#x5F53;&#x7136;&#xFF0C;&#x5F53;&#x9A8C;&#x8BC1;&#x7801;&#x518D;&#x6B21;&#x51FA;&#x73B0;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x80FD;&#x518D;&#x66F4;&#x6362;ip&#x5730;&#x5740;&#x3002;</p>
+<h3 id="&#x4F7F;&#x7528;cookie&#x767B;&#x9646;"><a href="#&#x4F7F;&#x7528;cookie&#x767B;&#x9646;" class="headerlink" title="&#x4F7F;&#x7528;cookie&#x767B;&#x9646;"></a>&#x4F7F;&#x7528;cookie&#x767B;&#x9646;</h3><p>&#x5982;&#x679C;&#x91C7;&#x7528;cookie&#x767B;&#x9646;&#xFF0C;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5B9E;&#x73B0;&#xFF1A;&#x9996;&#x5148;&#x9700;&#x8981;&#x624B;&#x52A8;&#x767B;&#x9646;&#x7F51;&#x7AD9;&#x4E00;&#x6B21;&#xFF0C;&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x7684;cookie&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x5E26;&#x6709;&#x4E86;&#x7528;&#x6237;&#x7684;&#x767B;&#x9646;&#x4FE1;&#x606F;&#xFF0C;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x83B7;&#x53D6;&#x7684;cookie&#x767B;&#x9646;&#x8BE5;&#x7F51;&#x7AD9;&#x7684;&#x5176;&#x4ED6;&#x9875;&#x9762;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x518D;&#x6B21;&#x767B;&#x9646;&#x3002;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#xFF0C;&#x8BE6;&#x89C1;ZhihuSpider&#x3002;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x63D0;&#x4F9B;&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#xFF0C;&#x53CA;&#x76F8;&#x5E94;&#x7684;cookie&#x5373;&#x53EF;&#x3002;&#x5BF9;&#x4E8E;&#x4E0D;&#x51FA;&#x73B0;&#x9A8C;&#x8BC1;&#x7801;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x722C;&#x866B;&#x4F1A;&#x63D0;&#x4EA4;&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#x5B9E;&#x73B0;post&#x8BF7;&#x6C42;&#x767B;&#x9646;&#xFF0C;&#x5982;&#x679C;&#x5931;&#x8D25;&#xFF0C;&#x624D;&#x4F1A;&#x4F7F;&#x7528;&#x4E8B;&#x5148;&#x63D0;&#x4F9B;&#x7684;cookie&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x9700;&#x8981;&#x8BF4;&#x660E;&#x7684;&#x662F;&#xFF0C;&#x5224;&#x65AD;&#x722C;&#x866B;&#x767B;&#x9646;&#x4E0E;&#x5426;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x770B;&#x4E00;&#x4E0B;&#x722C;&#x53D6;&#x7684;&#x4FE1;&#x606F;&#x91CC;&#x9762;&#x662F;&#x5426;&#x5E26;&#x6709;&#x7528;&#x6237;&#x4FE1;&#x606F;&#x5373;&#x53EF;&#x3002;&#x5728;&#x4F7F;&#x7528;cookie&#x767B;&#x9646;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x4E0D;&#x5B9A;&#x671F;&#x66F4;&#x65B0;cookie&#xFF0C;&#x4EE5;&#x4FDD;&#x8BC1;&#x722C;&#x53D6;&#x987A;&#x5229;&#x8FDB;&#x884C;&#x3002;</p>
+<h3 id="&#x9A8C;&#x8BC1;&#x7801;&#x8BC6;&#x522B;&#x624B;&#x6BB5;"><a href="#&#x9A8C;&#x8BC1;&#x7801;&#x8BC6;&#x522B;&#x624B;&#x6BB5;" class="headerlink" title="&#x9A8C;&#x8BC1;&#x7801;&#x8BC6;&#x522B;&#x624B;&#x6BB5;"></a>&#x9A8C;&#x8BC1;&#x7801;&#x8BC6;&#x522B;&#x624B;&#x6BB5;</h3><p>&#x4F7F;&#x7528;cookie&#x767B;&#x9646;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x662F;&#x6709;&#x65F6;&#x6548;&#x6027;&#x95EE;&#x9898;&#x3002;&#x9A8C;&#x8BC1;&#x7801;&#x8BC6;&#x522B;&#x662F;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x601D;&#x8DEF;&#xFF0C;&#x7136;&#x800C;&#x8BC6;&#x522B;&#x7684;&#x7CBE;&#x5EA6;&#x53C8;&#x9650;&#x5236;&#x4E86;&#x6293;&#x53D6;&#x7684;&#x6548;&#x7387;&#x3002;</p>
+<h2 id="&#x722C;&#x53D6;js&#x4EA4;&#x4E92;&#x5F0F;&#x8868;&#x683C;&#x6570;&#x636E;"><a href="#&#x722C;&#x53D6;js&#x4EA4;&#x4E92;&#x5F0F;&#x8868;&#x683C;&#x6570;&#x636E;" class="headerlink" title="&#x722C;&#x53D6;js&#x4EA4;&#x4E92;&#x5F0F;&#x8868;&#x683C;&#x6570;&#x636E;"></a>&#x722C;&#x53D6;js&#x4EA4;&#x4E92;&#x5F0F;&#x8868;&#x683C;&#x6570;&#x636E;</h2><p>&#x8FD9;&#x91CC;&#xFF0C;&#x82E5;&#x4F7F;&#x7528;Google Chrome&#x5206;&#x6790;&#x201D;&#x8BF7;&#x6C42;&#x201C;&#x5BF9;&#x5E94;&#x7684;&#x94FE;&#x63A5;(&#x65B9;&#x6CD5;&#xFF1A;&#x53F3;&#x952E;&#x2192;&#x5BA1;&#x67E5;&#x5143;&#x7D20;&#x2192;Network&#x2192;&#x6E05;&#x7A7A;&#xFF0C;&#x70B9;&#x51FB;&#x201D;&#x52A0;&#x8F7D;&#x66F4;&#x591A;&#x201C;&#xFF0C;&#x51FA;&#x73B0;&#x5BF9;&#x5E94;&#x7684;GET&#x94FE;&#x63A5;&#x5BFB;&#x627E;Type&#x4E3A;text/html&#x7684;&#xFF0C;&#x70B9;&#x51FB;&#xFF0C;&#x67E5;&#x770B;get&#x53C2;&#x6570;&#x6216;&#x8005;&#x590D;&#x5236;Request URL)&#xFF0C;&#x5FAA;&#x73AF;&#x8FC7;&#x7A0B;&#x3002;</p>
+<h3 id="&#x542F;&#x52A8;-splash-&#x5BB9;&#x5668;"><a href="#&#x542F;&#x52A8;-splash-&#x5BB9;&#x5668;" class="headerlink" title="&#x542F;&#x52A8; splash &#x5BB9;&#x5668;"></a>&#x542F;&#x52A8; splash &#x5BB9;&#x5668;</h3><pre>
+$ boot2docker start
+$ boot2docker ssh
+$ docker run -p 8050:8050 scrapinghub/splash</pre>
+
+<h3 id="&#x914D;&#x7F6E;-scrapy-splash"><a href="#&#x914D;&#x7F6E;-scrapy-splash" class="headerlink" title="&#x914D;&#x7F6E; scrapy-splash"></a>&#x914D;&#x7F6E; scrapy-splash</h3><p>&#x5728;&#x4F60;&#x7684; scrapy &#x5DE5;&#x7A0B;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;settings.py&#x4E2D;&#x6DFB;&#x52A0;</p>
+<pre>
+SPLASH_URL = &apos;http://192.168.59.103:8050&apos;
+
+# &#x6DFB;&#x52A0;Splash&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x8FD8;&#x662F;&#x5728;settings.py&#x4E2D;&#x901A;&#x8FC7;DOWNLOADER_MIDDLEWARES&#x6307;&#x5B9A;&#xFF0C;&#x5E76;&#x4E14;&#x4FEE;&#x6539;HttpCompressionMiddleware&#x7684;&#x4F18;&#x5148;&#x7EA7;
+DOWNLOADER_MIDDLEWARES = {
+    &apos;scrapy_splash.SplashCookiesMiddleware&apos;: 723,
+    &apos;scrapy_splash.SplashMiddleware&apos;: 725,
+    &apos;scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware&apos;: 810,
+}
+
+# &#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;HttpProxyMiddleware&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x662F;750&#xFF0C;&#x8981;&#x628A;&#x5B83;&#x653E;&#x5728;Splash&#x4E2D;&#x95F4;&#x4EF6;&#x540E;&#x9762;
+
+# &#x8BBE;&#x7F6E;Splash&#x81EA;&#x5DF1;&#x7684;&#x53BB;&#x91CD;&#x8FC7;&#x6EE4;&#x5668;
+DUPEFILTER_CLASS = &apos;scrapy_splash.SplashAwareDupeFilter&apos;
+
+# &#x5982;&#x679C;&#x4F60;&#x4F7F;&#x7528;Splash&#x7684;Http&#x7F13;&#x5B58;&#xFF0C;&#x90A3;&#x4E48;&#x8FD8;&#x8981;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7F13;&#x5B58;&#x540E;&#x53F0;&#x5B58;&#x50A8;&#x4ECB;&#x8D28;&#xFF0C;scrapy-splash&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;scrapy.contrib.httpcache.FilesystemCacheStorage&#x7684;&#x5B50;&#x7C7B;
+
+HTTPCACHE_STORAGE = &apos;scrapy_splash.SplashAwareFSCacheStorage&apos;
+
+# &#x5982;&#x679C;&#x4F60;&#x8981;&#x4F7F;&#x7528;&#x5176;&#x4ED6;&#x7684;&#x7F13;&#x5B58;&#x5B58;&#x50A8;&#xFF0C;&#x90A3;&#x4E48;&#x9700;&#x8981;&#x7EE7;&#x627F;&#x8FD9;&#x4E2A;&#x7C7B;&#x5E76;&#x4E14;&#x5C06;&#x6240;&#x6709;&#x7684;scrapy.util.request.request_fingerprint&#x8C03;&#x7528;&#x66FF;&#x6362;&#x6210;scrapy_splash.splash_request_fingerprint
+</pre>
+
+<h3 id="&#x4F7F;&#x7528;-scrapy-splash"><a href="#&#x4F7F;&#x7528;-scrapy-splash" class="headerlink" title="&#x4F7F;&#x7528; scrapy-splash"></a>&#x4F7F;&#x7528; scrapy-splash</h3><h4 id="SplashRequest"><a href="#SplashRequest" class="headerlink" title="SplashRequest"></a>SplashRequest</h4><p>&#x6700;&#x7B80;&#x5355;&#x7684;&#x6E32;&#x67D3;&#x8BF7;&#x6C42;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#x4F7F;&#x7528;scrapy_splash.SplashRequest&#xFF0C;&#x901A;&#x5E38;&#x4F60;&#x5E94;&#x8BE5;&#x9009;&#x62E9;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">yield SplashRequest(url, self.parse_result,</div><div class="line">    args={</div><div class="line">        # optional; parameters passed to Splash HTTP API</div><div class="line">        &apos;wait&apos;: 0.5,</div><div class="line"></div><div class="line">        # &apos;url&apos; is prefilled from request url</div><div class="line">        # &apos;http_method&apos; is set to &apos;POST&apos; for POST requests</div><div class="line">        # &apos;body&apos; is set to request body for POST requests</div><div class="line">    },</div><div class="line">    endpoint=&apos;render.json&apos;, # optional; default is render.html</div><div class="line">    splash_url=&apos;&lt;url&gt;&apos;,     # optional; overrides SPLASH_URL</div><div class="line">    slot_policy=scrapy_splash.SlotPolicy.PER_DOMAIN,  # optional</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x4F60;&#x8FD8;&#x53EF;&#x4EE5;&#x5728;&#x666E;&#x901A;&#x7684;scrapy&#x8BF7;&#x6C42;&#x4E2D;&#x4F20;&#x9012;splash&#x8BF7;&#x6C42;meta&#x5173;&#x952E;&#x5B57;&#x8FBE;&#x5230;&#x540C;&#x6837;&#x7684;&#x6548;&#x679C;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">yield scrapy.Request(url, self.parse_result, meta={</div><div class="line">    &apos;splash&apos;: {</div><div class="line">        &apos;args&apos;: {</div><div class="line">            # set rendering arguments here</div><div class="line">            &apos;html&apos;: 1,</div><div class="line">            &apos;png&apos;: 1,</div><div class="line"></div><div class="line">            # &apos;url&apos; is prefilled from request url</div><div class="line">            # &apos;http_method&apos; is set to &apos;POST&apos; for POST requests</div><div class="line">            # &apos;body&apos; is set to request body for POST requests</div><div class="line">        },</div><div class="line"></div><div class="line">        # optional parameters</div><div class="line">        &apos;endpoint&apos;: &apos;render.json&apos;,  # optional; default is render.json</div><div class="line">        &apos;splash_url&apos;: &apos;&lt;url&gt;&apos;,      # optional; overrides SPLASH_URL</div><div class="line">        &apos;slot_policy&apos;: scrapy_splash.SlotPolicy.PER_DOMAIN,</div><div class="line">        &apos;splash_headers&apos;: {},       # optional; a dict with headers sent to Splash</div><div class="line">        &apos;dont_process_response&apos;: True, # optional, default is False</div><div class="line">        &apos;dont_send_headers&apos;: True,  # optional, default is False</div><div class="line">        &apos;magic_response&apos;: False,    # optional, default is True</div><div class="line">    }</div><div class="line">})</div></pre></td></tr></table></figure></p>
+<p>Splash API&#x8BF4;&#x660E;&#xFF0C;&#x4F7F;&#x7528;SplashRequest&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x4FBF;&#x5229;&#x7684;&#x5DE5;&#x5177;&#x6765;&#x586B;&#x5145;request.meta[&#x2018;splash&#x2019;]&#x91CC;&#x7684;&#x6570;&#x636E;</p>
+<ul>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;args&#x2019;] &#x5305;&#x542B;&#x4E86;&#x53D1;&#x5F80;Splash&#x7684;&#x53C2;&#x6570;&#x3002;</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;endpoint&#x2019;] &#x6307;&#x5B9A;&#x4E86;Splash&#x6240;&#x4F7F;&#x7528;&#x7684;endpoint&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;render.html</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;splash_url&#x2019;] &#x8986;&#x76D6;&#x4E86;settings.py&#x6587;&#x4EF6;&#x4E2D;&#x914D;&#x7F6E;&#x7684;Splash URL</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;splash_headers&#x2019;] &#x8FD0;&#x884C;&#x4F60;&#x589E;&#x52A0;&#x6216;&#x4FEE;&#x6539;&#x53D1;&#x5F80;Splash&#x670D;&#x52A1;&#x5668;&#x7684;HTTP&#x5934;&#x90E8;&#x4FE1;&#x606F;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x4E0D;&#x662F;&#x4FEE;&#x6539;&#x53D1;&#x5F80;&#x8FDC;&#x7A0B;web&#x7AD9;&#x70B9;&#x7684;HTTP&#x5934;&#x90E8;</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;dont_send_headers&#x2019;] &#x5982;&#x679C;&#x4F60;&#x4E0D;&#x60F3;&#x4F20;&#x9012;headers&#x7ED9;Splash&#xFF0C;&#x5C06;&#x5B83;&#x8BBE;&#x7F6E;&#x6210;True</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;slot_policy&#x2019;] &#x8BA9;&#x4F60;&#x81EA;&#x5B9A;&#x4E49;Splash&#x8BF7;&#x6C42;&#x7684;&#x540C;&#x6B65;&#x8BBE;&#x7F6E;</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;dont_process_response&#x2019;] &#x5F53;&#x4F60;&#x8BBE;&#x7F6E;&#x6210;True&#x540E;&#xFF0C;SplashMiddleware&#x4E0D;&#x4F1A;&#x4FEE;&#x6539;&#x9ED8;&#x8BA4;&#x7684;scrapy.Response&#x8BF7;&#x6C42;&#x3002;&#x9ED8;&#x8BA4;&#x662F;&#x4F1A;&#x8FD4;&#x56DE;SplashResponse&#x5B50;&#x7C7B;&#x54CD;&#x5E94;&#x6BD4;&#x5982;SplashTextResponse</li>
+<li>meta[&#x2018;splash&#x2019;][&#x2018;magic_response&#x2019;] &#x9ED8;&#x8BA4;&#x4E3A;True&#xFF0C;Splash&#x4F1A;&#x81EA;&#x52A8;&#x8BBE;&#x7F6E;Response&#x7684;&#x4E00;&#x4E9B;&#x5C5E;&#x6027;&#xFF0C;&#x6BD4;&#x5982;response.headers,response.body&#x7B49;<br>&#x5982;&#x679C;&#x4F60;&#x60F3;&#x901A;&#x8FC7;Splash&#x6765;&#x63D0;&#x4EA4;Form&#x8BF7;&#x6C42;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;scrapy_splash.SplashFormRequest&#xFF0C;&#x5B83;&#x8DDF;SplashRequest&#x4F7F;&#x7528;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</li>
+</ul>
+<h4 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h4><p>&#x5BF9;&#x4E8E;&#x4E0D;&#x540C;&#x7684;Splash&#x8BF7;&#x6C42;&#xFF0C;scrapy-splash&#x8FD4;&#x56DE;&#x4E0D;&#x540C;&#x7684;Response&#x5B50;&#x7C7B;</p>
+<ul>
+<li>SplashResponse &#x4E8C;&#x8FDB;&#x5236;&#x54CD;&#x5E94;&#xFF0C;&#x6BD4;&#x5982;&#x5BF9;/render.png&#x7684;&#x54CD;&#x5E94;</li>
+<li>SplashTextResponse &#x6587;&#x672C;&#x54CD;&#x5E94;&#xFF0C;&#x6BD4;&#x5982;&#x5BF9;/render.html&#x7684;&#x54CD;&#x5E94;</li>
+<li>SplashJsonResponse JSON&#x54CD;&#x5E94;&#xFF0C;&#x6BD4;&#x5982;&#x5BF9;/render.json&#x6216;&#x4F7F;&#x7528;Lua&#x811A;&#x672C;&#x7684;/execute&#x7684;&#x54CD;&#x5E94;</li>
+</ul>
+<p>&#x5982;&#x679C;&#x4F60;&#x53EA;&#x60F3;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x7684;Response&#x5BF9;&#x8C61;&#xFF0C;&#x5C31;&#x8BBE;&#x7F6E;meta[&#x2018;splash&#x2019;][&#x2018;dont_process_response&#x2019;]=True</p>
+<p>&#x6240;&#x6709;&#x8FD9;&#x4E9B;Response&#x4F1A;&#x628A;response.url&#x8BBE;&#x7F6E;&#x6210;&#x539F;&#x59CB;&#x8BF7;&#x6C42;URL(&#x4E5F;&#x5C31;&#x662F;&#x4F60;&#x8981;&#x6E32;&#x67D3;&#x7684;&#x9875;&#x9762;URL)&#xFF0C;&#x800C;&#x4E0D;&#x662F;Splash endpoint&#x7684;URL&#x5730;&#x5740;&#x3002;&#x5B9E;&#x9645;&#x5730;&#x5740;&#x901A;&#x8FC7;response.real_url&#x5F97;&#x5230;</p>
+<h3 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h3><p>&#x722C;&#x53D6;&#x534E;&#x4E3A;&#x5E94;&#x7528;&#x5E02;&#x573A;( <a href="http://appstore.huawei.com/more/all" target="_blank" rel="external">http://appstore.huawei.com/more/all</a> )&#x7684;&#x201C;&#x4E0B;&#x4E00;&#x9875;&#x201D; url &#x94FE;&#x63A5;&#x3002;</p>
+<h4 id="&#x67E5;&#x770B;&#x7F51;&#x9875;&#x6E90;&#x4EE3;&#x7801;"><a href="#&#x67E5;&#x770B;&#x7F51;&#x9875;&#x6E90;&#x4EE3;&#x7801;" class="headerlink" title="&#x67E5;&#x770B;&#x7F51;&#x9875;&#x6E90;&#x4EE3;&#x7801;"></a>&#x67E5;&#x770B;&#x7F51;&#x9875;&#x6E90;&#x4EE3;&#x7801;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://app.vmall.com/js/core/jquery.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">    var jsResource = new Array();</div><div class="line">    jsResource[&apos;cloud.page.count&apos;] = &quot;&#x5171;&quot;;</div><div class="line">    jsResource[&apos;cloud.page.numbers&apos;] = &quot;&#x6761;&#x8BB0;&#x5F55;&quot;;</div><div class="line">    jsResource[&apos;cloud.page.last_page&apos;] = &quot;&#x4E0A;&#x4E00;&#x9875;&quot;;</div><div class="line">    jsResource[&apos;cloud.page.next_page&apos;] = &quot;&#x4E0B;&#x4E00;&#x9875;&quot;;</div><div class="line">    jsResource[&apos;cloud.page.pages&apos;] = &quot;&#x9875;&quot;;</div><div class="line">    jsResource[&apos;cloud.page.first&apos;] = &quot;&#x9996;&#x9875;&quot;;</div><div class="line">    jsResource[&apos;cloud.page.last&apos;] = &quot;&#x5C3E;&#x9875;&quot;;</div><div class="line">    jsResource[&apos;cloud.downAppError&apos;]=&quot;&#x60A8;&#x7684;&#x8BF7;&#x6C42;&#x6B63;&#x5728;&#x5904;&#x7406;&#x4E2D;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x91CD;&#x590D;&#x63D0;&#x4EA4;&#x3002;&quot;</div><div class="line">    jsResource[&apos;cloud.msg.ok&apos;]=&quot;&#x786E;&#x5B9A;&quot;</div><div class="line">    jsResource[&apos;cloud.msg.message&apos;]=&quot;&#x63D0;&#x793A;&quot;</div><div class="line">    jsResource[&apos;cloud.detail.close&apos;]=&quot;&#x5173;&#x95ED;&quot;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;http://app.vmall.com/js/all/more.js?version=2.9.5.20150418&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="&#x67E5;&#x770B;&#x6E32;&#x67D3;&#x540E;&#x7684;&#x4EE3;&#x7801;"><a href="#&#x67E5;&#x770B;&#x6E32;&#x67D3;&#x540E;&#x7684;&#x4EE3;&#x7801;" class="headerlink" title="&#x67E5;&#x770B;&#x6E32;&#x67D3;&#x540E;&#x7684;&#x4EE3;&#x7801;"></a>&#x67E5;&#x770B;&#x6E32;&#x67D3;&#x540E;&#x7684;&#x4EE3;&#x7801;</h4><p>&#x542F;&#x52A8; splash &#x5BB9;&#x5668;&#xFF0C;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x6253;&#x5F00; <a href="http://192.168.59.103:8050/" target="_blank" rel="external">http://192.168.59.103:8050/</a> &#xFF0C; &#x8F93;&#x5165;&#x7F51;&#x5740;&#x8FDB;&#x884C; render&#xFF0C;&#x67E5;&#x770B;&#x6E32;&#x67D3;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;page-ctrl ctrl-app&quot; id=&quot;recommendListPage&quot;&gt;&lt;a href=&quot;http://appstore.huawei.com:80/more/all/1&quot;&gt;&#x9996;&#x9875;&lt;/a&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/1&quot;&gt;&lt;em class=&quot;arrow-grey-lt&quot;&gt;&amp;nbsp;&lt;/em&gt;&#x4E0A;&#x4E00;&#x9875;&lt;/a&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/1&quot;&gt;1&lt;/a&gt;&lt;span&gt;2&lt;/span&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/3&quot;&gt;3&lt;/a&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/4&quot;&gt;4&lt;/a&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/5&quot;&gt;5&lt;/a&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/3&quot;&gt;&#x4E0B;&#x4E00;&#x9875;&lt;em class=&quot;arrow-grey-rt&quot;&gt;&amp;nbsp;&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://appstore.huawei.com:80/more/all/41&quot;&gt;&#x5C3E;&#x9875;&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="spider-&#x90E8;&#x5206;&#x4EE3;&#x7801;"><a href="#spider-&#x90E8;&#x5206;&#x4EE3;&#x7801;" class="headerlink" title="spider &#x90E8;&#x5206;&#x4EE3;&#x7801;"></a>spider &#x90E8;&#x5206;&#x4EE3;&#x7801;</h3><pre>
+def parse(self, response):
+    page = Selector(response)
+    hrefs = page.xpath(&apos;//h4[@class=&quot;title&quot;]/a/@href&apos;)
+    if not hrefs:
+        return
+    for href in hrefs:
+        url = href.extract()
+        yield scrapy.Request(url, callback=self.parse_item)
+# find next page
+    nextpage = page.xpath(&apos;//div[@class=&quot;page-ctrl ctrl-app&quot;]/a/em[@class=&quot;arrow-grey-rt&quot;]/../@href&apos;).extract_first()
+    print nextpage
+    yield scrapy.Request(nextpage,callback=self.parse,meta={
+    &apos;splash&apos;: {
+    &apos;endpoint&apos;: &apos;render.html&apos;,
+    &apos;args&apos;: {&apos;wait&apos;: 0.5}
+    }
+    })
+</pre>
+
+<p><a href="">&#x5B8C;&#x6574;&#x4EE3;&#x7801;</a></p>
+<h2 id="&#x5206;&#x6790;&#x4E0D;&#x89C4;&#x5219;&#x7684;-html"><a href="#&#x5206;&#x6790;&#x4E0D;&#x89C4;&#x5219;&#x7684;-html" class="headerlink" title="&#x5206;&#x6790;&#x4E0D;&#x89C4;&#x5219;&#x7684; html"></a>&#x5206;&#x6790;&#x4E0D;&#x89C4;&#x5219;&#x7684; html</h2><p>&#x4E4B;&#x524D;&#x7684;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#x89E3;&#x51B3;&#x7684;&#x90FD;&#x662F; &#x4E0B;&#x8F7D; Web &#x9875;&#x9762; &#x7684;&#x95EE;&#x9898;&#xFF0C;&#x8FD9;&#x91CC;&#x8865;&#x5145;&#x4E0B;&#x83B7;&#x53D6;&#x7F51;&#x9875;&#x540E;&#x5206;&#x6790;&#x8FC7;&#x7A0B;&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;&#x3002;<br>&#x4EE5;&#x82CF;&#x5B81;&#x6613;&#x8D2D; help &#x9875;&#x9762;&#x4E3A;&#x4F8B;&#x3002;start_url &#x662F; <a href="http://help.suning.com/faq/list.htm" target="_blank" rel="external">http://help.suning.com/faq/list.htm</a> &#xFF0C; &#x722C;&#x53D6;&#x7684;&#x662F;&#x5DE6;&#x8FB9;&#x4FA7;&#x680F;&#x6BCF;&#x4E2A;&#x5927;&#x7C7B;&#x7684;&#x6BCF;&#x4E2A;&#x5C0F;&#x7C7B;&#x4E0B;&#x53F3;&#x8FB9;&#x7684;&#x95EE;&#x9898;&#x9875;&#x9762;&#xFF0C;&#x5982;&#x201C;&#x6743;&#x76CA;&#x4ECB;&#x7ECD;&#x201D;&#x3001;&#x201C;&#x7B49;&#x7EA7;&#x6743;&#x76CA;&#x4ECB;&#x7ECD;&#x201D;&#x8FD9;&#x4E9B; FAQ &#x9875;&#x9762;&#xFF0C;&#x5982;&#x4F55;&#x5230;&#x8FBE;&#x8FD9;&#x4E9B;&#x9875;&#x9762;&#x5C31;&#x4E0D;&#x518D;&#x591A;&#x8BF4;&#xFF0C;&#x5173;&#x952E;&#x662F;&#x5230;&#x8FBE;&#x8FD9;&#x4E9B;&#x9875;&#x9762;&#x540E;&#x600E;&#x4E48;&#x83B7;&#x5F97;&#x4FE1;&#x606F;&#x3002;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-07-04%20%E4%B8%8B%E5%8D%883.37.07.png" alt=""></p>
+<p>&#x770B;&#x4E00;&#x90E8;&#x5206;&#x7684;&#x7F51;&#x9875;&#x6E90;&#x4EE3;&#x7801;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;contentShow&quot;&gt;</div><div class="line">						 	&lt;p class=&quot;MsoNormal&quot; style=&quot;background:white;text-align:left;&quot; align=&quot;left&quot;&gt;</div><div class="line">	&lt;span style=&quot;font-size:9pt;font-family:&#x5B8B;&#x4F53;;color:black;&quot;&gt;&lt;/span&gt;</div><div class="line">&lt;/p&gt;</div><div class="line">&lt;p class=&quot;MsoNormal&quot; style=&quot;background:white;&quot; align=&quot;left&quot;&gt;</div><div class="line">	&lt;br /&gt;</div><div class="line">&lt;/p&gt;</div><div class="line">&lt;p class=&quot;MsoNormal&quot; style=&quot;background:white;&quot; align=&quot;left&quot;&gt;</div><div class="line">	&lt;b&gt;&#x4E00;&#x3001;&#x6743;&#x76CA;&#x7C7B;&#x578B;&lt;/b&gt;&lt;b&gt;&lt;/b&gt;</div><div class="line">&lt;/p&gt;</div><div class="line">&lt;p class=&quot;MsoNormal&quot; style=&quot;background:white;&quot; align=&quot;left&quot;&gt;</div><div class="line">	&#x672C;&#x6B21;&#x6539;&#x7248;&#x5C06;&#x4E0A;&#x7EBF;&lt;span&gt;7&lt;/span&gt;&#x4E2A;&#x4F1A;&#x5458;&#x6743;&#x76CA;&#xFF0C;&#x6DB5;&#x76D6;&#x4EF7;&#x683C;&#x4F18;&#x60E0;&#x3001;&#x8D44;&#x683C;&#x62A2;&#x5148;&#x3001;&#x670D;&#x52A1;&#x4F18;&#x5148;&#x7B49;&#x591A;&#x4E2A;&#x65B9;&#x9762;&#xFF0C;&#x4F1A;&#x5458;&#x7B49;&#x7EA7;&#x8D8A;&#x9AD8;&#xFF0C;&#x53EF;&#x4EAB;&#x53D7;&#x5230;&#x7684;&#x4F1A;&#x5458;&#x6743;&#x76CA;&#x8D8A;&#x591A;&#x3002;&lt;span&gt;&lt;/span&gt;</div><div class="line">&lt;/p&gt;</div><div class="line">&lt;p class=&quot;MsoNormal&quot; style=&quot;background:white;&quot; align=&quot;left&quot;&gt;</div><div class="line">	&lt;b&gt;&#x4E8C;&#x3001;&#x5177;&#x4F53;&#x8BE6;&#x60C5;&#xFF1A;&lt;/b&gt;&lt;b&gt;&lt;/b&gt;</div><div class="line">&lt;/p&gt;</div><div class="line">&lt;p class=&quot;MsoNormal&quot; style=&quot;background:white;&quot; align=&quot;left&quot;&gt;</div><div class="line">	&lt;b&gt;1&lt;/b&gt;&lt;b&gt;&#x3001;&#x751F;&#x65E5;&#x7EA2;&#x5305;&lt;/b&gt;&lt;br /&gt;</div><div class="line">&#x7279;&#x6743;&#x5185;&#x5BB9;&#xFF1A;&lt;span&gt;&lt;br /&gt;</div><div class="line">&lt;/span&gt;&#x5DF2;&#x9A8C;&#x8BC1;&#x624B;&#x673A;&#x53F7;&#x7684;&lt;span&gt;V2&lt;/span&gt;&#x53CA;&#x4EE5;&#x4E0A;&#x7B49;&#x7EA7;&#x7684;&#x4F1A;&#x5458;&#xFF0C;&#x5728;&#x5B9E;&#x540D;&#x8BA4;&#x8BC1;&#x6216;&#x5B8C;&#x5584;&#x751F;&#x65E5;&#x8D44;&#x6599;&#x540E;&#xFF0C;&#x53EF;&#x5728;&#x751F;&#x65E5;&#x5468;&#x671F;&#x95F4;&#x83B7;&#x5F97;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x3002;&lt;span&gt;&lt;br /&gt;</div><div class="line">&lt;/span&gt;&lt;span&gt;V2&lt;/span&gt;&#x7B49;&#x7EA7;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x4E3A;&lt;span&gt;6&lt;/span&gt;&#x5143;&#x4E91;&#x5238;&#xFF0C;&lt;span&gt;V3&lt;/span&gt;&#x7B49;&#x7EA7;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x4E3A;&lt;span&gt;8&lt;/span&gt;&#x5143;&#x4E91;&#x5238;&#x3002;&#xFF08;&lt;span&gt;2016&lt;/span&gt;&#x5E74;6&#x6708;12&#x65E5;&#x5F00;&#x59CB;&#x5B9E;&#x65BD;&#xFF09;&lt;span&gt;&lt;br /&gt;</div><div class="line">&lt;/span&gt;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF1A;&lt;span&gt;&lt;br /&gt;</div><div class="line">1&lt;/span&gt;&#xFF09;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x5238;&#x4E3A;&#x9650;&#x54C1;&#x7C7B;&#x4E91;&#x5238;&#xFF0C;&#x5728;&#x751F;&#x65E5;&#x5468;&#x65F6;&#x81EA;&#x52A8;&#x53D1;&#x5230;&#x4F1A;&#x5458;&#x8D26;&#x6237;&#xFF0C;&#x4F1A;&#x5458;&#x5728;&#x6210;&#x529F;&#x6536;&#x5230;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x5238;&#x540E;&#x4F1A;&#x6709;&#x77ED;&#x4FE1;&#x63D0;&#x9192;&#xFF0C;&#x5E76;&#x53EF;&#x767B;&#x5F55;&#x201C;&#x6211;&#x7684;&#x6613;&#x8D2D;&lt;span&gt;-&lt;/span&gt;&#x6211;&#x7684;&#x4F18;&#x60E0;&#x5238;&#x201D;&#x3010;&lt;span&gt;&lt;a href=&quot;http://member.suning.com/emall/MyGiftTicket&quot; target=&quot;_blank&quot;&gt;&lt;span&gt;&#x70B9;&#x51FB;&#x67E5;&#x770B;&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&#x3011;&#xFF0C;&#x6BCF;&#x4E2A;&#x4F1A;&#x5458;&#x540C;&#x4E00;&#x81EA;&#x7136;&#x5E74;&#x5185;&#x4EC5;&#x53EF;&#x83B7;&#x5F97;&#x4E00;&#x5F20;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x5238;&#xFF1B;&lt;span&gt;&lt;br /&gt;</div><div class="line">2&lt;/span&gt;&#xFF09;&#x5238;&#x4F7F;&#x7528;&#x89C4;&#x5219;&#xFF1A;&#x4E14;&#x9650;&#x4E00;&#x6B21;&#x6027;&#x4F7F;&#x7528;&#x3001;&#x4E0D;&#x627E;&#x96F6;&#x3001;&#x4E0D;&#x5151;&#x73B0;&#xFF0C;&#x4E0D;&#x53EF;&#x4EE5;&#x548C;&#x4E91;&#x5238;&#x53E0;&#x52A0;&#xFF0C;&#x53EF;&#x4EE5;&#x548C;&#x65E0;&#x654C;&#x5238;&#x3001;&#x6613;&#x5238;&#x53E0;&#x52A0;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x53EF;&#x4F7F;&#x7528;&#x81EA;&#x63D0;&#xFF1B;&lt;span&gt;&lt;br /&gt;</div><div class="line">3&lt;/span&gt;&#xFF09;&#x5238;&#x6709;&#x6548;&#x671F;&#xFF1A;&#x81EA;&#x5238;&#x5230;&#x8D26;&#x4E4B;&#x65E5;&#x8D77;&lt;span&gt;8&lt;/span&gt;&#x65E5;&#x5185;&#x6709;&#x6548;&#xFF1B;&lt;span&gt;&lt;br /&gt;</div><div class="line">4&lt;/span&gt;&#xFF09;&#x5238;&#x9002;&#x7528;&#x5546;&#x54C1;&#x8303;&#x56F4;&#xFF1A;&#x4EC5;&#x9650;&#x8D2D;&#x4E70;&#x81EA;&#x8425;&#x5546;&#x54C1;&#x4F7F;&#x7528;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x5927;&#x805A;&#x60E0;&#x3001;&#x62A2;&#x56E2;&#x8D2D;&#x3001;&#x624B;&#x673A;&#x4E13;&#x4EAB;&#x4EF7;&#x3001;&#x540D;&#x54C1;&#x7279;&#x5356;&#x5546;&#x54C1;&#xFF0C;&#x4F46;&#x95EA;&#x62CD;&#x3001;&#x79D2;&#x6740;&#x3001;&#x9884;&#x552E;&#x3001;&#x6D77;&#x5916;&#x8D2D;&#x3001;&#x865A;&#x62DF;&#x5546;&#x54C1;&#x3001;&#x7279;&#x6B8A;&#x7C7B;&#x5546;&#x54C1;&#xFF08;&#x4E00;&#x6BB5;&#x5976;&#x7C89;&#x7B49;&#xFF09;&#x53CA;&#x5E73;&#x53F0;&#x5546;&#x6237;&#x5546;&#x54C1;&#x4E0D;&#x53EF;&#x4F7F;&#x7528;&#xFF1B;&lt;span&gt;&lt;br /&gt;</div><div class="line">5&lt;/span&gt;&#xFF09;&#x4F7F;&#x7528;&#x751F;&#x65E5;&#x7EA2;&#x5305;&#x5238;&#x7684;&#x8BA2;&#x5355;&#x82E5;&#x53D1;&#x751F;&#x9000;&#x8D27;&#xFF0C;&#x5728;&#x6709;&#x6548;&#x671F;&#x5185;&#x5238;&#x5C06;&#x8FD4;&#x56DE;&#x81F3;&#x987E;&#x5BA2;&#x8D26;&#x6237;&#xFF0C;&#x53EF;&#x518D;&#x6B21;&#x4F7F;&#x7528;&#xFF1B;&#x5982;&#x7528;&#x5238;&#x8BA2;&#x5355;&#x9000;&#x8D27;&#x65F6;&#x5DF2;&#x8D85;&#x8FC7;&#x5238;&#x6709;&#x6548;&#x671F;&#xFF0C;&#x5238;&#x5C06;&#x81EA;&#x52A8;&#x5931;&#x6548;&#xFF0C;&#x4E0D;&#x505A;&#x5EF6;&#x671F;&#xFF1B;&lt;span&gt;&lt;/span&gt;</div><div class="line">&lt;/p&gt;</div><div class="line">......</div></pre></td></tr></table></figure></p>
+<p>&#x4E0D;&#x96BE;&#x53D1;&#x73B0;&#xFF0C;&#x6709;&#x4E9B;&#x6587;&#x5B57;&#x5206;&#x5E03;&#x5728;</p>
+<ul>
+<li>div[@id=&#x201D;contentShow&#x201D;]/p</li>
+<li>div[@id=&#x201D;contentShow&#x201D;]/p/span</li>
+<li>div[@id=&#x201D;contentShow&#x201D;]/p/b</li>
+</ul>
+<p>&#x89C2;&#x5BDF;&#x5176;&#x4ED6;&#x9875;&#x9762;&#x4F1A;&#x53D1;&#x73B0;&#x8FD8;&#x6709;&#x4E9B;&#x5206;&#x5E03;&#x5728; div[@id=&#x201D;contentShow&#x201D;]/h4 &#x4E0B;&#x6216;&#x8005; h3 &#x4E0B;&#xFF0C;&#x6709;&#x7684;&#x751A;&#x81F3;&#x76F4;&#x63A5;&#x5C31;&#x5728; div[@id=&#x201D;contentShow&#x201D;] &#x4E0B;&#x3002;&#x3002;<br>&#x600E;&#x4E48;&#x529E;&#xFF1F;<br>&#x5F53;&#x7136;&#x53EF;&#x4EE5;&#x7A77;&#x5C3D;&#x5404;&#x79CD;&#x89C4;&#x5219;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5148;&#x628A;&#x4E0D;&#x9700;&#x8981;&#x7684;&#x6807;&#x7B7E;&#x7ED9;&#x53BB;&#x6389;&#x518D; extract&#xFF0C;&#x8FD9;&#x4E9B;&#x6211;&#x5F00;&#x59CB;&#x90FD;&#x50BB;&#x50BB;&#x7684;&#x5C1D;&#x8BD5;&#x8FC7;&#xFF0C;&#x7ED3;&#x679C;&#x603B;&#x4F1A;&#x5FFD;&#x7565;&#x4E00;&#x4E9B;&#x6587;&#x5B57;&#xFF0C;&#x540E;&#x6765;&#x5728;&#x6CAE;&#x4E27;&#x7684;&#x770B;&#x7740; output &#x6587;&#x4EF6;&#x65F6;&#x798F;&#x81F3;&#x5FC3;&#x7075;&#xFF0C;&#x76F4;&#x63A5;&#x53D6;&#x4E86; div[@id=&#x201D;contentShow&#x201D;] &#x518D;&#x628A;&#x6240;&#x6709;&#x7684;&#x6807;&#x7B7E;&#x53BB;&#x6389;&#x4E0D;&#x5C31;&#x884C;&#x4E86;&#xFF1F;&#xFF01;</p>
+<p>&#x4E0A;&#x4EE3;&#x7801;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">page = html.xpath(&apos;//div[@id=&quot;contentShow&quot;]&apos;).extract_first()</div><div class="line">replaceTags = re.compile(&apos;&lt;.*?&gt;&apos;)</div><div class="line">replaceLine = re.compile(&apos;\r|\n|\t&apos;)</div><div class="line">page = replaceTags.sub(&quot;&quot;, page)</div><div class="line">page = re.sub(replaceLine, &quot;&quot;, page)</div></pre></td></tr></table></figure></p>
+<p>&#x6700;&#x540E;&#x7684;&#x7ED3;&#x679C;&#x975E;&#x5E38;&#x5E72;&#x51C0;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">{&quot;url&quot;: &quot;http://help.suning.com/page/id-26.htm&quot;, &quot;text&quot;: &quot; &#x4E00;&#x3001;&#x8D26;&#x53F7;&#x6CE8;&#x518C;&#x76EE;&#x524D;&#x6CE8;&#x518C;&#x4E2A;&#x4EBA;&#x7528;&#x6237;&#x4EC5;&#x652F;&#x6301;&#xFF1A;&#x624B;&#x673A;&#x53F7;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#x3002;1&#x3001;&#x6253;&#x5F00;&#x82CF;&#x5B81;&#x6613;&#x8D2D;&#x7F51;&#x7AD9;&#xFF0C;&#x70B9;&#x51FB;&#x9875;&#x5934;&#x201C;&#x6CE8;&#x518C;&#x201D;&#xFF0C;&#x8FDB;&#x5165;&#x6CE8;&#x518C;&#x9875;&#x9762;&#xA0;2&#x3001;&#x8FDB;&#x5165;&#x6CE8;&#x518C;&#x9875;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x60A8;&#x662F;&#x4E2A;&#x4EBA;&#x7528;&#x6237;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x624B;&#x673A;&#x53F7;&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#xFF1B;&#x5982;&#x679C;&#x60A8;&#x662F;&#x4F01;&#x4E1A;&#x7528;&#x6237;&#xFF0C;&#x53EF;&#x4EE5;&#x70B9;&#x51FB;&#x201C;&#x4F01;&#x4E1A;&#x7528;&#x6237;&#x6CE8;&#x518C;&#x201D;&#xFF0C;&#x7528;&#x5355;&#x4F4D;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#xFF0C;&#x5982;&#x679C;&#x60A8;&#x6709;&#x6613;&#x8D2D;&#x8D26;&#x53F7;&#xFF0C;&#x53EF;&#x4EE5;&#x70B9;&#x51FB;&#x201C;&#x9A6C;&#x4E0A;&#x767B;&#x5F55;&#x201D;3&#x3001;&#x586B;&#x5199;&#x6CE8;&#x518C;&#x4FE1;&#x606F;&#xFF0C;&#x6309;&#x7167;&#x7F51;&#x9875;&#x63D0;&#x793A;&#xFF0C;&#x586B;&#x5199;&#x624B;&#x673A;&#x53F7;&#x3001;&#x9A8C;&#x8BC1;&#x7801;&#x548C;&#x5BC6;&#x7801;&#xA0;4&#x3001;&#x606D;&#x559C;&#x60A8;&#xFF0C;&#x6CE8;&#x518C;&#x6210;&#x529F;&#xA0;&quot;, &quot;question&quot;: &quot;&#x8D26;&#x6237;&#x6CE8;&#x518C;&quot;, &quot;title&quot;: &quot;&#x6613;&#x8D2D;&#x6CE8;&#x518C;&#x767B;&#x5F55;&quot;}</div></pre></td></tr></table></figure></p>
+<p>&#x638C;&#x63E1;&#x8FD9;&#x4E2A;&#x6280;&#x5DE7;&#xFF0C;&#x5904;&#x7406;&#x7C7B;&#x4F3C;&#x95EE;&#x9898;&#x5C31;&#x5F88;&#x7B80;&#x5355;&#x5566;&#xFF0C;&#x5982;&#x518D;&#x722C;&#x4EAC;&#x4E1C;&#x7684; help &#x7F51;&#x9875;&#xFF0C;&#x7A0D;&#x5FAE;&#x6539;&#x4E0B;&#x4EE3;&#x7801;5&#x5206;&#x949F;&#x5C31;&#x80FD;&#x641E;&#x5B9A;&#x3002;</p>
+<p><a href="">&#x4EE3;&#x7801;</a></p>
+<h2 id="&#x5176;&#x4ED6;"><a href="#&#x5176;&#x4ED6;" class="headerlink" title="&#x5176;&#x4ED6;"></a>&#x5176;&#x4ED6;</h2><p>&#x56DE;&#x5934;&#x8C08;&#x70B9;&#x80CC;&#x666F;&#x77E5;&#x8BC6;,scrapy&#x4F7F;&#x7528;&#x4E86;twisted.&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x7F51;&#x7EDC;&#x6846;&#x67B6;.&#x56E0;&#x6B64;&#x8981;&#x7559;&#x610F;&#x6F5C;&#x5728;&#x7684;&#x963B;&#x585E;&#x60C5;&#x51B5;.&#x4F46;&#x6CE8;&#x610F;&#x5230;settings&#x4E2D;&#x6709;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x8BBE;&#x7F6E;ItemPipeline&#x7684;&#x5E76;&#x884C;&#x5EA6;.&#x7531;&#x6B64;&#x63A8;&#x6D4B;pipeline&#x4E0D;&#x4F1A;&#x963B;&#x585E;,pipeline&#x53EF;&#x80FD;&#x662F;&#x5728;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x6267;&#x884C;&#x7684;(&#x672A;&#x9A8C;&#x8BC1;).Pipeline&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x5C06;&#x6293;&#x53D6;&#x5230;&#x7684;&#x4FE1;&#x606F;&#x4FDD;&#x5B58;(&#x5199;&#x6570;&#x636E;&#x5E93;,&#x5199;&#x6587;&#x4EF6;),&#x56E0;&#x6B64;&#x8FD9;&#x91CC;&#x4F60;&#x5C31;&#x4E0D;&#x7528;&#x62C5;&#x5FC3;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x4F1A;&#x963B;&#x585E;&#x6574;&#x4E2A;&#x6846;&#x67B6;&#x4E86;,&#x4E5F;&#x5C31;&#x4E0D;&#x7528;&#x5728;Pipeline&#x4E2D;&#x5C06;&#x8FD9;&#x4E2A;&#x5199;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4E3A;&#x5F02;&#x6B65;.<br>&#x9664;&#x6B64;&#x4E4B;&#x5916;&#x6846;&#x67B6;&#x7684;&#x5176;&#x4ED6;&#x90E8;&#x5206;.&#x90FD;&#x662F;&#x5F02;&#x6B65;&#x7684;,&#x7B80;&#x5355;&#x8BF4;&#x6765;&#x5C31;&#x662F;,&#x722C;&#x866B;&#x751F;&#x6210;&#x7684;&#x8BF7;&#x6C42;&#x4EA4;&#x7531;&#x8C03;&#x5EA6;&#x5668;&#x53BB;&#x4E0B;&#x8F7D;,&#x7136;&#x540E;&#x722C;&#x866B;&#x7EE7;&#x7EED;&#x6267;&#x884C;.&#x8C03;&#x5EA6;&#x5668;&#x5B8C;&#x6210;&#x4E0B;&#x8F7D;&#x540E;&#x4F1A;&#x5C06;&#x54CD;&#x5E94;&#x4EA4;&#x7531;&#x722C;&#x866B;&#x89E3;&#x6790;.<br>&#x7F51;&#x4E0A;&#x627E;&#x5230;&#x7684;&#x53C2;&#x8003;&#x4F8B;&#x5B50;,&#x90E8;&#x5206;&#x5C06;js&#x652F;&#x6301;&#x5199;&#x5230;&#x4E86;DownloaderMiddleware&#x4E2D;,scrapy&#x5B98;&#x7F51;&#x7684;code snippet&#x4E5F;&#x662F;&#x8FD9;&#x6837; .&#x82E5;&#x8FD9;&#x6837;&#x5B9E;&#x73B0;,&#x5C31;&#x963B;&#x585E;&#x4E86;&#x6574;&#x4E2A;&#x6846;&#x67B6;,&#x722C;&#x866B;&#x7684;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;&#x53D8;&#x6210;&#x4E86;,&#x4E0B;&#x8F7D;-&#x89E3;&#x6790;-&#x4E0B;&#x8F7D;-&#x89E3;&#x6790;,&#x800C;&#x4E0D;&#x5728;&#x662F;&#x5E76;&#x884C;&#x7684;&#x4E0B;&#x8F7D;.&#x5728;&#x5BF9;&#x6548;&#x7387;&#x8981;&#x6C42;&#x4E0D;&#x9AD8;&#x7684;&#x5C0F;&#x89C4;&#x6A21;&#x722C;&#x53D6;&#x4E2D;&#x95EE;&#x9898;&#x4E0D;&#x5927;.<br>&#x66F4;&#x597D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x5C06;js&#x652F;&#x6301;&#x5199;&#x5230;scrapy&#x7684;downloader&#x91CC;.&#x7F51;&#x4E0A;&#x6709;&#x4E00;&#x4E2A;&#x8FD9;&#x6837;&#x7684;&#x5B9E;&#x73B0;(&#x4F7F;&#x7528;selenium+phantomjs).&#x4E0D;&#x8FC7;&#x4EC5;&#x652F;&#x6301;get&#x8BF7;&#x6C42;.<br>&#x5728;&#x9002;&#x914D;&#x4E00;&#x4E2A;webkit&#x7ED9;scrapy&#x7684;downloader&#x65F6;,&#x6709;&#x5404;&#x79CD;&#x7EC6;&#x8282;&#x9700;&#x8981;&#x5904;&#x7406;.</p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;<br><br><a href="http://www.pythontab.com/html/2014/pythonweb_0311/712.html" target="_blank" rel="external">scrapy&#x5B9A;&#x5236;&#x722C;&#x866B;-&#x722C;&#x53D6;javascript&#x5185;&#x5BB9;</a><br><br><a href="http://www.pycoding.com/2016/04/12/scrapy-11.html" target="_blank" rel="external">Scrapy&#x7B14;&#x8BB0;&#xFF08;11&#xFF09;- &#x6A21;&#x62DF;&#x767B;&#x5F55;</a><br><br><a href="http://www.lining0806.com/6-%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB-%E9%AA%8C%E8%AF%81%E7%A0%81%E7%99%BB%E9%99%86/" target="_blank" rel="external">&#x7F51;&#x7EDC;&#x722C;&#x866B;-&#x9A8C;&#x8BC1;&#x7801;&#x767B;&#x9646;</a><br><br><a href="http://www.pycoding.com/2016/04/15/scrapy-12.html" target="_blank" rel="external">Scrapy&#x7B14;&#x8BB0;&#xFF08;12&#xFF09;- &#x6293;&#x53D6;&#x52A8;&#x6001;&#x7F51;&#x7AD9;</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Crawler/" rel="tag">#Crawler</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/17/爬虫总结-四-分布式爬虫/" rel="next" title="爬虫总结(四)-- 分布式爬虫">
+                <i class="fa fa-chevron-left"></i> 爬虫总结(四)-- 分布式爬虫
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/20/TensorFlow实战-MNIST/" rel="prev" title="TensorFlow实战-MNIST">
+                TensorFlow实战-MNIST <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟登录"><span class="nav-number">1.</span> <span class="nav-text">模拟登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#研究源码"><span class="nav-number">1.1.</span> <span class="nav-text">研究源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写start-requests方法"><span class="nav-number">1.2.</span> <span class="nav-text">重写start_requests方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用FormRequest"><span class="nav-number">1.3.</span> <span class="nav-text">使用FormRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面处理"><span class="nav-number">1.4.</span> <span class="nav-text">页面处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别验证码"><span class="nav-number">2.</span> <span class="nav-text">识别验证码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更换ip地址"><span class="nav-number">2.1.</span> <span class="nav-text">更换ip地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cookie登陆"><span class="nav-number">2.2.</span> <span class="nav-text">使用cookie登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码识别手段"><span class="nav-number">2.3.</span> <span class="nav-text">验证码识别手段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取js交互式表格数据"><span class="nav-number">3.</span> <span class="nav-text">爬取js交互式表格数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-splash-容器"><span class="nav-number">3.1.</span> <span class="nav-text">启动 splash 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-scrapy-splash"><span class="nav-number">3.2.</span> <span class="nav-text">配置 scrapy-splash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-scrapy-splash"><span class="nav-number">3.3.</span> <span class="nav-text">使用 scrapy-splash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SplashRequest"><span class="nav-number">3.3.1.</span> <span class="nav-text">SplashRequest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Responses"><span class="nav-number">3.3.2.</span> <span class="nav-text">Responses</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">3.4.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看网页源代码"><span class="nav-number">3.4.1.</span> <span class="nav-text">查看网页源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看渲染后的代码"><span class="nav-number">3.4.2.</span> <span class="nav-text">查看渲染后的代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spider-部分代码"><span class="nav-number">3.5.</span> <span class="nav-text">spider 部分代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析不规则的-html"><span class="nav-number">4.</span> <span class="nav-text">分析不规则的 html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/06/20/爬虫总结-五-其他技巧/';
+      var disqus_title = "爬虫总结(五)-- 其他技巧";
+      var disqus_url = 'http://www.shuang0420.com/2016/06/20/爬虫总结-五-其他技巧/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

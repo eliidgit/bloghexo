@@ -1,0 +1,997 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="shell,python,编码," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E4B;&amp;#x524D;&amp;#x7528;&amp;#x7684;&amp;#x4E00;&amp;#x76F4;&amp;#x662F;utf-8&amp;#x7F16;&amp;#x7801;&amp;#xFF0C;&amp;#x51E0;&amp;#x4E4E;&amp;#x4E0D;&amp;#x4F1A;&amp;#x51FA;&amp;#x73B0;&amp;#x4E71;&amp;#x7801;&amp;#x95EE;&amp;#x9898;&amp;#x3002;&amp;#x5948;&amp;#x4F55;&amp;#x516C;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-python转码问题">
+<meta property="og:url" content="http://www.shuang0420.com/2016/03/22/linux-python转码问题/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="&amp;#x4E4B;&amp;#x524D;&amp;#x7528;&amp;#x7684;&amp;#x4E00;&amp;#x76F4;&amp;#x662F;utf-8&amp;#x7F16;&amp;#x7801;&amp;#xFF0C;&amp;#x51E0;&amp;#x4E4E;&amp;#x4E0D;&amp;#x4F1A;&amp;#x51FA;&amp;#x73B0;&amp;#x4E71;&amp;#x7801;&amp;#x95EE;&amp;#x9898;&amp;#x3002;&amp;#x5948;&amp;#x4F55;&amp;#x516C;&amp;#x">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E9%83%A8%E5%88%86%E4%B9%B1%E7%A0%81.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E4%B9%B1%E7%A0%81.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E9%83%A8%E5%88%86%E4%B9%B1%E7%A0%81.png">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/ascii.jpg">
+<meta property="og:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E6%AD%A3%E7%A1%AE.png">
+<meta property="og:updated_time" content="2016-06-17T04:00:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux-python转码问题">
+<meta name="twitter:description" content="&amp;#x4E4B;&amp;#x524D;&amp;#x7528;&amp;#x7684;&amp;#x4E00;&amp;#x76F4;&amp;#x662F;utf-8&amp;#x7F16;&amp;#x7801;&amp;#xFF0C;&amp;#x51E0;&amp;#x4E4E;&amp;#x4E0D;&amp;#x4F1A;&amp;#x51FA;&amp;#x73B0;&amp;#x4E71;&amp;#x7801;&amp;#x95EE;&amp;#x9898;&amp;#x3002;&amp;#x5948;&amp;#x4F55;&amp;#x516C;&amp;#x">
+<meta name="twitter:image" content="http://7xu83c.com1.z0.glb.clouddn.com/%E9%83%A8%E5%88%86%E4%B9%B1%E7%A0%81.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/03/22/linux-python转码问题/"/>
+
+
+  <title> linux-python转码问题 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux-python转码问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-22T16:55:07-04:00" content="2016-03-22">
+              2016-03-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/22/linux-python转码问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/22/linux-python转码问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x4E4B;&#x524D;&#x7528;&#x7684;&#x4E00;&#x76F4;&#x662F;utf-8&#x7F16;&#x7801;&#xFF0C;&#x51E0;&#x4E4E;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x4E71;&#x7801;&#x95EE;&#x9898;&#x3002;&#x5948;&#x4F55;&#x516C;&#x53F8;&#x7684;&#x5206;&#x8BCD;&#x8F6F;&#x4EF6;&#x652F;&#x6301;&#x7684;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;&#x7F16;&#x7801;&#x90FD;&#x662F;gbk&#xFF0C;&#x56E0;&#x6B64;&#x5FC5;&#x987B;&#x8FDB;&#x884C;&#x8F6C;&#x7801;&#xFF0C;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x75DB;&#x82E6;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5982;&#x5B9E;&#x8BB0;&#x5F55;&#x4E0B;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4F9B;&#x4EE5;&#x540E;&#x53C2;&#x8003;</p>
+<a id="more"></a>
+<h3 id="&#x6807;&#x51C6;utf8&#x8F93;&#x51FA;"><a href="#&#x6807;&#x51C6;utf8&#x8F93;&#x51FA;" class="headerlink" title="&#x6807;&#x51C6;utf8&#x8F93;&#x51FA;"></a>&#x6807;&#x51C6;utf8&#x8F93;&#x51FA;</h3><pre>
+#!/usr/bin/python
+# -*- coding: utf8 -*-
+#################### deal with base64 file ###################
+import gensim, logging
+from gensim.models import Doc2Vec
+import os
+import multiprocessing
+import numpy as np
+import base64
+import codecs
+import g_url_text_pb2
+import re
+import sys
+reload(sys)
+sys.setdefaultencoding(&apos;utf8&apos;)
+logging.basicConfig(format=&apos;%(asctime)s : %(levelname)s : %(message)s&apos;, level=logging.INFO)
+
+def newFile():
+    global count
+    fw = open(&apos;baike_url_part_000.chinese&apos;,&apos;w&apos;)
+    with open(&apos;baike_url_part_000.result&apos;) as f:
+        for line in f:
+            base64Test = base64.b64decode(line)
+            model=g_url_text_pb2.TextInfo()
+            model.ParseFromString(base64Test)
+            doc = model.title.decode(&apos;gbk&apos;, &apos;ignore&apos;)+&apos; &apos;+(model.content.decode(&apos;gbk&apos;, &apos;ignore&apos;))
+            doc = &quot;&quot;.join(doc.split())#&#x5904;&#x7406;/r/t/n&#x7B49;
+            fw.write(&quot;&quot;.join(doc)+&quot;\n&quot;)
+newFile()
+</pre>
+
+<p><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E9%83%A8%E5%88%86%E4%B9%B1%E7%A0%81.png" alt=""></p>
+<h3 id="&#x8F6C;gbk&#x8F93;&#x51FA;"><a href="#&#x8F6C;gbk&#x8F93;&#x51FA;" class="headerlink" title="&#x8F6C;gbk&#x8F93;&#x51FA;"></a>&#x8F6C;gbk&#x8F93;&#x51FA;</h3><p>&#x5148;&#x4E0D;&#x7BA1;&#x90A3;&#x4E9B;&#x5947;&#x602A;&#x7684;^@^F&#x7B49;&#x5B57;&#x7B26;&#xFF0C;&#x8F6C;&#x6210;gbk&#x7F16;&#x7801;&#x5199;&#x5165;&#x6587;&#x4EF6;&#xFF0C;&#x52A0;&#x4E2A;encode&#x5C31;&#x884C;&#x5566;</p>
+<pre>doc = doc.encode(&apos;gbk&apos;,&apos;ignore&apos;)
+doc = &quot;&quot;.join(doc.split())
+fw.write(&quot;&quot;.join(doc)+&quot;\n&quot;)
+</pre>
+
+<p>&#x6253;&#x5F00;&#x4E00;&#x770B;&#xFF0C;&#x7EB3;&#x5C3C;&#xFF0C;&#x600E;&#x4E48;&#x53D8;&#x6210;&#x4E86;&#x8FD9;&#x6837;&#xFF01;&#x8FD9;&#x662F;&#x4EC0;&#x4E48;&#x9B3C;&#xFF01;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E4%B9%B1%E7%A0%81.png" alt=""></p>
+<p>&#x51B7;&#x9759;&#x2026;&#x2026;&#x67E5;&#x770B;&#x4E00;&#x4E0B;&#x7F16;&#x7801;&#x683C;&#x5F0F;</p>
+<pre>file baike_url_part_000.chinese</pre>
+
+<p>&#x7136;&#x800C;&#x2026;&#x2026;&#x53EA;&#x663E;&#x793A;&#x4E86;data&#x2026;&#x2026;&#x597D;&#x5FE7;&#x4F24;&#x2026;&#x2026;</p>
+<pre>baike_url_part_000.chinese: data</pre>
+
+<p>&#x518D;&#x770B;&#x4E00;&#x4E0B;&#xFF1F;&#x597D;&#x5427;&#x2026;&#x2026;binary&#x3002;&#x3002;</p>
+<pre>file -i baike_url_part_000.chinese
+baike_url_part_000.chinese: application/octet-stream; charset=binary</pre>
+
+
+<h3 id="iconv-&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8F6C;&#x6362;"><a href="#iconv-&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8F6C;&#x6362;" class="headerlink" title="iconv &#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8F6C;&#x6362;"></a>iconv &#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8F6C;&#x6362;</h3><p>iconv [&#x9009;&#x9879;&#x2026;] [&#x6587;&#x4EF6;&#x2026;]</p>
+<p>&#x8F93;&#x5165;/&#x8F93;&#x51FA;&#x683C;&#x5F0F;&#x89C4;&#x8303;&#xFF1A;<br>-f, &#x2013;from-code=&#x540D;&#x79F0; &#x539F;&#x59CB;&#x6587;&#x672C;&#x7F16;&#x7801;<br>-t, &#x2013;to-code=&#x540D;&#x79F0; &#x8F93;&#x51FA;&#x7F16;&#x7801;</p>
+<p>&#x4FE1;&#x606F;&#xFF1A;<br>-l, &#x2013;list &#x5217;&#x4E3E;&#x6240;&#x6709;&#x5DF2;&#x77E5;&#x7684;&#x5B57;&#x7B26;&#x96C6;</p>
+<p>&#x8F93;&#x51FA;&#x63A7;&#x5236;&#xFF1A;<br>-c &#x4ECE;&#x8F93;&#x51FA;&#x4E2D;&#x5FFD;&#x7565;&#x65E0;&#x6548;&#x7684;&#x5B57;&#x7B26;<br>-o, &#x2013;output=FILE &#x8F93;&#x51FA;&#x6587;&#x4EF6;<br>-s, &#x2013;silent &#x5173;&#x95ED;&#x8B66;&#x544A;<br>&#x2013;verbose &#x6253;&#x5370;&#x8FDB;&#x5EA6;&#x4FE1;&#x606F;</p>
+<pre># utf &#x8F6C; gbk
+iconv -c -f utf-8 -t gb2312 file</pre>
+
+<h3 id="&#x50BB;&#x74DC;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;enca"><a href="#&#x50BB;&#x74DC;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;enca" class="headerlink" title="&#x50BB;&#x74DC;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;enca"></a>&#x50BB;&#x74DC;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;enca</h3><p>&#x597D;&#x4E86;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x8981;&#x7528;&#x795E;&#x5668;&#x5566;&#xFF01;&#x50BB;&#x74DC;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;enca &#x2013; &#x4E0D;&#x4F46;&#x80FD;&#x667A;&#x80FD;&#x8BC6;&#x522B;&#x6587;&#x4EF6;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x800C;&#x4E14;&#x8FD8;&#x652F;&#x6301;&#x6210;&#x6279;&#x8F6C;&#x6362;&#xFF01;&#x5FC3;&#x52A8;&#x4E86;&#x5417;&#xFF1F;&#x5FC3;&#x52A8;&#x4E0D;&#x5982;&#x884C;&#x52A8;&#xFF01;&#x6765;&#xFF01;&#x5B89;&#x88C5;&#xFF01;so easy~  &#x3000;&#x3000;</p>
+<pre>sudo apt-get install enca</pre>
+
+<p>&#x5E38;&#x7528;&#x7684;&#x547D;&#x4EE4;&#x683C;&#x5F0F;&#x5982;&#x4E0B; &#x3000;&#x3000;</p>
+<pre>#&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x7684;&#x7F16;&#x7801;&#x3000;
+#enca -L &#x5F53;&#x524D;&#x8BED;&#x8A00; -x &#x76EE;&#x6807;&#x7F16;&#x7801; &#x6587;&#x4EF6;&#x540D;&#x3000;
+enca -L zh_CN file   &#x3000;&#x3000;
+#&#x5C06;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8F6C;&#x6362;&#x4E3A;&quot;UTF-8&quot;&#x7F16;&#x7801;&#x3000;
+enca -L zh_CN -x UTF-8 file
+#&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x8986;&#x76D6;&#x539F;&#x6587;&#x4EF6;
+enca -L zh_CN -x UTF-8 &lt; file1 &gt; file2
+#&#x628A;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x90FD;&#x8F6C;&#x6210;utf-8  &#x3000;&#x3000;
+enca -L zh_CN -x utf-8 * </pre>  
+
+<p>&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x8FD9;&#x4E48;&#x7528;&#x1F447;</p>
+<pre>$ enca -L zh_CN baike_url_part_000.chinese
+Simplified Chinese National Standard; GB2312
+</pre>
+
+<h3 id="locale"><a href="#locale" class="headerlink" title="locale"></a>locale</h3><p>&#x53D1;&#x73B0;&#x662F;GB2312,&#x8BF4;&#x660E;&#x4E0D;&#x662F;&#x4EE3;&#x7801;&#x7684;&#x95EE;&#x9898;&#x3002;&#x4F46;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x663E;&#x793A;&#x51FA;&#x6765;&#x662F;&#x4E71;&#x7801;&#x5462;&#xFF1F;&#x90A3;&#x53EA;&#x662F;&#x56E0;&#x4E3A;&#x663E;&#x793A;&#x7684;&#x65F6;&#x5019;&#x4F7F;&#x7528;&#x7684;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x548C;&#x5B9E;&#x9645;&#x5185;&#x5BB9;&#x7684;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x4E0D;&#x4E00;&#x81F4;&#xFF0C;&#x6240;&#x4EE5;&#x89E3;&#x51B3;&#x65B9;&#x5F0F;&#x5F53;&#x7136;&#x5C31;&#x662F;&#x53CC;&#x65B9;&#x90FD;&#x7528;&#x540C;&#x4E00;&#x79CD;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x55BD;&#x3002;&#x7B80;&#x5355;&#x7684;&#x547D;&#x4EE4;&#x5C31;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x5566;</p>
+<pre>
+export LC_ALL=
+</pre>
+
+<p>&#x5173;&#x4E8E;locale&#xFF0C;&#x5F3A;&#x70C8;&#x63A8;&#x8350;&#x770B;&#x770B;<a href="http://www.linuxsky.org/doc/desktop/200704/20.html" target="_blank" rel="external">Locale &#x8BE6;&#x89E3;</a>&#xFF0C;&#x7136;&#x540E;&#x641E;&#x660E;&#x767D;&#x4EE5;&#x4E0B;&#x4E09;&#x4E2A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF1A;LC<em>ALL&gt;LC</em>*&gt;LANG&#x3002;locale&#x76F8;&#x5173;&#x7684;&#x5404;&#x4E2A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x4F5C;&#x7528;&#x53C2;&#x89C1;<a href="https://help.ubuntu.com/community/EnvironmentVariables#Locale_setting_variables" target="_blank" rel="external">&#x8FD9;&#x91CC;</a>&#x3002;</p>
+<h3 id="&#x5904;&#x7406;-F-A&#x7B49;&#x7279;&#x6B8A;&#x5B57;&#x7B26;"><a href="#&#x5904;&#x7406;-F-A&#x7B49;&#x7279;&#x6B8A;&#x5B57;&#x7B26;" class="headerlink" title="&#x5904;&#x7406;^@^F^A&#x7B49;&#x7279;&#x6B8A;&#x5B57;&#x7B26;"></a>&#x5904;&#x7406;^@^F^A&#x7B49;&#x7279;&#x6B8A;&#x5B57;&#x7B26;</h3><p>&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x663E;&#x793A;&#x4E86;&#xFF0C;&#x4F46;&#x4E2D;&#x95F4;&#x8FD8;&#x6709;&#x8BB8;&#x591A;&#x4E0D;&#x80FD;&#x8BC6;&#x522B;&#x7684;&#x5B57;&#x7B26;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E9%83%A8%E5%88%86%E4%B9%B1%E7%A0%81.png" alt=""></p>
+<p>&#x770B;&#x4E00;&#x4E0B;&#x8FD9;&#x4E9B;&#x5B57;&#x7B26;&#x7684;ascii&#x5BF9;&#x7167;&#x8868;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/ascii.jpg" alt=""></p>
+<p>&#x7136;&#x540E;&#x4E00;&#x952E;&#x66FF;&#x6362;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x5C06;^@&#x66FF;&#x6362;&#x4E3A;&#x7A7A;&#x683C;&#x7684;&#x4F8B;&#x5B50;</p>
+<pre>sed -i &quot;s/[\x00]/ /g&quot; baike_url_part_000.chinese </pre>
+
+<p>&#x7136;&#x800C;&#x4E0D;&#x53EF;&#x89C1;&#x5B57;&#x7B26;&#x8FD9;&#x4E48;&#x591A;&#xFF0C;&#x603B;&#x4E0D;&#x80FD;&#x4E00;&#x4E2A;&#x4E2A;&#x66FF;&#x6362;&#x5427;&#xFF01;&#x5728;python&#x4E2D;&#x76F4;&#x63A5;&#x7528;&#x6B63;&#x5219;&#x505A;&#x66FF;&#x6362;&#xFF0C;&#x5728;split&#x524D;&#x52A0;&#x4E0A;&#x4E00;&#x884C;&#x4EE3;&#x7801;</p>
+<pre>doc = re.sub(r&apos;[\x00-\x0F]+&apos;,&apos; &apos;, doc)
+doc = &quot;&quot;.join(doc.split())
+fw.write(&quot;&quot;.join(doc)+&quot;\n&quot;)</pre>
+
+<p>&#x987A;&#x4FBF;&#x63D0;&#x4E00;&#x4E0B;&#xFF0C;&#x5728;python&#x4E2D;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x524D;&#x52A0;r&#x4EE3;&#x8868;&#x6B64;&#x5B57;&#x7B26;&#x4E32;&#x4E3A;&#x539F;&#x6837;&#x663E;&#x793A;&#xFF0C;&#x4E0D;&#x8F6C;&#x4E49;&#x3002;&#x5C31;&#x50CF;&#x5B57;&#x7B26;&#x4E32;&#x2019;\n&#x2019;&#x8F6C;&#x4E49;&#x662F;&#x6362;&#x884C;&#xFF0C;&#x82E5;&#x5176;&#x524D;&#x52A0;&#x4E0A;&#x5B57;&#x6BCD;r,&#x5373;r&#x2019;\n&#x2019;&#xFF0C;&#x5219;&#x4E0D;&#x8FDB;&#x884C;&#x8F6C;&#x4E49;&#xFF0C;&#x7ED3;&#x679C;&#x5C06;&#x539F;&#x6837;&#x663E;&#x793A;&#x2019;\n&#x2019;&#x3002;</p>
+<p>&#x8FD9;&#x6837;&#xFF0C;&#x624D;&#x7B97;&#x771F;&#x6B63;&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x91CC;&#x7684;&#x4E71;&#x7801;&#x95EE;&#x9898;&#x3002;<br><img src="http://7xu83c.com1.z0.glb.clouddn.com/%E6%AD%A3%E7%A1%AE.png" alt=""></p>
+<p>&#x3000;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shell/" rel="tag">#shell</a>
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+            <a href="/tags/编码/" rel="tag">#编码</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/01/python-jieba-分词----官方文档截取/" rel="prev" title="python-jieba-分词----官方文档截取">
+                python-jieba-分词----官方文档截取 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准utf8输出"><span class="nav-number">1.</span> <span class="nav-text">标准utf8输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转gbk输出"><span class="nav-number">2.</span> <span class="nav-text">转gbk输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iconv-文件编码转换"><span class="nav-number">3.</span> <span class="nav-text">iconv 文件编码转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#傻瓜命令行工具enca"><span class="nav-number">4.</span> <span class="nav-text">傻瓜命令行工具enca</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locale"><span class="nav-number">5.</span> <span class="nav-text">locale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理-F-A等特殊字符"><span class="nav-number">6.</span> <span class="nav-text">处理^@^F^A等特殊字符</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/03/22/linux-python转码问题/';
+      var disqus_title = "linux-python转码问题";
+      var disqus_url = 'http://www.shuang0420.com/2016/03/22/linux-python转码问题/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

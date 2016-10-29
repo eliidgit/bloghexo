@@ -1,0 +1,942 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LDA,gensim,machine learning,topic modeling,cluster," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="徐阿衡" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="gensim &amp;#x4ECB;&amp;#x7ECD;gemsim&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x514D;&amp;#x8D39;python&amp;#x5E93;&amp;#xFF0C;&amp;#x80FD;&amp;#x591F;&amp;#x4ECE;&amp;#x6587;&amp;#x6863;&amp;#x4E2D;&amp;#x6709;&amp;#x6548;&amp;#x5730;&amp;#x81EA;&amp;#x52A8;&amp;#x62BD;&amp;#x53D6;&amp;#x8B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gensim-用Python做主题模型">
+<meta property="og:url" content="http://www.shuang0420.com/2016/05/18/Gensim-用Python做主题模型/index.html">
+<meta property="og:site_name" content="徐阿衡">
+<meta property="og:description" content="gensim &amp;#x4ECB;&amp;#x7ECD;gemsim&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x514D;&amp;#x8D39;python&amp;#x5E93;&amp;#xFF0C;&amp;#x80FD;&amp;#x591F;&amp;#x4ECE;&amp;#x6587;&amp;#x6863;&amp;#x4E2D;&amp;#x6709;&amp;#x6548;&amp;#x5730;&amp;#x81EA;&amp;#x52A8;&amp;#x62BD;&amp;#x53D6;&amp;#x8B">
+<meta property="og:updated_time" content="2016-06-09T12:12:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gensim-用Python做主题模型">
+<meta name="twitter:description" content="gensim &amp;#x4ECB;&amp;#x7ECD;gemsim&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x514D;&amp;#x8D39;python&amp;#x5E93;&amp;#xFF0C;&amp;#x80FD;&amp;#x591F;&amp;#x4ECE;&amp;#x6587;&amp;#x6863;&amp;#x4E2D;&amp;#x6709;&amp;#x6548;&amp;#x5730;&amp;#x81EA;&amp;#x52A8;&amp;#x62BD;&amp;#x53D6;&amp;#x8B">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6294135991397516000',
+      author: '阿衡'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.shuang0420.com/2016/05/18/Gensim-用Python做主题模型/"/>
+
+
+  <title> Gensim-用Python做主题模型 | 徐阿衡 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">徐阿衡</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Shuang</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/index.md" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Works
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input" placeholder="search my blog...">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+         
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gensim-用Python做主题模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-05-18T10:22:31-04:00" content="2016-05-18">
+              2016-05-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/machine-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">machine learning</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/18/Gensim-用Python做主题模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/18/Gensim-用Python做主题模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="gensim-&#x4ECB;&#x7ECD;"><a href="#gensim-&#x4ECB;&#x7ECD;" class="headerlink" title="gensim &#x4ECB;&#x7ECD;"></a>gensim &#x4ECB;&#x7ECD;</h3><p>gemsim&#x662F;&#x4E00;&#x4E2A;&#x514D;&#x8D39;python&#x5E93;&#xFF0C;&#x80FD;&#x591F;&#x4ECE;&#x6587;&#x6863;&#x4E2D;&#x6709;&#x6548;&#x5730;&#x81EA;&#x52A8;&#x62BD;&#x53D6;&#x8BED;&#x4E49;&#x4E3B;&#x9898;&#x3002;gensim&#x4E2D;&#x7684;&#x7B97;&#x6CD5;&#x5305;&#x62EC;&#xFF1A;LSA(Latent Semantic Analysis), LDA(Latent Dirichlet Allocation), RP (Random Projections), &#x901A;&#x8FC7;&#x5728;&#x4E00;&#x4E2A;&#x8BAD;&#x7EC3;&#x6587;&#x6863;&#x8BED;&#x6599;&#x5E93;&#x4E2D;&#xFF0C;&#x68C0;&#x67E5;&#x8BCD;&#x6C47;&#x7EDF;&#x8BA1;&#x8054;&#x5408;&#x51FA;&#x73B0;&#x6A21;&#x5F0F;, &#x53EF;&#x4EE5;&#x7528;&#x6765;&#x53D1;&#x6398;&#x6587;&#x6863;&#x8BED;&#x4E49;&#x7ED3;&#x6784;&#xFF0C;&#x8FD9;&#x4E9B;&#x7B97;&#x6CD5;&#x5C5E;&#x4E8E;&#x975E;&#x76D1;&#x7763;&#x5B66;&#x4E60;&#xFF0C;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x539F;&#x59CB;&#x7684;&#xFF0C;&#x975E;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x6587;&#x672C;&#xFF08;&#x201D;plain text&#x201D;&#xFF09;&#x3002;<br><a id="more"></a></p>
+<h3 id="gensim-&#x7279;&#x6027;"><a href="#gensim-&#x7279;&#x6027;" class="headerlink" title="gensim &#x7279;&#x6027;"></a>gensim &#x7279;&#x6027;</h3><ul>
+<li>&#x5185;&#x5B58;&#x72EC;&#x7ACB;- &#x5BF9;&#x4E8E;&#x8BAD;&#x7EC3;&#x8BED;&#x6599;&#x6765;&#x8BF4;&#xFF0C;&#x6CA1;&#x5FC5;&#x8981;&#x5728;&#x4EFB;&#x4F55;&#x65F6;&#x95F4;&#x5C06;&#x6574;&#x4E2A;&#x8BED;&#x6599;&#x90FD;&#x9A7B;&#x7559;&#x5728;RAM&#x4E2D;</li>
+<li>&#x6709;&#x6548;&#x5B9E;&#x73B0;&#x4E86;&#x8BB8;&#x591A;&#x6D41;&#x884C;&#x7684;&#x5411;&#x91CF;&#x7A7A;&#x95F4;&#x7B97;&#x6CD5;&#xFF0D;&#x5305;&#x62EC;tf-idf&#xFF0C;&#x5206;&#x5E03;&#x5F0F;LSA, &#x5206;&#x5E03;&#x5F0F;LDA &#x4EE5;&#x53CA; RP&#xFF1B;&#x5E76;&#x4E14;&#x5F88;&#x5BB9;&#x6613;&#x6DFB;&#x52A0;&#x65B0;&#x7B97;&#x6CD5;</li>
+<li>&#x5BF9;&#x6D41;&#x884C;&#x7684;&#x6570;&#x636E;&#x683C;&#x5F0F;&#x8FDB;&#x884C;&#x4E86;IO&#x5C01;&#x88C5;&#x548C;&#x8F6C;&#x6362;</li>
+<li>&#x5728;&#x5176;&#x8BED;&#x4E49;&#x8868;&#x8FBE;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x76F8;&#x4F3C;&#x67E5;&#x8BE2;</li>
+<li>gensim&#x7684;&#x521B;&#x5EFA;&#x7684;&#x76EE;&#x7684;&#x662F;&#xFF0C;&#x7531;&#x4E8E;&#x7F3A;&#x4E4F;&#x7B80;&#x5355;&#x7684;&#xFF08;java&#x5F88;&#x590D;&#x6742;&#xFF09;&#x5B9E;&#x73B0;&#x4E3B;&#x9898;&#x5EFA;&#x6A21;&#x7684;&#x53EF;&#x6269;&#x5C55;&#x8F6F;&#x4EF6;&#x6846;&#x67B6;.</li>
+</ul>
+<h3 id="gensim-&#x8BBE;&#x8BA1;&#x539F;&#x5219;"><a href="#gensim-&#x8BBE;&#x8BA1;&#x539F;&#x5219;" class="headerlink" title="gensim &#x8BBE;&#x8BA1;&#x539F;&#x5219;"></a>gensim &#x8BBE;&#x8BA1;&#x539F;&#x5219;</h3><ul>
+<li>&#x7B80;&#x5355;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x5B66;&#x4E60;&#x66F2;&#x7EBF;&#x4F4E;&#x3002;&#x5BF9;&#x4E8E;&#x539F;&#x578B;&#x5B9E;&#x73B0;&#x5F88;&#x65B9;&#x4FBF;</li>
+<li>&#x6839;&#x636E;&#x8F93;&#x5165;&#x7684;&#x8BED;&#x6599;&#x7684;size&#x6765;&#x8BF4;&#xFF0C;&#x5185;&#x5B58;&#x5404;&#x81EA;&#x72EC;&#x7ACB;&#xFF1B;&#x57FA;&#x4E8E;&#x6D41;&#x7684;&#x7B97;&#x6CD5;&#x64CD;&#x4F5C;&#xFF0C;&#x4E00;&#x6B21;&#x8BBF;&#x95EE;&#x4E00;&#x4E2A;&#x6587;&#x6863;.</li>
+</ul>
+<h3 id="gensim-&#x6838;&#x5FC3;&#x6982;&#x5FF5;"><a href="#gensim-&#x6838;&#x5FC3;&#x6982;&#x5FF5;" class="headerlink" title="gensim &#x6838;&#x5FC3;&#x6982;&#x5FF5;"></a>gensim &#x6838;&#x5FC3;&#x6982;&#x5FF5;</h3><p>gensim&#x7684;&#x6574;&#x4E2A;package&#x4F1A;&#x6D89;&#x53CA;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;&#xFF1A;corpus, vector, model.</p>
+<ul>
+<li>&#x8BED;&#x5E93;(corpus)<br>&#x6587;&#x6863;&#x96C6;&#x5408;&#xFF0C;&#x7528;&#x4E8E;&#x81EA;&#x52A8;&#x63A8;&#x51FA;&#x6587;&#x6863;&#x7ED3;&#x6784;&#xFF0C;&#x4EE5;&#x53CA;&#x5B83;&#x4EEC;&#x7684;&#x4E3B;&#x9898;&#x7B49;&#xFF0C;&#x4E5F;&#x53EF;&#x79F0;&#x4F5C;&#x8BAD;&#x7EC3;&#x8BED;&#x6599;&#x3002;</li>
+</ul>
+<ul>
+<li><p>&#x5411;&#x91CF;(vector)</p>
+<p>&#x5728;&#x5411;&#x91CF;&#x7A7A;&#x95F4;&#x6A21;&#x578B;(VSM)&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;&#x6587;&#x6863;&#x88AB;&#x8868;&#x793A;&#x6210;&#x4E00;&#x4E2A;&#x7279;&#x5F81;&#x6570;&#x7EC4;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4E00;&#x4E2A;&#x5355;&#x4E00;&#x7279;&#x5F81;&#x53EF;&#x4EE5;&#x88AB;&#x8868;&#x793A;&#x6210;&#x4E00;&#x4E2A;&#x95EE;&#x7B54;&#x5BF9;(question-answer pair):</p>
+<p>[1].&#x5728;&#x6587;&#x6863;&#x4E2D;&#x5355;&#x8BCD;&#x201D;splonge&#x201D;&#x51FA;&#x73B0;&#x7684;&#x6B21;&#x6570;&#xFF1F; 0&#x4E2A;<br>[2].&#x6587;&#x6863;&#x4E2D;&#x5305;&#x542B;&#x4E86;&#x591A;&#x5C11;&#x53E5;&#x5B50;&#xFF1F; 2&#x4E2A;<br>[3].&#x6587;&#x6863;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;&#x591A;&#x5C11;&#x5B57;&#x4F53;? 5&#x79CD;<br>&#x8FD9;&#x91CC;&#x7684;&#x95EE;&#x9898;&#x53EF;&#x4EE5;&#x8868;&#x793A;&#x6210;&#x6574;&#x578B;id (&#x6BD4;&#x5982;&#xFF1A;1,2,3&#x7B49;), &#x56E0;&#x6B64;&#xFF0C;&#x4E0A;&#x9762;&#x7684;&#x6587;&#x6863;&#x53EF;&#x4EE5;&#x8868;&#x793A;&#x6210;&#xFF1A;(1, 0.0), (2, 2.0), (3, 5.0). &#x5982;&#x679C;&#x6211;&#x4EEC;&#x4E8B;&#x5148;&#x77E5;&#x9053;&#x6240;&#x6709;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x663E;&#x5F0F;&#x5730;&#x5199;&#x6210;&#x8FD9;&#x6837;&#xFF1A;(0.0, 2.0, 5.0). &#x8FD9;&#x4E2A;answer&#x5E8F;&#x5217;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x662F;&#x4E00;&#x4E2A;&#x591A;&#x7EF4;&#x77E9;&#x9635;&#xFF08;3&#x7EF4;&#xFF09;. &#x5BF9;&#x4E8E;&#x5B9E;&#x9645;&#x76EE;&#x7684;&#xFF0C;&#x53EA;&#x6709;question&#x5BF9;&#x5E94;&#x7684;answer&#x662F;&#x4E00;&#x4E2A;&#x5B9E;&#x6570;.</p>
+<p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x6587;&#x6863;&#x6765;&#x8BF4;&#xFF0C;answer&#x662F;&#x7C7B;&#x4F3C;&#x7684;. &#x56E0;&#x800C;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E24;&#x4E2A;&#x5411;&#x91CF;&#x6765;&#x8BF4;&#xFF08;&#x5206;&#x522B;&#x8868;&#x793A;&#x4E24;&#x4E2A;&#x6587;&#x6863;&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x53EF;&#x4EE5;&#x4E0B;&#x7C7B;&#x4F3C;&#x7684;&#x7ED3;&#x8BBA;&#xFF1A;&#x201C;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x5411;&#x91CF;&#x4E2D;&#x7684;&#x5B9E;&#x6570;&#x662F;&#x76F8;&#x4F3C;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x539F;&#x59CB;&#x7684;&#x6587;&#x6863;&#x4E5F;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x662F;&#x76F8;&#x4F3C;&#x7684;&#x201D;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x7ED3;&#x8BBA;&#x4F9D;&#x8D56;&#x4E8E;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x53BB;&#x9009;&#x53D6;&#x6211;&#x4EEC;&#x7684;question&#x3002;</p>
+</li>
+</ul>
+<ul>
+<li><p>&#x7A00;&#x758F;&#x77E9;&#x9635;(Sparse vector)</p>
+<p>&#x901A;&#x5E38;&#xFF0C;&#x5927;&#x591A;&#x6570;answer&#x7684;&#x503C;&#x90FD;&#x662F;0.0. &#x4E3A;&#x4E86;&#x8282;&#x7701;&#x7A7A;&#x95F4;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4ECE;&#x6587;&#x6863;&#x8868;&#x793A;&#x4E2D;&#x5FFD;&#x7565;&#x5B83;&#x4EEC;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5199;&#xFF1A;(2, 2.0), (3, 5.0) &#x5373;&#x53EF;(&#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x91CC;&#x5FFD;&#x7565;&#x4E86;(1, 0.0)). &#x7531;&#x4E8E;&#x6240;&#x6709;&#x7684;&#x95EE;&#x9898;&#x96C6;&#x4E8B;&#x5148;&#x90FD;&#x77E5;&#x9053;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x7A00;&#x758F;&#x77E9;&#x9635;&#x7684;&#x6587;&#x6863;&#x8868;&#x793A;&#x4E2D;&#x6240;&#x6709;&#x7F3A;&#x5931;&#x7684;&#x7279;&#x6027;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x90FD;&#x662F;0.0.</p>
+<p>gensim&#x7684;&#x7279;&#x522B;&#x4E4B;&#x5904;&#x5728;&#x4E8E;&#xFF0C;&#x5B83;&#x6CA1;&#x6709;&#x9650;&#x5B9A;&#x4EFB;&#x4F55;&#x7279;&#x5B9A;&#x7684;&#x8BED;&#x6599;&#x683C;&#x5F0F;&#xFF1B;&#x8BED;&#x6599;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x4F55;&#x683C;&#x5F0F;&#xFF0C;&#x5F53;&#x8FED;&#x4EE3;&#x65F6;&#xFF0C;&#x901A;&#x8FC7;&#x7A00;&#x758F;&#x77E9;&#x9635;&#x6765;&#x5B8C;&#x6210;&#x5373;&#x53EF;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x96C6;&#x5408; ([(2, 2.0), (3, 5.0)], ([0, -1.0], [3, -1.0])) &#x662F;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x4E24;&#x4E2A;&#x6587;&#x6863;&#x7684;&#x8BED;&#x6599;&#xFF0C;&#x6BCF;&#x4E2A;&#x90FD;&#x6709;&#x4E24;&#x4E2A;&#x975E;&#x96F6;&#x7684; pair&#x3002;</p>
+</li>
+</ul>
+<ul>
+<li><p>&#x6A21;&#x578B;(model)</p>
+<p>&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x6765;&#x8BF4;&#xFF0C;&#x4E00;&#x4E2A;&#x6A21;&#x578B;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x53D8;&#x6362;(transformation)&#xFF0C;&#x5C06;&#x4E00;&#x79CD;&#x6587;&#x6863;&#x8868;&#x793A;&#x8F6C;&#x6362;&#x6210;&#x53E6;&#x4E00;&#x79CD;&#x3002;&#x521D;&#x59CB;&#x548C;&#x76EE;&#x6807;&#x8868;&#x793A;&#x90FD;&#x662F;&#x5411;&#x91CF;&#xFF0D;&#xFF0D;&#x5B83;&#x4EEC;&#x53EA;&#x5728;question&#x548C;answer&#x4E4B;&#x95F4;&#x6709;&#x533A;&#x522B;&#x3002;&#x8FD9;&#x4E2A;&#x53D8;&#x6362;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BAD;&#x7EC3;&#x7684;&#x8BED;&#x6599;&#x8FDB;&#x884C;&#x81EA;&#x52A8;&#x5B66;&#x4E60;&#xFF0C;&#x65E0;&#x9700;&#x4EBA;&#x5DE5;&#x76D1;&#x7763;&#xFF0C;&#x6700;&#x7EC8;&#x7684;&#x6587;&#x6863;&#x8868;&#x793A;&#x5C06;&#x66F4;&#x52A0;&#x7D27;&#x51D1;&#x548C;&#x6709;&#x7528;&#xFF1B;&#x76F8;&#x4F3C;&#x7684;&#x6587;&#x6863;&#x5177;&#x6709;&#x76F8;&#x4F3C;&#x7684;&#x8868;&#x793A;&#x3002;</p>
+</li>
+</ul>
+<h3 id="&#x6F14;&#x793A;&#x4EE3;&#x7801;"><a href="#&#x6F14;&#x793A;&#x4EE3;&#x7801;" class="headerlink" title="&#x6F14;&#x793A;&#x4EE3;&#x7801;"></a>&#x6F14;&#x793A;&#x4EE3;&#x7801;</h3><p><a href="http://shuang0420.github.io/2016/05/18/Gensim-and-LDA-Training-and-Prediction/" target="_blank" rel="external">&#x6F14;&#x793A;&#x4EE3;&#x7801;</a></p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;</p>
+<blockquote>
+<p><a href="http://d0evi1.github.io/gensim/" target="_blank" rel="external">http://d0evi1.github.io/gensim/</a></p>
+</blockquote>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://7xu83c.com1.z0.glb.clouddn.com/1.pic.jpg" alt="徐阿衡 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LDA/" rel="tag">#LDA</a>
+          
+            <a href="/tags/gensim/" rel="tag">#gensim</a>
+          
+            <a href="/tags/machine-learning/" rel="tag">#machine learning</a>
+          
+            <a href="/tags/topic-modeling/" rel="tag">#topic modeling</a>
+          
+            <a href="/tags/cluster/" rel="tag">#cluster</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/16/JGibbLDA实战/" rel="next" title="JGibbLDA实战">
+                <i class="fa fa-chevron-left"></i> JGibbLDA实战
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/18/Gensim-and-LDA-Training-and-Prediction/" rel="prev" title="Gensim and LDA--Training and Prediction">
+                Gensim and LDA--Training and Prediction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xu83c.com1.z0.glb.clouddn.com/2.pic.jpg"
+               alt="徐阿衡" />
+          <p class="site-author-name" itemprop="name">徐阿衡</p>
+          <p class="site-description motion-element" itemprop="description">读万卷书，行万里路 @SYSU @CMU</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Shuang0420" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/shuang-xu-7008b894?trk=nav_responsive_tab_profile_pic" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://starllap.space" title="Star" target="_blank">Star</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gensim-介绍"><span class="nav-number">1.</span> <span class="nav-text">gensim 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gensim-特性"><span class="nav-number">2.</span> <span class="nav-text">gensim 特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gensim-设计原则"><span class="nav-number">3.</span> <span class="nav-text">gensim 设计原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gensim-核心概念"><span class="nav-number">4.</span> <span class="nav-text">gensim 核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演示代码"><span class="nav-number">5.</span> <span class="nav-text">演示代码</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <link href="/tipuesearch/tipuesearch.css" rel="stylesheet">
+<script src="/tipuesearch/tipuesearch_set.js"></script>
+<script src="/tipuesearch/tipuesearch.js"></script>
+<!-- Other code may be here -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐阿衡</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'httpshuang0420githubio';
+      var disqus_identifier = '2016/05/18/Gensim-用Python做主题模型/';
+      var disqus_title = "Gensim-用Python做主题模型";
+      var disqus_url = 'http://www.shuang0420.com/2016/05/18/Gensim-用Python做主题模型/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
